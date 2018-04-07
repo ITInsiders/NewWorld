@@ -7,8 +7,8 @@
     <ProjectGuid>{8CE8B88E-0E6F-407B-81DE-9BC5A03218D7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EasyMap.DAL</RootNamespace>
-    <AssemblyName>EasyMap.DAL</AssemblyName>
+    <RootNamespace>NW.DAL</RootNamespace>
+    <AssemblyName>NW.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
