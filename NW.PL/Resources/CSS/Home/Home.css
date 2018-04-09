@@ -1,0 +1,11 @@
+﻿body {margin: 0; padding:0;}
+a {text-decoration: none; color: rgb(0,0,0);}
+header, section, footer {display: inline-block; float: left; width: 100vw; height: auto; overflow: hidden;}
+
+.Left {float: left !important;}
+.Right {float: right !important;}
+
+header {background-color: rgba(0, 0, 0, 0); text-transform: uppercase; word-wrap: initial; position: fixed; top: 0; left: 0; height: 200px; line-height: 200px;}
+header.min {height: 30px;}
+header .container * {display: inline-block; float: left; height: 40px; line-height: 40px; color: rgb(255,255,255);}
+header.min .container * {height: 20px; line-height: 20px;}

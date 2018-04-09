@@ -4,28 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NW.BL.Services;
+using NW.PL.Models;
 
 namespace NW.PL.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        PageInfo page = new PageInfo("Home");
+
+        public ActionResult Home()
         {
-            UserServices.GetAll();
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+            ViewBag.Page = page.setView("Home").setTitle("NEW WORLD");
             return View();
         }
     }
