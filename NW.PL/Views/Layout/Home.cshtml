@@ -7,8 +7,8 @@
     <title>@ViewBag.Page.Title</title>
     @Styles.Render("~/bundles/SystemStyles")
     @RenderSection("Styles", required: false)
-    @Styles.Render(ViewBag.Page.ControllerStyleHref)
-    @Styles.Render(ViewBag.Page.ViewStyleHref)
+    @Styles.Render(@ViewBag.Page.ControllerStyleMinHref)
+    @Styles.Render(@ViewBag.Page.ViewStyleMinHref)
 </head>
 <body>
     <header class="header">
@@ -64,7 +64,7 @@
     @Scripts.Render("~/bundles/SystemScripts")
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     @RenderSection("Scripts", required: false)
-    @Scripts.Render(ViewBag.Page.ControllerScriptHref)
-    @Scripts.Render(ViewBag.Page.ViewScriptHref)
+    @Scripts.Render(@ViewBag.Page.ControllerScriptHref)
+    @Scripts.Render(@ViewBag.Page.ViewScriptHref)
 </body>
 </html>

@@ -1,3 +1,14 @@
-﻿.Home {display: inline-block; float: left; width: 100vw; height: 100vh;}
-.Home .Map {filter: blur(5px);}
-.Home .Block {position: relative; top: -100vh; background: rgba(0,0,0,.6);}
+﻿section .Home {
+  display: inline-block;
+  float: left;
+  width: 100vw;
+  height: 100vh;
+}
+section .Home .Map {
+  filter: blur(5px);
+}
+section .Home .Block {
+  position: relative;
+  top: -100vh;
+  background: rgba(0, 0, 0, 0.6);
+}

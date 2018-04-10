@@ -1,16 +1,71 @@
-﻿body {margin: 0; padding:0; overflow: hidden;}
-a {text-decoration: none !important; color: rgb(0,0,0);}
-header, section, footer {display: inline-block; float: left; width: 100vw; height: auto; overflow: hidden;}
-
-.Left {float: left !important;}
-.Right {float: right !important;}
-
-header {background-color: rgba(0, 0, 0, 0); text-transform: uppercase; word-wrap: initial; position: fixed; top: 0; left: 0; padding-top: 50px; z-index: 1;}
-header, header * { transition: .5s;}
-header .container * {display: inline-block; float: left; height: 40px; line-height: 40px; color: rgb(255,255,255); font-size: 16px;}
-header .container img {height: 30px; margin: 5px;}
-header .container img.user {border-radius: 25% 0; box-shadow: inset 0 0 0 1.5px rgb(255,255,255); cursor: pointer;}
-header .container .Item {padding: 0 7px;}
-header.min {padding-top: 0; background-color: rgba(0, 0, 0, .5);}
-header.min .container * {height: 30px; line-height: 30px; font-size: 14px;}
-header.min .container img {height: 20px;}
+﻿body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+body *.Left {
+  float: left;
+}
+body *.Right {
+  float: right;
+}
+body a {
+  text-decoration: none !important;
+  color: black;
+}
+body header,
+body section,
+body footer {
+  display: inline-block;
+  float: left;
+  width: 100vw;
+  height: auto;
+  overflow: hidden;
+}
+body header {
+  background-color: rgba(0, 0, 0, 0);
+  text-transform: uppercase;
+  word-wrap: initial;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+  z-index: 1;
+}
+body header,
+body header * {
+  transition: .5s;
+}
+body header .container * {
+  display: inline-block;
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  font-size: 16px;
+}
+body header .container * img {
+  height: 30px;
+  margin: 5px;
+}
+body header .container * img.user {
+  border-radius: 25% 0;
+  box-shadow: inset 0 0 0 1.5px white;
+  cursor: pointer;
+}
+body header .container * .Item {
+  padding: 0 7px;
+}
+body header.min {
+  padding-top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+body header .container,
+body header .container * {
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+}
+body header .container img {
+  height: 20px;
+}

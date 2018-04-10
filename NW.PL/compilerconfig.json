@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Resources/CSS/Home/Home.css",
+    "inputFile": "Resources/LESS/Home/Home.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Home/HomeHome.css",
+    "inputFile": "Resources/LESS/Home/HomeHome.less"
+  }
+]
