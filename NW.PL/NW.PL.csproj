@@ -141,6 +141,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Identity.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,6 +149,8 @@
     <Compile Include="Helpers\JavaScripts.cs" />
     <Compile Include="Helpers\SVG.cs" />
     <Compile Include="Models\PageInfo.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\SearchLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -164,7 +167,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\CSS\Account\Account.css" />
+    <Content Include="Resources\CSS\Account\Account.min.css">
+      <DependentUpon>Account.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Account\AccountAccount.css" />
+    <Content Include="Resources\CSS\Account\AccountAccount.min.css">
+      <DependentUpon>AccountAccount.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Home\Home.css" />
     <Content Include="Resources\CSS\Home\Home.min.css">
       <DependentUpon>Home.css</DependentUpon>
@@ -179,6 +188,7 @@
     <Content Include="Resources\CSS\Quest\QuestCreate.css" />
     <Content Include="Resources\CSS\Quest\QuestGame.css" />
     <Content Include="Resources\CSS\System\Fonts.css" />
+    <Content Include="Resources\Images\System\Home\Map.jpg" />
     <Content Include="Resources\Images\System\Icons\globe_black.svg" />
     <Content Include="Resources\Images\System\Icons\globe_icon.png" />
     <Content Include="Resources\Images\System\Icons\globe_white.svg" />
@@ -186,6 +196,7 @@
     <Content Include="Resources\Images\System\Icons\user_female.svg" />
     <Content Include="Resources\Images\System\Icons\user_male.svg" />
     <Content Include="Resources\Images\System\Icons\user_white.svg" />
+    <Content Include="Resources\Images\System\Other\line%403b3o1b.gif" />
     <Content Include="Resources\JS\Account\Account.js" />
     <Content Include="Resources\JS\Account\AccountAccount.js" />
     <Content Include="Resources\JS\Home\Home.js" />
@@ -195,6 +206,8 @@
     <Content Include="Resources\JS\Quest\Quest.js" />
     <Content Include="Resources\JS\Quest\QuestCreate.js" />
     <Content Include="Resources\JS\Quest\QuestGame.js" />
+    <None Include="Resources\LESS\Account\Account.less" />
+    <None Include="Resources\LESS\Account\AccountAccount.less" />
     <Content Include="Resources\LESS\Home\Home.css">
       <DependentUpon>Home.less</DependentUpon>
     </Content>
@@ -280,6 +293,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Account\Account.cshtml" />
+    <Content Include="Views\Layout\Account.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

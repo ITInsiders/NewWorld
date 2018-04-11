@@ -6,5 +6,13 @@
   {
     "outputFile": "Resources/CSS/Home/HomeHome.css",
     "inputFile": "Resources/LESS/Home/HomeHome.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Account/Account.css",
+    "inputFile": "Resources/LESS/Account/Account.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Account/AccountAccount.css",
+    "inputFile": "Resources/LESS/Account/AccountAccount.less"
   }
 ]

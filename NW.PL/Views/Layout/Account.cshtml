@@ -11,7 +11,7 @@
     @Styles.Render(@ViewBag.Page.ViewStyleMinHref)
 </head>
 <body>
-    <header class="header">
+    <header class="header min">
         <div class="container">
             <div class="Left">
                 <div class="Block ImageTitle">
@@ -28,7 +28,7 @@
                     <a class="Item" href="#Intristing">Интересное</a>
                     <a class="Item" href="#About">О нас</a>
                 </div>
-                <a class="Block Account" href="/Account/Account">
+                <a class="Block Account" href="~/Views/Account/Account.cshtml">
                     <div class="Image">
                         <img alt="user" title="user" class="user" src="~/Resources/Images/System/Icons/user_white.svg" />
                     </div>
@@ -40,9 +40,7 @@
         </div>
     </header>
     <section>@RenderBody()</section>
-    <footer class="footer">
-        
-    </footer>
+    <footer class="footer"></footer>
     @Scripts.Render("~/bundles/SystemScripts")
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     @RenderSection("Scripts", required: false)

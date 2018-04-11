@@ -14,6 +14,12 @@ namespace NW.PL
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Account",
+                url: "Account/{action}/{id}",
+                defaults: new { controller = "Account", action = "Account", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Home",
                 url: "{action}/{id}",
                 defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional }
