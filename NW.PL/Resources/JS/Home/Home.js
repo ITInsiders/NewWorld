@@ -18,37 +18,24 @@ function init() {
     });
 }
 
-var scrollPage = true;
-window.addEventListener("mousewheel", function (e) {
-    e = e || window.event;
-    if (scrollPage === true)
-        ScrollPage(e);
-});
-
-function ScrollPage(e) {
-    var $window = $(window),
-        scrollTop = $window.scrollTop();
-    $('html, body').animate({ scrollTop: (scrollTop + ((e.deltaY > 0) ? $window.height() : -$window.height())) }, 500);
-    scrollPage = false;
-    setTimeout(setScrollPage, 500);
-}
-
 function setScrollPage(scroll = true) {
     scrollPage = scroll;
 }
 
 $(window).scroll(function () {
-    if ($(window).scrollTop() > 10)
-        $("header").addClass("min");
-    else
-        $("header").removeClass("min");
+    ScrollTop();
 });
+
 $(document).ready(function () {
+    ScrollTop();
+});
+
+function ScrollTop() {
     if ($(window).scrollTop() > 10)
         $("header").addClass("min");
     else
         $("header").removeClass("min");
-});
+}
 
 $(function () {
     $('a[href^="#"]').on('click', function (event) {

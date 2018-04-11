@@ -6,13 +6,56 @@
         height: 100vh;
 
         .Map {
+            position: relative;
+            top: -100vh;
             filter: blur(5px);
+            z-index: -1;
         }
 
         .Block {
-            position: relative;
-            top: -100vh;
             background: rgba(0,0,0,.6);
+            line-height: 100vh;
+            text-align: center;
+
+            .Middle {
+                display: inline-block;
+                text-align: left;
+                color: white;
+
+                & * {
+                    display: inline-block;
+                }
+
+                .Globe {
+                    float: left;
+                    margin-left: 5%;
+                    width: 40%;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .BlockTitle {
+                    float: left;
+                    margin-right: 5%;
+                    width: 50%;
+
+                    & * {
+                        line-height: normal;
+                    }
+
+                    .Title {
+                        width: 100%;
+                        font-size: 50px;
+                        text-transform: uppercase;
+                    }
+
+                    .Description {
+                        font-size: 20px;
+                    }
+                }
+            }
         }
     }
 }
