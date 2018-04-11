@@ -18,5 +18,13 @@
   {
     "outputFile": "Resources/CSS/Quest/QuestSearch.css",
     "inputFile": "Resources/LESS/Quest/QuestSearch.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Account/Account.css",
+    "inputFile": "Resources/LESS/Account/Account.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Account/AccountAccount.css",
+    "inputFile": "Resources/LESS/Account/AccountAccount.less"
   }
 ]

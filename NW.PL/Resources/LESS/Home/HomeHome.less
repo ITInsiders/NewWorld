@@ -8,12 +8,12 @@
         .Map {
             position: relative;
             top: -100vh;
-            filter: blur(5px);
+            filter: blur(2px);
             z-index: -1;
         }
 
         .Block {
-            background: rgba(0,0,0,.6);
+            background: rgba(40,57,101,.8);
             line-height: 100vh;
             text-align: center;
 
@@ -37,13 +37,9 @@
                 }
 
                 .BlockTitle {
-                    float: left;
                     margin-right: 5%;
                     width: 50%;
-
-                    & * {
-                        line-height: normal;
-                    }
+                    line-height: normal;
 
                     .Title {
                         width: 100%;
@@ -52,9 +48,82 @@
                     }
 
                     .Description {
-                        font-size: 20px;
+                        font-size: 22px;
                     }
                 }
+            }
+        }
+    }
+
+    .Block {
+        display: inline-block;
+        float: left;
+        width: 100vw;
+        height: auto;
+
+        .BlockHeader {
+            margin-top: 40px;
+            background-image: url("/Resources/Images/System/Other/line@3b3o1b.gif");
+            background-position: center;
+            background-repeat: repeat-x;
+            text-align: center;
+
+
+            .BlockTitle {
+                padding: 0 10px;
+                background-color: white;
+                font-size: 20px;
+            }
+        }
+
+        .BlockName {
+            margin-top: 20px;
+            background-image: url("/Resources/Images/System/Other/line@2b.gif");
+            background-position: center;
+            background-repeat: repeat-x;
+
+
+            .BlockTitle {
+                padding: 0 10px;
+                background-color: white;
+                font-size: 18px;
+            }
+        }
+
+        .ImgBlock {
+            height: 200px;
+            margin: 20px;
+            background: center no-repeat;
+            background-size: cover;
+            margin: 40px 0;
+            cursor: pointer;
+
+            @media (max-width: 576px) {
+                & {
+                    margin: 0 -15px;
+                }
+            }
+
+            &.MapImg {
+                background-image: url("/Resources/Images/System/Home/Map.jpg");
+            }
+
+            &.QuestImg {
+                background-image: url("/Resources/Images/System/Home/Quest.jpg");
+            }
+
+            &.NewsImg {
+                background-image: url("/Resources/Images/System/Home/News.jpg");
+            }
+
+            .Title {
+                width: 100%;
+                height: 100%;
+                line-height: 200px;
+                background: rgba(0,0,0,.6);
+                text-align: center;
+                color: white;
+                font-size: 22px;
             }
         }
     }
