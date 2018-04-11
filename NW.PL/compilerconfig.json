@@ -6,5 +6,17 @@
   {
     "outputFile": "Resources/CSS/Home/HomeHome.css",
     "inputFile": "Resources/LESS/Home/HomeHome.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Quest/Quest.css",
+    "inputFile": "Resources/LESS/Quest/Quest.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Quest/QuestHome.css",
+    "inputFile": "Resources/LESS/Quest/QuestHome.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Quest/QuestSearch.css",
+    "inputFile": "Resources/LESS/Quest/QuestSearch.less"
   }
 ]

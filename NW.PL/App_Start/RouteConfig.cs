@@ -14,15 +14,15 @@ namespace NW.PL
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Home",
-                url: "{action}/{id}",
-                defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional }
+                name: "Quest",
+                url: "Quest/{action}/{module}/{modal}",
+                defaults: new { controller = "Quest", action = "Home", module = UrlParameter.Optional, modal = UrlParameter.Optional }
             );
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                name: "Home",
+                url: "{action}/{id}",
+                defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional }
             );
         }
     }

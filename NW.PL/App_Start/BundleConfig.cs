@@ -24,6 +24,9 @@ namespace NW.PL
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                         "~/Scripts/jquery.signalR-2.2.2.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/hashchange").Include(
+                        "~/Scripts/hashchange.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
         }

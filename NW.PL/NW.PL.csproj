@@ -142,6 +142,7 @@
     <Compile Include="App_Start\Identity.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QuestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -176,9 +177,21 @@
     <Content Include="Resources\CSS\Home\HomeIndex.css" />
     <Content Include="Resources\CSS\Home\HomeSearch.css" />
     <Content Include="Resources\CSS\Quest\Quest.css" />
+    <Content Include="Resources\CSS\Quest\Quest.min.css">
+      <DependentUpon>Quest.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Quest\QuestCreate.css" />
     <Content Include="Resources\CSS\Quest\QuestGame.css" />
+    <Content Include="Resources\CSS\Quest\QuestHome.css" />
+    <Content Include="Resources\CSS\Quest\QuestHome.min.css">
+      <DependentUpon>QuestHome.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Quest\QuestSearch.css" />
+    <Content Include="Resources\CSS\Quest\QuestSearch.min.css">
+      <DependentUpon>QuestSearch.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\System\Fonts.css" />
+    <Content Include="Resources\Images\System\Icons\back.svg" />
     <Content Include="Resources\Images\System\Icons\globe_black.svg" />
     <Content Include="Resources\Images\System\Icons\globe_icon.png" />
     <Content Include="Resources\Images\System\Icons\globe_white.svg" />
@@ -193,8 +206,7 @@
     <Content Include="Resources\JS\Home\HomeIndex.js" />
     <Content Include="Resources\JS\Home\HomeSearch.js" />
     <Content Include="Resources\JS\Quest\Quest.js" />
-    <Content Include="Resources\JS\Quest\QuestCreate.js" />
-    <Content Include="Resources\JS\Quest\QuestGame.js" />
+    <Content Include="Resources\JS\Quest\QuestSearch.js" />
     <Content Include="Resources\LESS\Home\Home.css">
       <DependentUpon>Home.less</DependentUpon>
     </Content>
@@ -235,7 +247,12 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Resources\LESS\Quest\Quest.less" />
+    <Content Include="Resources\LESS\Quest\QuestSearch.less" />
+    <Content Include="Resources\LESS\Default.less" />
+    <Content Include="Resources\LESS\Quest\QuestHome.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\hashchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -280,6 +297,9 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Quest\Search.cshtml" />
+    <Content Include="Views\Layout\Quest.cshtml" />
+    <Content Include="Views\Quest\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
