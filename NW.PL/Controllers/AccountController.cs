@@ -22,33 +22,45 @@ namespace NW.PL.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Entry(UserDTO Model)
+        [HttpGet]
+        public ActionResult Entry()
         {
-            if (Identity.Authentication(Model.Login, Model.Password)) return Redirect("/Home");
-            else ModelState.AddModelError("Password", "Пароль не верный");
-            return Redirect("/Account/Account");
+            ViewBag.Page = pageInfo.setView("Entry");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Entry(Entry Model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!Identity.Authentication(Model.Login, cryptMD5.GetHash(Model.Password))) ModelState.AddModelError("Password", "Пароль не верный");
+            }
+            return Redirect("/Account/Entry");
         }
 
         [HttpPost]
         public ActionResult Registration(UserRegistration Model)
         {
-            UserDTO user = UserServices.GetAll().FirstOrDefault(x => x.Login == Model.Login);
-            if (user != null) { return Redirect("/Account/Account"); }
-            else
+            if (ModelState.IsValid)
             {
-                if (Model.Password != Model.RePassword || Model.Password == "") return Redirect("/Account/Account");
+                UserDTO user = UserServices.GetAll().FirstOrDefault(x => x.Login == Model.Login);
+                if (user != null) { return Redirect("/Account/Account"); }
                 else
                 {
-                    Model.DateOfRegistration = DateTime.Now;
-                    Model.Access = 0;
-                    Model.Login = Model.Login.ToLower();
-                    Model.Password = cryptMD5.GetHash(Model.Password);
-                    UserServices.Create((UserDTO)Model);
-                    if (Identity.Authentication(Model.Login, Model.Password)) return Redirect("/Home");
+                    if (Model.Password != Model.RePassword || Model.Password == "") return Redirect("/Account/Account");
+                    else
+                    {
+                        Model.Profile.DateOfRegistration = DateTime.Now;
+                        Model.Profile.Access = 0;
+                        Model.Login = Model.Login.ToLower();
+                        Model.Password = cryptMD5.GetHash(Model.Password);
+                        UserServices.Create((UserDTO)Model.Profile);
+                        if (Identity.Authentication(Model.Login, Model.Password)) return Redirect("/Home");
+                    }
                 }
             }
-            return View();
+            return Redirect("/Account/Account");
         }
 
         public ActionResult Exit()
@@ -65,8 +77,7 @@ namespace NW.PL.Controllers
         [HttpGet]
         public JsonResult ECheckLogin(string Login)
         {
-
-            var result = UserServices.GetAll().FirstOrDefault(x => x.Login == Login);
+            var result = UserServices.GetAll().Any(x => x.Login == Login);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -74,7 +85,7 @@ namespace NW.PL.Controllers
         [HttpGet]
         public JsonResult RCheckLogin(string Login)
         {
-            var result = UserServices.GetAll().FirstOrDefault(x => x.Login == Login);
+            var result = !UserServices.GetAll().Any(x => x.Login == Login);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

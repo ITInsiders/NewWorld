@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Identity Identity = new Identity();
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -28,21 +31,36 @@
                     <a class="Item" href="#Intristing">Интересное</a>
                     <a class="Item" href="#About">О нас</a>
                 </div>
-                <a class="Block Account" href="/Account/Account">
-                    <div class="Image">
-                        <img alt="user" title="user" class="user" src="~/Resources/Images/System/Icons/user_white.svg" />
-                    </div>
-                    <div class="Info">
+                @{
+                    if (Identity.isAuthentication)
+                    {
+                        <div class="Block Account" onclick="showuser();">
+                            <div class="Image">
+                                <img alt="user" title="user" class="user" src="~/Resources/Images/System/Icons/user_white.svg" />
+                            </div>
+                            <div class="Info">
+                                <div class="name">@Identity.user.Login</div>
+                                <hr />
+                                <a class="map" href="#">Мой аккаунт</a>
+                                <a class="exit" href="/Account/Exit">Выход</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
 
-                    </div>
-                </a>
+                        <a class="Block Account" href="/Account/Account">
+                            <div class="Image">
+                                <img alt="user" title="user" class="user" src="~/Resources/Images/System/Icons/user_white.svg" />
+                            </div>
+                        </a>
+                    }
+                }
             </div>
         </div>
     </header>
     <section>@RenderBody()</section>
-    <footer class="footer">
-        
-    </footer>
+    <footer class="footer"></footer>
     @Scripts.Render("~/bundles/SystemScripts")
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     @RenderSection("Scripts", required: false)

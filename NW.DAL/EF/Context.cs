@@ -6,7 +6,7 @@ namespace NW.DAL.EF
 {
     public class Context : DbContext
     {
-        public Context() : base("EasyMapDB") { }
+        public Context() : base("NewWorldDB") { }
 
         public DbSet<User> Users { get; }
         public DbSet<UserPhoto> UserPhotos { get; }

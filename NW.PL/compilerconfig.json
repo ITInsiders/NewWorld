@@ -26,5 +26,9 @@
   {
     "outputFile": "Resources/CSS/Account/AccountAccount.css",
     "inputFile": "Resources/LESS/Account/AccountAccount.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Account/AccountEntry.css",
+    "inputFile": "Resources/LESS/Account/AccountEntry.less"
   }
 ]

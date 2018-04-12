@@ -51,6 +51,12 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -175,6 +181,10 @@
     <Content Include="Resources\CSS\Account\AccountAccount.min.css">
       <DependentUpon>AccountAccount.css</DependentUpon>
     </Content>
+    <Content Include="Resources\CSS\Account\AccountEntry.css" />
+    <Content Include="Resources\CSS\Account\AccountEntry.min.css">
+      <DependentUpon>AccountEntry.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Home\Home.css" />
     <Content Include="Resources\CSS\Home\Home.min.css">
       <DependentUpon>Home.css</DependentUpon>
@@ -266,6 +276,7 @@
     <Content Include="Resources\LESS\Quest\QuestSearch.less" />
     <Content Include="Resources\LESS\Default.less" />
     <Content Include="Resources\LESS\Quest\QuestHome.less" />
+    <Content Include="Resources\LESS\Account\AccountEntry.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\hashchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -317,6 +328,7 @@
     <Content Include="Views\Quest\Home.cshtml" />
     <Content Include="Views\Account\Account.cshtml" />
     <Content Include="Views\Layout\Account.cshtml" />
+    <Content Include="Views\Account\Entry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
