@@ -19,23 +19,19 @@
 </head>
 <body>
     <div class="Map" id="Map"></div>
-    <a href="/Quest/Home">Home</a>
-    <a href="/Quest/Search">Search</a>
-    <a href="/Quest/Map">Map</a>
     <div class="InfoBlock">
         <div class="Header">
-            <div class="Back">
-                <img class="Img" src="~/Resources/Images/System/Icons/back.svg" />
-                <div class="Title">Назад</div>
-            </div>
+            <button type="button" class="Back Button">
+                <i class="fa fa-angle-left"></i>
+            </button>
             <div class="Title">Главная</div>
             <div class="Search">
 
             </div>
         </div>
-        <div class="Body">@RenderBody()</div>
+        <div class="Body MinPage">@RenderBody()</div>
     </div>
-    <div class="Modal"></div>
+    <div class="Modal" style="display: none"></div>
     @Scripts.Render("~/bundles/SystemScripts")
     @Scripts.Render("~/bundles/hashchange")
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
