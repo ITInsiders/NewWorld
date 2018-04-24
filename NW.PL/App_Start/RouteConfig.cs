@@ -26,10 +26,17 @@ namespace NW.PL
             );
 
             routes.MapRoute(
+                name: "Map",
+                url: "Map/{action}/{id}",
+                defaults: new { controller = "Map", action = "Map", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Home",
                 url: "{action}/{id}",
                 defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional }
             );
+
         }
     }
 }

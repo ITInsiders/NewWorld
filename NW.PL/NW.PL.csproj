@@ -149,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\QuestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -195,6 +196,14 @@
     </Content>
     <Content Include="Resources\CSS\Home\HomeIndex.css" />
     <Content Include="Resources\CSS\Home\HomeSearch.css" />
+    <Content Include="Resources\CSS\Map\Map.css" />
+    <Content Include="Resources\CSS\Map\Map.min.css">
+      <DependentUpon>Map.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Map\MapSearch.css" />
+    <Content Include="Resources\CSS\Map\MapSearch.min.css">
+      <DependentUpon>MapSearch.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Quest\Quest.css" />
     <Content Include="Resources\CSS\Quest\Quest.min.css">
       <DependentUpon>Quest.css</DependentUpon>
@@ -224,8 +233,8 @@
     <Content Include="Resources\JS\Account\AccountAccount.js" />
     <Content Include="Resources\JS\Home\Home.js" />
     <Content Include="Resources\JS\Home\HomeHome.js" />
-    <Content Include="Resources\JS\Home\HomeIndex.js" />
-    <Content Include="Resources\JS\Home\HomeSearch.js" />
+    <Content Include="Resources\JS\Map\Map.js" />
+    <Content Include="Resources\JS\Map\MapSearch.js" />
     <Content Include="Resources\JS\Quest\Quest.js" />
     <Content Include="Resources\JS\Quest\QuestSearch.js" />
     <Content Include="Resources\JS\Quest\QuestCreate.js" />
@@ -277,6 +286,8 @@
     <Content Include="Resources\LESS\Default.less" />
     <Content Include="Resources\LESS\Quest\QuestHome.less" />
     <Content Include="Resources\LESS\Account\AccountEntry.less" />
+    <Content Include="Resources\LESS\Map\MapSearch.less" />
+    <Content Include="Resources\LESS\Map\Map.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\hashchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -329,6 +340,8 @@
     <Content Include="Views\Account\Account.cshtml" />
     <Content Include="Views\Layout\Account.cshtml" />
     <Content Include="Views\Account\Entry.cshtml" />
+    <Content Include="Views\Map\Search.cshtml" />
+    <Content Include="Views\Layout\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

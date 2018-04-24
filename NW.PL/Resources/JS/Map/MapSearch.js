@@ -40,7 +40,7 @@ function SearchLines() {
     var Data = null;
     $.ajax({
         type: "POST",
-        url: "/API/SearchLines",
+        url: "/Map/SearchLines",
         data: { Search: Search },
         dataType: "json",
         timeout: 5000,
@@ -66,7 +66,7 @@ function SearchBlocks() {
     var Data = null;
     $.ajax({
         type: "POST",
-        url: "/API/SearchBlocks",
+        url: "/Map/SearchBlocks",
         data: { Search: Search },
         dataType: "json",
         timeout: 5000,
@@ -77,7 +77,7 @@ function SearchBlocks() {
         error: function () {
         }
     });
-    
+
     SearchResult.empty();
     Clusterer.removeAll();
     $.each(Data, function (i, v) {
