@@ -1,4 +1,5 @@
 ﻿@import "../Default.less";
+@import "../Library.less";
 
 body {
     .Map {
@@ -6,5 +7,48 @@ body {
         height: 100vh;
         display: inline-block;
         float: left;
+    }
+
+    .InfoBlock {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        width: 350px;
+        max-width: 40%;
+        height: calc(~"100vh - 40px");
+        overflow: hidden;
+        border-radius: @borderRadius;
+        box-shadow: 1px 1px 5px 0 @backgroundBlue;
+
+        &, & * {
+            display: inline-block;
+        }
+
+        .Header {
+            width: 100%;
+            height: 30px;
+            overflow: hidden;
+            background: @backgroundBlue;
+            color: white;
+            text-align: center;
+            float: left;
+
+            * {
+                max-height: 30px;
+            }
+
+            .Title {
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+
+        .Body {
+            width: 100%;
+            height: calc(~"100% - 30px");
+            overflow-x: hidden;
+            background-color: white;
+            float: left;
+        }
     }
 }

@@ -43,13 +43,16 @@ function getPageByHash(link) {
                 async: false,
                 url: link,
                 success: function (data) {
-                    if (data != "") {
-                        $(".Page").html(data);
-                    }
+                    setPage(data);
                 }
             });
         }
     }
+}
+
+var setPage = function (data) {
+    $(".InfoBlock .MinPage").html(data);
+    $(".InfoBlock .Header .Title").text(PageData.text);
 }
 
 function initHashChange() {

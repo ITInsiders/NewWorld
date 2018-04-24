@@ -10,7 +10,8 @@ namespace NW.PL
         {
             bundles.Add(new StyleBundle("~/bundles/SystemStyles").Include(
                 "~/Content/bootstrap*",
-                "~/Resources/CSS/System/Fonts.css"
+                "~/Resources/CSS/System/Fonts.css",
+                "~/Content/font-awesome.min.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/SystemScripts").Include(
