@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -88,5 +89,53 @@ namespace NW.PL.Controllers
             var result = !UserServices.GetAll().Any(x => x.Login == Login);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            ViewBag.Page = pageInfo.setView("Profile");
+            if (Identity.isAuthentication)
+            {
+                List<UserPhotoDTO> userPhoto = UserPhotoServices.GetAll().Where(x => x.UserId == Identity.user.Id && x.MainPhoto == true).ToList();
+                ViewBag.userPhoto = userPhoto;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadPhoto(HttpPostedFileBase upload)
+        {
+            if (upload != null && Identity.isAuthentication)
+            {
+                string dir = Server.MapPath("~/Resources/Images/Users/" + Identity.user.Id);
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                string[] dirs = Directory.GetFiles(Server.MapPath("~/Resources/Images/Users/" + Identity.user.Id), "*");
+
+                string type = upload.FileName.Split('.').Last();
+
+                string src = "/Resources/Images/Users/" + Identity.user.Id + "/" + cryptMD5.GetHash(dirs.Length.ToString()) + "." + type;
+                string path = Server.MapPath("~" + src);
+
+                upload.SaveAs(path);
+
+                UserPhotoDTO userPhoto = UserPhotoServices.GetAll().FirstOrDefault(x => x.MainPhoto && x.UserId == Identity.user.Id);
+                if (userPhoto != null)
+                {
+                    userPhoto.MainPhoto = false;
+                    UserPhotoServices.Update(userPhoto);
+                }
+
+                userPhoto = new UserPhotoDTO();
+                userPhoto.MainPhoto = true;
+                userPhoto.SRC = src;
+                userPhoto.UserId = Identity.user.Id;
+                UserPhotoServices.Create(userPhoto);
+            }
+
+            return RedirectToAction("Profile");
+        }
+
     }
 }

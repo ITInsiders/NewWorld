@@ -18,13 +18,13 @@ namespace NW.DAL.Repositories
         {
             this.db = context;
         }
-        public IEnumerable<T> GetAll()
+        public List<T> GetAll()
         {
-            return db.Set<T>();
+            return db.Set<T>().ToList();
         }
-        public IEnumerable<T> Find(Func<T, Boolean> predicate)
+        public List<T> Find(Func<T, Boolean> predicate)
         {
-            return db.Set<T>().Where(predicate);
+            return db.Set<T>().Where(predicate).ToList();
         }
         public T Get(int id)
         {
@@ -43,6 +43,5 @@ namespace NW.DAL.Repositories
         {
             db.Set<T>().Remove(Get(id));
         }
-
     }
 }

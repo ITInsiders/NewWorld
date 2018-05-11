@@ -10,7 +10,7 @@ namespace NW.BL.Services
 {
     public class UserServices
     {
-        private static EFUnitOfWork Database = new EFUnitOfWork();
+        private static EFUnitOfWork Database => EFUnitOfWork.I;
 
         public static void Create(UserDTO userDTO)
         {

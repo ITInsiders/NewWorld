@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NW.DAL.Entities
 {
+    [Table("UserPhotos")]
     public class UserPhoto
     {
         [Key]

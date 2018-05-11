@@ -8,6 +8,9 @@ namespace NW.DAL.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
+        private static EFUnitOfWork instance;
+        public static EFUnitOfWork I => instance ?? (instance = new EFUnitOfWork());
+
         private Context db;
         private Repository<Place> placeRepository;
         private Repository<PlacePhoto> placePhotoRepository;
@@ -64,6 +67,7 @@ namespace NW.DAL.Repositories
             {
                 if (disposing)
                 {
+                    db.SaveChanges();
                     db.Dispose();
                 }
                 this.disposed = true;

@@ -14,7 +14,7 @@ namespace NW.BL.Services
 {
     public class UserVerificationServices
     {
-        private static EFUnitOfWork Database = new EFUnitOfWork();
+        private static EFUnitOfWork Database = EFUnitOfWork.I;
 
         public static void Create(UserVerificationDTO userVerificationDTO)
         {

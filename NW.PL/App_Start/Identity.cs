@@ -55,7 +55,7 @@ namespace NW.PL
 
         public bool CheckUserData(string Login, string Password)
         {
-            user = UserServices.GetAll().FirstOrDefault(x => x.Login == Login && x.Password == Password);
+            this.user = UserServices.GetAll().FirstOrDefault(x => x.Login == Login && x.Password == Password);
             return user != null;
         }
     }

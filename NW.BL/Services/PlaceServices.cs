@@ -10,7 +10,7 @@ namespace NW.BL.Services
 {
     public class PlaceService
     {
-        private static EFUnitOfWork Database = new EFUnitOfWork();
+        private static EFUnitOfWork Database = EFUnitOfWork.I;
 
         public static void Create(PlaceDTO placeDTO)
         {

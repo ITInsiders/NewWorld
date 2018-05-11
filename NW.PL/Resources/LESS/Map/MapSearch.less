@@ -1,22 +1,28 @@
-﻿section {
+﻿@import "../Default.less";
+@import "../Library.less";
+section {
     min-height: calc(~"100vh - 30px");
+    background-image: url(/Resources/images/fon/fon3.png); /* background-color:#ECEAE0;*/
 }
 
 section .Option {
-    width: 300px;
-    position: relative;
-    height: calc(~"100vh - 80px");
-    display: inline-block;
-    float: left;
-    margin: 35px 0 0 0;
-    overflow: auto;
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    width: 350px;
+    max-width: 40%;
+    height: calc(~"100vh - 100px");
+    overflow: hidden;
+    border-radius: @borderRadius;
+    box-shadow: 1px 1px 5px 0 @backgroundBlue;
+    z-index: 1;
 }
 
 section .Option .Back, section .Option .Filter {
     width: 40px;
     height: 40px;
     margin: 5px;
-    background: url('/Resources/Images/Icon/Back.svg') no-repeat center;
+    background: url('/Resources/Images/System/Icons/back.svg') no-repeat center;
     background-size: cover;
     float: left;
 }
@@ -37,7 +43,7 @@ section .Option .SearchBlock input {
     height: 40px;
     float: left;
     border: none;
-    background: #4EB1BA;
+    background: rgba(40,57,101,.9);
 }
 
 section .Option .SearchBlock input:focus {
@@ -48,7 +54,7 @@ section .Option .SearchBlock .Search {
     width: calc(~"100% - 49px");
     margin: 5px 0 5px 5px;
     padding: 0 20px;
-    border-radius: 20px 0 0 20px;
+    border-radius: 10px 0 0 10px;
     font-family: Lisa;
     font-size: 20px;
     color: #ffffff;
@@ -66,8 +72,8 @@ section .Option .SearchBlock .SearchButton {
     width: 40px;
     height: 40px;
     margin: 5px 5px 5px -1px;
-    border-radius: 0 20px 20px 0;
-    background: #4EB1BA url(/Resources/Images/Icon/Search.svg) no-repeat center;
+    border-radius: 0 10px 10px 0;
+    background: rgba(40,57,101,.9) url(/Resources/Images/Icon/Search.svg) no-repeat center;
     background-size: 50%;
     cursor: pointer;
     border: none;
@@ -97,10 +103,11 @@ section .Sorting .Icon {
 }
 
 section .Option .Blocks {
-    width: 300px;
-    height: auto;
     display: inline-block;
+    height: calc(~"100% - 60px");
     float: left;
+    width: 100%;
+    overflow-y: auto;
 }
 
 section .Option .Blocks .Block {
@@ -161,9 +168,8 @@ section .Option .Blocks .Block .Data .Name .Ratings {
 }
 
 .map {
-    width: calc(~"100% - 300px");
-    height: calc(~"100vh - 70px");
-    min-height: 200px;
+    width: 100%;
+    height: calc(~"100vh - 30px");
     display: inline-block;
     float: left;
 }

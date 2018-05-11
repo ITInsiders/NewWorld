@@ -157,21 +157,21 @@
     <Compile Include="Helpers\JavaScripts.cs" />
     <Compile Include="Helpers\SVG.cs" />
     <Compile Include="Models\PageInfo.cs" />
+    <Compile Include="Models\PlaceRating.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\SearchLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
@@ -189,6 +189,10 @@
     <Content Include="Resources\CSS\Account\AccountEntry.min.css">
       <DependentUpon>AccountEntry.css</DependentUpon>
     </Content>
+    <Content Include="Resources\CSS\Account\AccountProfile.css" />
+    <Content Include="Resources\CSS\Account\AccountProfile.min.css">
+      <DependentUpon>AccountProfile.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Home\Home.css" />
     <Content Include="Resources\CSS\Home\Home.min.css">
       <DependentUpon>Home.css</DependentUpon>
@@ -202,6 +206,10 @@
     <Content Include="Resources\CSS\Map\Map.css" />
     <Content Include="Resources\CSS\Map\Map.min.css">
       <DependentUpon>Map.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Map\MapInformPlace.css" />
+    <Content Include="Resources\CSS\Map\MapInformPlace.min.css">
+      <DependentUpon>MapInformPlace.css</DependentUpon>
     </Content>
     <Content Include="Resources\CSS\Map\MapSearch.css" />
     <Content Include="Resources\CSS\Map\MapSearch.min.css">
@@ -234,23 +242,27 @@
     <Content Include="Resources\Images\System\Other\line%403b3o1b.gif" />
     <Content Include="Resources\JS\Account\Account.js" />
     <Content Include="Resources\JS\Account\AccountAccount.js" />
+    <Content Include="Resources\JS\Account\AccountProfile.js" />
     <Content Include="Resources\JS\Home\Home.js" />
     <Content Include="Resources\JS\Home\HomeHome.js" />
     <Content Include="Resources\JS\Map\Map.js" />
+    <Content Include="Resources\JS\Map\MapInformPlace.js" />
     <Content Include="Resources\JS\Map\MapSearch.js" />
     <Content Include="Resources\JS\Quest\Quest.js" />
     <Content Include="Resources\JS\Quest\QuestSearch.js" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Resources\LESS\Account\Account.less" />
     <None Include="Resources\LESS\Account\AccountAccount.less" />
     <Content Include="Resources\LESS\Home\Home.css">
@@ -271,8 +283,6 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -291,16 +301,16 @@
     <Content Include="Resources\LESS\Map\MapSearch.less" />
     <Content Include="Resources\LESS\Map\Map.less" />
     <Content Include="Resources\LESS\Library.less" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Resources\LESS\Map\MapInformPlace.less" />
     <Content Include="Scripts\hashchange.js" />
+    <Content Include="Resources\LESS\Account\AccountProfile.less" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -349,15 +359,16 @@
     <Content Include="Views\Account\Entry.cshtml" />
     <Content Include="Views\Map\Search.cshtml" />
     <Content Include="Views\Layout\Map.cshtml" />
+    <Content Include="Views\Map\InformPlace.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resources\Images\Users\" />
     <Folder Include="Resources\Logs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

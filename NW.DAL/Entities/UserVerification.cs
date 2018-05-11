@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NW.DAL.Entities
 {
+    [Table("UserVerifications")]
     public class UserVerification
     {
         [Key]

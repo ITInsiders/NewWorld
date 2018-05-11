@@ -32,11 +32,19 @@
     "inputFile": "Resources/LESS/Account/AccountEntry.less"
   },
   {
+    "outputFile": "Resources/CSS/Account/AccountProfile.css",
+    "inputFile": "Resources/LESS/Account/AccountProfile.less"
+  },
+  {
     "outputFile": "Resources/CSS/Map/Map.css",
     "inputFile": "Resources/LESS/Map/Map.less"
   },
   {
     "outputFile": "Resources/CSS/Map/MapSearch.css",
     "inputFile": "Resources/LESS/Map/MapSearch.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Map/MapInformPlace.css",
+    "inputFile": "Resources/LESS/Map/MapInformPlace.less"
   }
 ]

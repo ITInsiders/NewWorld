@@ -1,21 +1,95 @@
-﻿section {
-  min-height: calc(100vh - 30px);
+﻿body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100vw;
 }
-section .Option {
-  width: 300px;
-  position: relative;
-  height: calc(100vh - 80px);
+body::-webkit-scrollbar-button {
+  background-image: none;
+  background-repeat: no-repeat;
+  width: 5px;
+  height: 0px;
+}
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  background-color: white;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: white;
+}
+body::-webkit-resizer {
+  background-image: none;
+  background-repeat: no-repeat;
+  width: 4px;
+  height: 0px;
+}
+body::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+body .Left {
+  float: left !important;
+}
+body .Right {
+  float: right !important;
+}
+body a {
+  text-decoration: none !important;
+  color: black;
+}
+body header,
+body section,
+body footer {
   display: inline-block;
   float: left;
-  margin: 35px 0 0 0;
-  overflow: auto;
+  width: 100%;
+  height: auto;
+}
+.Button {
+  float: left;
+  border: none;
+  background-color: #283965;
+  color: white;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+  line-height: 0;
+}
+.Button .fa {
+  vertical-align: middle;
+}
+.Button:hover {
+  font-size: 22px;
+}
+section {
+  min-height: calc(100vh - 30px);
+  background-image: url(/Resources/images/fon/fon3.png);
+  /* background-color:#ECEAE0;*/
+}
+section .Option {
+  position: absolute;
+  left: 20px;
+  top: 40px;
+  width: 350px;
+  max-width: 40%;
+  height: calc(100vh - 100px);
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px 0 #283965;
+  z-index: 1;
 }
 section .Option .Back,
 section .Option .Filter {
   width: 40px;
   height: 40px;
   margin: 5px;
-  background: url('/Resources/Images/Icon/Back.svg') no-repeat center;
+  background: url('/Resources/Images/System/Icons/back.svg') no-repeat center;
   background-size: cover;
   float: left;
 }
@@ -33,7 +107,7 @@ section .Option .SearchBlock input {
   height: 40px;
   float: left;
   border: none;
-  background: #4EB1BA;
+  background: rgba(40, 57, 101, 0.9);
 }
 section .Option .SearchBlock input:focus {
   outline: none;
@@ -42,7 +116,7 @@ section .Option .SearchBlock .Search {
   width: calc(100% - 49px);
   margin: 5px 0 5px 5px;
   padding: 0 20px;
-  border-radius: 20px 0 0 20px;
+  border-radius: 10px 0 0 10px;
   font-family: Lisa;
   font-size: 20px;
   color: #ffffff;
@@ -57,8 +131,8 @@ section .Option .SearchBlock .SearchButton {
   width: 40px;
   height: 40px;
   margin: 5px 5px 5px -1px;
-  border-radius: 0 20px 20px 0;
-  background: #4EB1BA url(/Resources/Images/Icon/Search.svg) no-repeat center;
+  border-radius: 0 10px 10px 0;
+  background: rgba(40, 57, 101, 0.9) url(/Resources/Images/Icon/Search.svg) no-repeat center;
   background-size: 50%;
   cursor: pointer;
   border: none;
@@ -84,10 +158,11 @@ section .Sorting .Icon {
   float: right;
 }
 section .Option .Blocks {
-  width: 300px;
-  height: auto;
   display: inline-block;
+  height: calc(100% - 60px);
   float: left;
+  width: 100%;
+  overflow-y: auto;
 }
 section .Option .Blocks .Block {
   display: inline-flex;
@@ -141,9 +216,8 @@ section .Option .Blocks .Block .Data .Name .Ratings {
   box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.5);
 }
 .map {
-  width: calc(100% - 300px);
-  height: calc(100vh - 70px);
-  min-height: 200px;
+  width: 100%;
+  height: calc(100vh - 30px);
   display: inline-block;
   float: left;
 }

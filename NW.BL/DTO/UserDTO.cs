@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-
+using NW.BL.Services;
 
 namespace NW.BL.DTO
 {
@@ -25,6 +25,7 @@ namespace NW.BL.DTO
         public double? Rating { get; set; }
         public int Access { get; set; } // доступы: 0 - простой пользоваель, 1 - администратор
 
+        public List<UserPhotoDTO> userPhotoDTO => UserPhotoServices.GetAll().Where(x => x.UserId == Id).ToList();
     }
 
     public class Entry

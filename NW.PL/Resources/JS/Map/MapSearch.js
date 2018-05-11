@@ -11,10 +11,26 @@ function init() {
 
     Clusterer = new ymaps.Clusterer({
         clusterDisableClickZoom: true,
+        synchAdd: true
     });
-
-    myMap.geoObjects.add(Clusterer);
+   /* readObjects();*/
+    SearchBlocks();
 }
+
+/*function readObjects() {
+    var objects = $(".jsonObject");
+    for (var i = 0; i < 10 || i < objects.length; ++i) {
+        var json = JSON.parse(objects[i].val());
+        var objectMap = new ymaps.Placemark([json.Latitude, json.Longitude], {
+            balloonContentHeader: "<div class=\"balloonHeader\">" + json.Name + "</div>",
+            balloonContentBody: "<div class=\"balloonBody\">" + json.Address + "</div>",
+            balloonContentFooter: json.Tags,
+            hintContent: json.Name,
+            iconCaption: json.Name
+        });
+        Clusterer.add(objectMap);
+    }
+}*/
 
 $(document).ready(Ready);
 
@@ -25,8 +41,8 @@ function Ready() {
 function AddPointToMap(object) {
     var objectMap = new ymaps.Placemark(object.position, {
         balloonContentHeader: "<div class=\"balloonHeader\">" + object.Name + "</div>",
-        balloonContentBody: "<div class=\"balloonBody\">" + object.Address + "</div>",
-        balloonContentFooter: object.Tags,
+        balloonContentBody: "<div class=\"balloonBody\">" + object.Description + "</div>",
+        balloonContentFooter: "<div class=\"balloonFooter\" style=\"text-align: right; color: #777;\">" + object.Address + "</div>",
         hintContent: object.Name,
         iconCaption: object.Name
     });
@@ -61,7 +77,8 @@ function SearchLines() {
 function SearchBlocks() {
     var Search = $("#Search").val(),
         SearchResult = $("#SearchResult"),
-        Block = $("#Templates .Block");
+        Block = $("#Templates .Block.Empty"),
+        BlockNull = $("#Templates .Block.Null");
 
     var Data = null;
     $.ajax({
@@ -80,33 +97,39 @@ function SearchBlocks() {
 
     SearchResult.empty();
     Clusterer.removeAll();
-    $.each(Data, function (i, v) {
-        v.position = [v.Longitude, v.Latitude];
+    if (Data.length === 0) {
+        SearchResult.append(BlockNull.clone());
+    }
+    else {
+        $.each(Data, function (i, v) {
+            v.position = [v.Longitude, v.Latitude];
 
-        setTimeout(AddPointToMap(v), 0);
+            AddPointToMap(v);
 
-        var BlockClone = Block.clone(),
-            BlockData = BlockClone.find(".Data");
+            var BlockClone = Block.clone(),
+                BlockData = BlockClone.find(".Data");
 
-        BlockData.find(".Name").text(v.Name);
-        BlockData.find(".Info.Category").text(v.Tags);
-        BlockData.find(".Info.Adress").text(v.Address);
-        BlockData.find(".Info.Time").text(v.WorkingHour);
-        BlockData.find(".Distance").text("");
+            BlockClone.attr("href", "InformPlace/" + v.Id);
+            BlockClone.find(".Photo").css({ "background-image": "url('" + v.MainPhoto + "')"});
+            BlockClone.find(".Photo .Ratings").text(v.Rating);
 
-        BlockData.data("position", JSON.stringify(v.position));
+            BlockData.find(".Name").text(v.Name);
+            BlockData.find(".Info.Category").text(v.Tags);
+            BlockData.find(".Info.Adress").text(v.Address);
+            BlockData.find(".Info.Time").text(v.WorkingHour);
+            BlockData.find(".Distance").text("");
 
-        var mainPhoto = null;
+            BlockData.data("position", JSON.stringify(v.position));
+            console.log(v.position);
 
-        $.each(v.photos, function (index, element) {
-            if (element.Main) mainPhoto = element.SRC;
+            SearchResult.append(BlockClone);
         });
+    }
 
-        BlockClone.find(".Photo").css("background-image", "url(\"" + mainPhoto + "\")");
-
-        SearchResult.append(BlockClone);
-    });
     myMap.setBounds(Clusterer.getBounds(), {
-        checkZoomRange: true
+        checkZoomRange: true,
+        zoomMargin: 50
     });
+
+    myMap.geoObjects.add(Clusterer);
 }

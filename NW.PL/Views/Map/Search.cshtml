@@ -1,9 +1,9 @@
-﻿@{
+﻿@using NW.PL.Models;
+@{
     Layout = ViewBag.Page.LayoutHref;
     Identity Identity = new Identity();
     ViewBag.Identity = Identity;
 }
-
 <div class="Option">
     <a class="Back" href="/Home/Index"></a>
     <form class="SearchBlock" action="javascript:SearchBlocks();">
@@ -15,63 +15,13 @@
 
 
     <div class="Blocks" id="SearchResult">
-        <div class="Block">
-            <div class='Photo' style="background-image:url('/Resources/Images/Album/luskoni.jpg')"><div class='Ratings'></div></div>
-            <div class="Data">
-                <div class="Title Name Place">Route 66</div>
-                <div class="Title Info Category">Ресторан</div>
-                <div class="Title Info Adress">Ул. Лизюкова д. xx</div>
-                <div class="Title Info Time">Время работы: 11:00-01:00</div>
-                <div class="Title Distance">До места: 0,3 км</div>
-            </div>
-        </div>
-        <div class="Block">
-            <div class='Photo' style="background-image:url('/Resources/Images/Album/luskoni.jpg')"><div class='Ratings'></div></div>
-            <div class="Data">
-                <div class="Title Name Place">Route 66</div>
-                <div class="Title Info Category">Ресторан</div>
-                <div class="Title Info Adress">Ул. Лизюкова д. xx</div>
-                <div class="Title Info Time">Время работы: 11:00-01:00</div>
-                <div class="Title Distance">До места: 0,3 км</div>
-            </div>
-        </div>
-        <div class="Block">
-            <div class='Photo' style="background-image:url('/Resources/Images/Album/luskoni.jpg')"><div class='Ratings'></div></div>
-            <div class="Data">
-                <div class="Title Name Place">Route 66</div>
-                <div class="Title Info Category">Ресторан</div>
-                <div class="Title Info Adress">Ул. Лизюкова д. xx</div>
-                <div class="Title Info Time">Время работы: 11:00-01:00</div>
-                <div class="Title Distance">До места: 0,3 км</div>
-            </div>
-        </div>
-        <div class="Block">
-            <div class='Photo' style="background-image:url('/Resources/Images/Album/luskoni.jpg')"><div class='Ratings'></div></div>
-            <div class="Data">
-                <div class="Title Name Place">Route 66</div>
-                <div class="Title Info Category">Ресторан</div>
-                <div class="Title Info Adress">Ул. Лизюкова д. xx</div>
-                <div class="Title Info Time">Время работы: 11:00-01:00</div>
-                <div class="Title Distance">До места: 0,3 км</div>
-            </div>
-        </div>
-        <div class="Block">
-            <div class='Photo' style="background-image:url('/Resources/Images/Album/luskoni.jpg')"><div class='Ratings'></div></div>
-            <div class="Data">
-                <div class="Title Name Place">Route 66</div>
-                <div class="Title Info Category">Ресторан</div>
-                <div class="Title Info Adress">Ул. Лизюкова д. xx</div>
-                <div class="Title Info Time">Время работы: 11:00-01:00</div>
-                <div class="Title Distance">До места: 0,3 км</div>
-            </div>
-        </div>
     </div>
 </div>
 <div class="map" id="map">
 </div>
 
 <div class="Templates" id="Templates" style="display: none">
-    <div class="Block">
+    <a class="Block Empty">
         <div class="Photo"><div class="Ratings"></div></div>
         <div class="Data" data-position="">
             <div class="Title Name Place"></div>
@@ -80,7 +30,8 @@
             <div class="Title Info Time"></div>
             <div class="Title Distance"></div>
         </div>
+    </a>
+    <div class="Block Null">
+        <span> По Вашему запросу ничего не найдено! </span>
     </div>
 </div>
-
-

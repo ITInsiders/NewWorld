@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NW.DAL.Entities
 {
+    [Table("Places")]
     public class Place
     {
         [Key]
@@ -26,28 +27,8 @@ namespace NW.DAL.Entities
         [ForeignKey("Creater")]
         public virtual User User { get; set; }
 
-        public virtual List<Review> Review { get; set; }
+        public virtual List<Review> PlaceReview { get; set; }
         public virtual List<PlacePhoto> PlacePhoto { get; set; }
 
     }
-    /*
-    public class FullDescriptionPlace : Places
-    {
-        public List<int> Album { get; set; }  // ??????????????
-        public int Like { get; set; }
-        public int Dislike { get; set; }
-        public int Checkins { get; set; }
-        public int Ratings { get; set; }
-        public List<Comment> Comments { get; set; } // ??????????????
-    }
-
-    public class BriefDescriptionPlace : Places
-    {
-        public int Photo { get; set; }
-        public int Like { get; set; }
-        public int Dislike { get; set; }
-        public int Checkins { get; set; }
-        public int Ratings { get; set; }
-    }
-    */
 }
