@@ -26,6 +26,9 @@ namespace NW.BL.DTO
         public int Access { get; set; } // доступы: 0 - простой пользоваель, 1 - администратор
 
         public List<UserPhotoDTO> userPhotoDTO => UserPhotoServices.GetAll().Where(x => x.UserId == Id).ToList();
+        public List<UserInQuestDTO> userInQuestDTO => UserInQuestServices.GetAll().Where(x => x.UserId == Id).ToList();
+        public List<AnswerDTO> answerDTO => AnswerServices.GetAll().Where(x => x.UserId == Id).ToList();
+        public List<QuestDTO> questDTO => QuestServices.GetAll().Where(x => x.Creater == Id).ToList();
     }
 
     public class Entry

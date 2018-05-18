@@ -18,6 +18,11 @@ namespace NW.PL
                 url: "Quest/{action}/{module}/{modal}",
                 defaults: new { controller = "Quest", action = "Home", module = UrlParameter.Optional, modal = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Update",
+                url: "Update/{action}/{id}",
+                defaults: new { controller = "Update", action = "Update", id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Account",

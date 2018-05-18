@@ -49,10 +49,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\Context.cs" />
+    <Compile Include="Entities\Answer.cs" />
+    <Compile Include="Entities\Point.cs" />
+    <Compile Include="Entities\Prize.cs" />
+    <Compile Include="Entities\Quest.cs" />
     <Compile Include="Entities\Review.cs" />
     <Compile Include="Entities\PlacePhoto.cs" />
     <Compile Include="Entities\Place.cs" />
+    <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserInQuest.cs" />
     <Compile Include="Entities\UserPhoto.cs" />
     <Compile Include="Entities\UserVerification.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -68,6 +74,18 @@
     <Compile Include="Migrations\201805082229480_M.cs" />
     <Compile Include="Migrations\201805082229480_M.Designer.cs">
       <DependentUpon>201805082229480_M.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805142339394_migr.cs" />
+    <Compile Include="Migrations\201805142339394_migr.Designer.cs">
+      <DependentUpon>201805142339394_migr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805151838577_migrat.cs" />
+    <Compile Include="Migrations\201805151838577_migrat.Designer.cs">
+      <DependentUpon>201805151838577_migrat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805152054333_migrati.cs" />
+    <Compile Include="Migrations\201805152054333_migrati.Designer.cs">
+      <DependentUpon>201805152054333_migrati.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +110,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805082229480_M.resx">
       <DependentUpon>201805082229480_M.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805142339394_migr.resx">
+      <DependentUpon>201805142339394_migr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805151838577_migrat.resx">
+      <DependentUpon>201805151838577_migrat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805152054333_migrati.resx">
+      <DependentUpon>201805152054333_migrati.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

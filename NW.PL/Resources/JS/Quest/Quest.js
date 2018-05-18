@@ -52,15 +52,38 @@ function getPageByHash(link) {
 
 var setPage = function (data) {
     $(".InfoBlock .MinPage").html(data);
+    loadCSS();
+    loadJS();
     $(".InfoBlock .Header .Title").text(PageData.text);
+    $("title").html(PageData.text);
+}
+
+var loadJS = function () {
+    var JS = $("input#JS").val();
+    $.ajax({
+        type: "GET",
+        url: JS,
+        dataType: "script",
+        cache: true,
+        async: false
+    });
+}
+
+var loadCSS = function () {
+    var CSS = $("input#CSS").val();
+    $("<link/>", {
+        rel: "stylesheet",
+        type: "text/css",
+        href: CSS
+    }).appendTo("head");
 }
 
 function initHashChange() {
     $("a").click(function () {
-        if ($(this).attr("href").substr(0, 1) == "/") {
+        if ($(this).attr("href").substr(0, 7) == "/Quest/") {
             if (getNameBrouser() == "gecko") {
-                window.history.pushState("", "", $(this).attr("href"));
-                window.history.replaceState("", "", $(this).attr("href"));
+                window.history.pushState(null, null, $(this).attr("href"));
+                //window.history.replaceState(null, null, $(this).attr("href"));
                 getPageByHash($(this).attr("href"));
             } else {
                 window.location.hash = $(this).attr("href");
@@ -69,6 +92,10 @@ function initHashChange() {
         }
     });
 }
+
+window.addEventListener("popstate", function (e) {
+    getPageByHash(location.pathname);
+});
 
 function getNameBrouser() {
     var userAgent = navigator.userAgent.toLowerCase();

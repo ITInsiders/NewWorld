@@ -94,8 +94,11 @@ a {
         height: 200px;
         max-width: 200px;
         border-radius: 50%;
-        background: url('/Resources/Images/System/Account/anon.jpg') no-repeat center;
-        background-size: 130%;
+        overflow: hidden;
+        background: url('/Resources/Images/System/Account/anon.jpg') center no-repeat;
+        background-size: cover;
+        background-position: top;
+
     }
 
     .Upload {
@@ -111,8 +114,11 @@ a {
     text-align: center;
     color: #fff;
     border-color: #1161ee;
+    margin: 20px  auto;
 }
-
+.ButtonBlock {
+    margin-top: 20px;
+}
 .ModelPhotoSave {
     position: fixed;
     top: 0;
@@ -170,16 +176,17 @@ a {
             background-image: url("/Resources/Images/System/Icons/loader.gif");
         }
 
-        .ButtonBlock {
-            width: 100%;
-            height: 50px;
-            text-align: center;
-        }
-
-        button {
-            border: none;
-            padding: 15px 20px;
-            border-radius: 25px;
-        }
+        
     }
+}
+.ButtonBlock {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
+
+button {
+    border: none;
+    padding: 15px 20px;
+    border-radius: 25px;
 }

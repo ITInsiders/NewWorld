@@ -1,0 +1,70 @@
+﻿@{
+    Identity Identity = new Identity();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/Resources/Images/System/Icons/globe_icon.png" type="image/png">
+    <title>@ViewBag.Page.Title</title>
+    @Styles.Render("~/bundles/SystemStyles")
+    @RenderSection("Styles", required: false)
+    @Styles.Render(@ViewBag.Page.ControllerStyleMinHref)
+    @Styles.Render(@ViewBag.Page.ViewStyleMinHref)
+</head>
+<body>
+    <header class="header min">
+        <div class="container">
+            <div class="Left">
+                <div class="Block ImageTitle">
+                    <div class="Image">
+                        <img alt="new world" title="NEW WORLD" src="~/Resources/Images/System/Icons/globe_white.svg" />
+                    </div>
+                    <div class="Title">New World</div>
+                </div>
+            </div>
+            <div class="Right">
+                <div class="Block MenuTop">
+                    <a class="Item" href="/Home#Home">Главная</a>
+                    <a class="Item" href="/Home#Main">Основное</a>
+                    <a class="Item" href="/Home#Intristing">Интересное</a>
+                    <a class="Item" href="/Home#About">О нас</a>
+                </div>
+                @{
+                    if (Identity.isAuthentication)
+                    {
+                        <div class="Block Account" onclick="showuser();">
+                            <div class="Image">
+                                <img alt="user" title="user" class="user" src="~/Resources/Images/System/Icons/user_white.svg" />
+                            </div>
+                            <div class="Info">
+                                <div class="name">@Identity.user.Login</div>
+                                <hr />
+                                <a class="map" href="/Account/Profile">Мой аккаунт</a>
+                                <a class="exit" href="/Account/Exit">Выход</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <a class="Block Account" href="/Account/Account">
+                            <div class="Image">
+                                <img alt="user" title="user" class="user" src="~/Resources/Images/System/Icons/user_white.svg" />
+                            </div>
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </header>
+    <section>@RenderBody()</section>
+    <footer class="footer"></footer>
+    @Scripts.Render("~/bundles/SystemScripts")
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    @RenderSection("Scripts", required: false)
+    @Scripts.Render(@ViewBag.Page.ControllerScriptHref)
+    @Scripts.Render(@ViewBag.Page.ViewScriptHref)
+</body>
+</html>

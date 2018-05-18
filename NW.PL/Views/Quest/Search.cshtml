@@ -1,4 +1,30 @@
 ﻿@{
     Layout = ViewBag.Page.LayoutHref;
+    Identity Identity = new Identity();
+    ViewBag.Identity = Identity;
+    string ViewScriptHref = ((string)ViewBag.Page.ViewScriptHref).Replace("~", "");
+    string ViewStyleHref = ((string)ViewBag.Page.ViewStyleMinHref).Replace("~", "");
 }
-S
+
+
+<input id="JS" value="@ViewScriptHref" />
+<input id="CSS" value="@ViewStyleHref" />
+
+<form class="SearchBlock" action="javascript:SearchBlocks();">
+    <input type="search" placeholder="Поиск" class="Search" id="Search" list="SearchList" />
+    <datalist id="SearchList"></datalist>
+    <button class="SearchButton" id="SearchButton"></button>
+</form>
+<div class="Blocks Templates" id="SearchResult">
+</div>
+<input id="id" value="@ViewBag.id" hidden style="display: none;"/>
+<div class="Templates" id="Templates" style="display: none">
+    <a class="Block Empty">
+        <div class="ImgBlock" style="background-image: url(/Resources/Images/System/Home/Map.jpg)">
+            <div class="Title"></div>
+        </div>
+    </a>
+    <div class="Block Null" >
+        <span> По Вашему запросу ничего не найдено! </span>
+    </div>
+</div>

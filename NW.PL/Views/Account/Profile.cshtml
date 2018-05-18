@@ -12,45 +12,48 @@
     {
         using (Html.BeginForm("UploadPhoto", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-                <input type="file" name="upload" id="loadPhoto" style="display: none !important;">
-                <div class="filterFon">
-                    <div class="login-wrap">
-                        <div class="login-html">
-                            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Мой профиль</label>
-                            <div class="login-form">
+            <input type="file" name="upload" id="loadPhoto" style="display: none !important;">
+            <div class="filterFon">
+                <div class="login-wrap">
+                    <div class="login-html">
+                        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Мой профиль</label>
+                        <div class="login-form">
 
-                                <div class="PhotoBlock">
-                                    <div class="Photo" style="background-image: url('@{
+                            <div class="PhotoBlock">
+                                <div class="Photo" style="background-image: url('@{
                                         if (@ViewBag.userPhoto.Count > 0)
                                         { @ViewBag.userPhoto[0].SRC;
                                         } }')"></div>
-                                    <div class="Upload" onclick="$('#loadPhoto').click();">
-                                        <span>Изменить фотографию</span>
-                                        <i class="Image Adress glyphicon glyphicon-upload"></i>
-                                    </div>
+                                <div class="Upload" onclick="$('#loadPhoto').click();">
+                                    <span>Изменить фотографию</span>
+                                    <i class="Image Adress glyphicon glyphicon-upload"></i>
                                 </div>
-                                <div class="LoginBlock">
-                                    <span>@Identity.user.Login</span>
-                                </div>
-
+                            </div>
+                            <div class="LoginBlock">
+                                <span>@Identity.user.Login</span>
+                            </div>
+                            <div class="ButtonBlock">
+                                <button type="button" id="AddPlace">Добавить место</button>
+                                <button type="button" id="AddQuest">Добавить квест</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="ModelPhotoSave" style="display: none;">
+            <div class="ModelPhotoSave" style="display: none;">
 
-                    <div class="HiddenModal" onclick="HiddenModal();"></div>
-                    <div class="WindowBlock">
-                        <div class="Title">Загрузка главной фотографии:</div>
-                        <div class="Picture"></div>
-                        <div class="ButtonBlock">
-                            <button type="submit">Загрузить</button>
-                            <button type="button" onclick="HiddenModal();">Отменить</button>
-                        </div>
+                <div class="HiddenModal" onclick="HiddenModal();"></div>
+                <div class="WindowBlock">
+                    <div class="Title">Загрузка главной фотографии:</div>
+                    <div class="Picture"></div>
+                    <div class="ButtonBlock">
+                        <button type="submit">Загрузить</button>
+                        <button type="button" onclick="HiddenModal();">Отменить</button>
                     </div>
-
                 </div>
-                                        }
-                                            }
-                                        }
+
+            </div>
+        }
+    }
+}

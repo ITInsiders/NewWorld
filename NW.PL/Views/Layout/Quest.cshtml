@@ -4,7 +4,9 @@
         @RenderBody()
         return;
     }
+    Identity Identity = new Identity();
 }
+
 
 <!DOCTYPE html>
 <html>
@@ -18,20 +20,68 @@
     @Styles.Render(@ViewBag.Page.ViewStyleMinHref)
 </head>
 <body>
-    <div class="Map" id="Map"></div>
-    <div class="InfoBlock">
-        <div class="Header">
-            <button type="button" class="Back Button">
-                <i class="fa fa-angle-left"></i>
-            </button>
-            <div class="Title">Главная</div>
-            <div class="Search">
+    <header class="header min">
+        <div class="container">
+            <div class="Left">
+                <div class="Block ImageTitle">
+                    <div class="Image">
+                        <img alt="new world" title="NEW WORLD" src="~/Resources/Images/System/Icons/globe_white.svg" />
+                    </div>
+                    <div class="Title">New World</div>
+                </div>
+            </div>
+            <div class="Right">
+                <div class="Block MenuTop">
+                    <a class="Item" href="/Home#Home">Главная</a>
+                    <a class="Item" href="/Home#Main">Основное</a>
+                    <a class="Item" href="/Home#Intristing">Интересное</a>
+                    <a class="Item" href="/Home#About">О нас</a>
+                </div>
+                @{
+                    if (Identity.isAuthentication)
+                    {
+                        <div class="Block Account" onclick="showuser();">
+                            <div class="Image">
+                                <img alt="user" title="user" class="user" src="~/Resources/Images/System/Icons/user_white.svg" />
+                            </div>
+                            <div class="Info">
+                                <div class="name">@Identity.user.Login</div>
+                                <hr />
+                                <a class="map" href="/Account/Profile">Мой аккаунт</a>
+                                <a class="exit" href="/Account/Exit">Выход</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
 
+                        <a class="Block Account" href="/Account/Account">
+                            <div class="Image">
+                                <img alt="user" title="user" class="user" src="~/Resources/Images/System/Icons/user_white.svg" />
+                            </div>
+                        </a>
+                    }
+                }
             </div>
         </div>
-        <div class="Body MinPage">@RenderBody()</div>
-    </div>
-    <div class="Modal" style="display: none"></div>
+    </header>
+    <section>
+        <div class="Map" id="Map"></div>
+        <div class="InfoBlock">
+            <div class="Header">
+                <div class="Back Button" onclick="window.history.back();">
+                    <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="Title">Главная</div>
+                <div class="Search">
+
+                </div>
+            </div>
+            <div class="Body MinPage">@RenderBody()</div>
+        </div>
+        <div class="Modal" style="display: none"></div>
+    </section>
+    <footer class="footer"></footer>
     @Scripts.Render("~/bundles/SystemScripts")
     @Scripts.Render("~/bundles/hashchange")
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>

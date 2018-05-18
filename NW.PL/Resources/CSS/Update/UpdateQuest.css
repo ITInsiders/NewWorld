@@ -1,0 +1,179 @@
+﻿body {
+  margin: 0;
+  color: #d8ddf5;
+  font: 600 16px/18px 'Open Sans', sans-serif;
+}
+body section {
+  background: url(/Resources/Images/System/Account/Map.png) no-repeat center;
+  height: calc(100vh - 60px);
+  margin-top: 30px;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+@media (max-width: 992px) {
+  body section {
+    height: 100vh;
+  }
+}
+.ymaps-2-1-64-search__suggest-item {
+  color: #283965;
+}
+.AddQuest {
+  background: rgba(40, 57, 101, 0.5);
+  height: 100vh;
+}
+.well {
+  padding: 30px;
+  padding-left: 25px;
+  box-shadow: 0 0 10px #666666;
+  margin: 3% auto 0;
+  width: 450px;
+  height: calc(100vh - 130px);
+  background: rgba(40, 57, 101, 0.9);
+  border: 0;
+}
+@media (max-width: 992px) {
+  .well {
+    height: 100vh;
+    margin: 5% auto 0;
+  }
+}
+.centerBlock {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.centerBlock::-webkit-scrollbar {
+  width: 0px;
+}
+.well-header {
+  height: 50px;
+}
+.sign-in,
+.sign-up,
+.group .check {
+  display: none;
+}
+.sign-in:checked + .tab,
+.sign-up:checked + .tab {
+  color: #fff;
+  border-color: #1161ee;
+}
+.tab {
+  text-transform: uppercase;
+}
+.tab {
+  font-size: 22px;
+  margin-right: 15px;
+  padding-bottom: 5px;
+  margin: 0 15px 10px 0;
+  display: inline-block;
+  border-bottom: 2px solid transparent;
+}
+.form-group {
+  margin-bottom: 5px;
+}
+.form-group .map {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  display: none;
+}
+.form-group .map.active {
+  display: block;
+}
+.input-group-addon {
+  background-color: #ffffff;
+  color: #32426b;
+}
+.btn-warning {
+  background-color: #ffffff;
+  color: #32426b;
+  border-color: #3b8990;
+}
+.text-success {
+  color: #222930;
+}
+.row {
+  margin-bottom: 15px;
+}
+.btn {
+  position: relative;
+  padding: 10px 16px;
+  font-size: 15px;
+  line-height: 1.33;
+  border-radius: 6px;
+  min-width: 90px;
+  height: 34px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  outline: none !important;
+  background-color: #ffffff;
+  color: #32426b;
+}
+.dropdown-menu {
+  min-width: 120px;
+}
+.AddPhoto {
+  width: 100%;
+  height: 160px;
+  margin: 5px;
+  background: no-repeat center;
+  background-size: cover;
+  background-image: url('/Resources/images/icon/Camera.png');
+  margin-top: 7px;
+  vertical-align: middle;
+  float: right;
+}
+.Pictures {
+  width: 100%;
+  height: auto;
+}
+.Pictures .Picture {
+  width: 100%;
+  max-height: 150px;
+  margin-top: 4px;
+  margin-right: 4px;
+  display: inline-block;
+  float: left;
+}
+.remove {
+  position: relative;
+  padding: 2px 2px;
+  font-size: 12px;
+  line-height: 1.33;
+  min-width: 20px;
+  height: 34px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  outline: none !important;
+  border: 1px solid transparent;
+  background-color: #fff;
+  color: #32426b;
+}
+#StudyImg {
+  background-image: url(/Resources/Images/System/Quest/stady.gif);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+.Pictures .Picture:nth-child(2n) {
+  margin-right: 0;
+}
+@media (max-width: 450px) {
+  .well,
+  .btn-group,
+  .btn {
+    width: 100% !important;
+  }
+  .btn-group,
+  .btn,
+  .dropdown-menu {
+    font-size: 12px;
+    min-width: 90px;
+  }
+  .btn {
+    padding-left: 10px;
+  }
+}

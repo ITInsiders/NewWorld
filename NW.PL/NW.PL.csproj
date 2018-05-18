@@ -151,6 +151,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\QuestController.cs" />
+    <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -160,6 +161,7 @@
     <Compile Include="Models\PlaceRating.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\SearchLine.cs" />
+    <Compile Include="Models\UpdateQuest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -225,11 +227,27 @@
     <Content Include="Resources\CSS\Quest\QuestHome.min.css">
       <DependentUpon>QuestHome.css</DependentUpon>
     </Content>
+    <Content Include="Resources\CSS\Quest\QuestInformQuest.css" />
+    <Content Include="Resources\CSS\Quest\QuestInformQuest.min.css">
+      <DependentUpon>QuestInformQuest.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Quest\QuestSearch.css" />
     <Content Include="Resources\CSS\Quest\QuestSearch.min.css">
       <DependentUpon>QuestSearch.css</DependentUpon>
     </Content>
     <Content Include="Resources\CSS\System\Fonts.css" />
+    <Content Include="Resources\CSS\Update\Update.css" />
+    <Content Include="Resources\CSS\Update\Update.min.css">
+      <DependentUpon>Update.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Update\UpdatePlace.css" />
+    <Content Include="Resources\CSS\Update\UpdatePlace.min.css">
+      <DependentUpon>UpdatePlace.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Update\UpdateQuest.css" />
+    <Content Include="Resources\CSS\Update\UpdateQuest.min.css">
+      <DependentUpon>UpdateQuest.css</DependentUpon>
+    </Content>
     <Content Include="Resources\Images\System\Icons\back.svg" />
     <Content Include="Resources\Images\System\Home\Map.jpg" />
     <Content Include="Resources\Images\System\Icons\globe_black.svg" />
@@ -249,6 +267,8 @@
     <Content Include="Resources\JS\Map\MapInformPlace.js" />
     <Content Include="Resources\JS\Map\MapSearch.js" />
     <Content Include="Resources\JS\Quest\Quest.js" />
+    <Content Include="Resources\JS\Quest\QuestHome.js" />
+    <Content Include="Resources\JS\Quest\QuestInformQuest.js" />
     <Content Include="Resources\JS\Quest\QuestSearch.js" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
@@ -265,6 +285,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Resources\LESS\Account\Account.less" />
     <None Include="Resources\LESS\Account\AccountAccount.less" />
+    <Content Include="Resources\JS\Update\UpdatePlace.js" />
+    <Content Include="Resources\JS\Update\UpdateQuest.js" />
     <Content Include="Resources\LESS\Home\Home.css">
       <DependentUpon>Home.less</DependentUpon>
     </Content>
@@ -304,6 +326,10 @@
     <Content Include="Resources\LESS\Map\MapInformPlace.less" />
     <Content Include="Scripts\hashchange.js" />
     <Content Include="Resources\LESS\Account\AccountProfile.less" />
+    <Content Include="Resources\LESS\Update\UpdatePlace.less" />
+    <Content Include="Resources\LESS\Update\Update.less" />
+    <Content Include="Resources\LESS\Quest\QuestInformQuest.less" />
+    <Content Include="Resources\LESS\Update\UpdateQuest.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -361,9 +387,14 @@
     <Content Include="Views\Layout\Map.cshtml" />
     <Content Include="Views\Map\InformPlace.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Update\Place.cshtml" />
+    <Content Include="Views\Layout\Update.cshtml" />
+    <Content Include="Views\Quest\InformQuest.cshtml" />
+    <Content Include="Views\Update\Quest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resources\Images\Places\" />
     <Folder Include="Resources\Images\Users\" />
     <Folder Include="Resources\Logs\" />
   </ItemGroup>

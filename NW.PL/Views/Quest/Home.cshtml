@@ -1,13 +1,22 @@
 ﻿@{
     Layout = ViewBag.Page.LayoutHref;
+    Identity Identity = new Identity();
+    ViewBag.Identity = Identity;
+    string ViewScriptHref = ((string)ViewBag.Page.ViewScriptHref).Replace("~", "");
+    string ViewStyleHref = ((string)ViewBag.Page.ViewStyleMinHref).Replace("~", "");
 }
+<input id="JS" value="@ViewScriptHref" />
+<input id="CSS" value="@ViewStyleHref" />
 
-<div class="questBlock">
-
-</div>
-
-<script type="application/json">
-    var PageData = {
-    title = "Квесты"
-    }
-</script>
+<a class="ImgBlock SoonStartImg" href="/Quest/Search/1">
+    <div class="Title">Скоро начало</div>
+</a>
+<a class="ImgBlock PopularImg" href="/Quest/Search/2">
+    <div class="Title">Популярные</div>
+</a>
+<a class="ImgBlock NewImg" href="/Quest/Search/3">
+    <div class="Title">Новые</div>
+</a>
+<a class="ImgBlock AllImg" href="/Quest/Search/4">
+    <div class="Title">Все</div>
+</a>

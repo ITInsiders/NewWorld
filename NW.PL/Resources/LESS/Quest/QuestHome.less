@@ -1,1 +1,45 @@
-﻿
+﻿body {
+
+    .ImgBlock {
+        height: 200px;
+        width: 100%;
+        margin: 0 !important;
+        background: center no-repeat;
+        background-size: cover;
+        margin: 40px 0;
+        cursor: pointer;
+
+        @media (max-width: 576px) {
+            & {
+                margin: 0 -15px;
+            }
+        }
+
+        &.SoonStartImg {
+            background-image: url("/Resources/Images/System/Quest/time.jpg");
+        }
+
+        &.PopularImg {
+            background-image: url("/Resources/Images/System/Quest/popular.jpg");
+        }
+
+        &.NewImg {
+            background-image: url("/Resources/Images/System/Home/Quest.jpg");
+        }
+
+        &.AllImg {
+            background-image: url("/Resources/Images/System/Quest/all.jpg");
+        }
+
+        .Title {
+            width: 100%;
+            height: 100%;
+            line-height: 200px;
+            background: rgba(0,0,0,.6);
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 35px;
+        }
+    }
+}

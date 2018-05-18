@@ -9,7 +9,7 @@ namespace NW.DAL.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "NW.DAL.EF.Context";
         }
 

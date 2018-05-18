@@ -14,6 +14,12 @@ namespace NW.DAL.EF
         public DbSet<Place> Places { get; }
         public DbSet<PlacePhoto> PlacePhotos { get; }
         public DbSet<Review> Reviews { get; }
+        public DbSet<Quest> Quests { get; }
+        public DbSet<Status> Statuses { get; }
+        public DbSet<UserInQuest> UserInQuests { get; }
+        public DbSet<Prize> Prizes { get; }
+        public DbSet<Point> Points { get; }
+        public DbSet<Answer> Answers { get; }
 
     }
 }

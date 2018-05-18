@@ -20,6 +20,10 @@
     "inputFile": "Resources/LESS/Quest/QuestSearch.less"
   },
   {
+    "outputFile": "Resources/CSS/Quest/QuestInformQuest.css",
+    "inputFile": "Resources/LESS/Quest/QuestInformQuest.less"
+  },
+  {
     "outputFile": "Resources/CSS/Account/Account.css",
     "inputFile": "Resources/LESS/Account/Account.less"
   },
@@ -46,5 +50,17 @@
   {
     "outputFile": "Resources/CSS/Map/MapInformPlace.css",
     "inputFile": "Resources/LESS/Map/MapInformPlace.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Update/Update.css",
+    "inputFile": "Resources/LESS/Update/Update.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Update/UpdatePlace.css",
+    "inputFile": "Resources/LESS/Update/UpdatePlace.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Update/UpdateQuest.css",
+    "inputFile": "Resources/LESS/Update/UpdateQuest.less"
   }
 ]

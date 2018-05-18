@@ -1,24 +1,47 @@
-﻿@import "../Default.less";
+﻿@import "../Home/Home.less";
+@import "../Default.less";
 @import "../Library.less";
 
+.header.min {
+    z-index: 2;
+}
 body {
+    background-image: url(/Resources/Images/System/Account/Map.png);
+
+    #JS, #CSS {
+        display: none !important;
+    }
+
     .Map {
         width: 100%;
-        height: 100vh;
+        height: calc(~"100vh - 30px");
         display: inline-block;
         float: left;
+
+        @media (max-width: 768px) {
+            & {
+                display: none;
+            }
+        }
     }
 
     .InfoBlock {
         position: absolute;
         left: 20px;
-        top: 20px;
+        top: 40px;
         width: 350px;
-        max-width: 40%;
-        height: calc(~"100vh - 40px");
+        height: calc(~"100vh - 80px");
         overflow: hidden;
         border-radius: @borderRadius;
         box-shadow: 1px 1px 5px 0 @backgroundBlue;
+
+
+
+        @media (max-width: 768px) {
+            & {
+                width: calc(~"100% - 40px");
+            }
+        }
 
         &, & * {
             display: inline-block;
@@ -27,6 +50,7 @@ body {
         .Header {
             width: 100%;
             height: 30px;
+            line-height: 29px;
             overflow: hidden;
             background: @backgroundBlue;
             color: white;
@@ -47,8 +71,17 @@ body {
             width: 100%;
             height: calc(~"100% - 30px");
             overflow-x: hidden;
-            background-color: white;
+            background-color: rgba(255,255,255,.8);
             float: left;
+
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
         }
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
     }
 }
