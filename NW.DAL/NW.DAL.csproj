@@ -63,29 +63,9 @@
     <Compile Include="Entities\UserVerification.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201804121708203_InitialCreate.cs" />
-    <Compile Include="Migrations\201804121708203_InitialCreate.Designer.cs">
-      <DependentUpon>201804121708203_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804302127597_migrat1.cs" />
-    <Compile Include="Migrations\201804302127597_migrat1.Designer.cs">
-      <DependentUpon>201804302127597_migrat1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805082229480_M.cs" />
-    <Compile Include="Migrations\201805082229480_M.Designer.cs">
-      <DependentUpon>201805082229480_M.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805142339394_migr.cs" />
-    <Compile Include="Migrations\201805142339394_migr.Designer.cs">
-      <DependentUpon>201805142339394_migr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805151838577_migrat.cs" />
-    <Compile Include="Migrations\201805151838577_migrat.Designer.cs">
-      <DependentUpon>201805151838577_migrat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805152054333_migrati.cs" />
-    <Compile Include="Migrations\201805152054333_migrati.Designer.cs">
-      <DependentUpon>201805152054333_migrati.cs</DependentUpon>
+    <Compile Include="Migrations\201805182130270_M.cs" />
+    <Compile Include="Migrations\201805182130270_M.Designer.cs">
+      <DependentUpon>201805182130270_M.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,23 +82,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804121708203_InitialCreate.resx">
-      <DependentUpon>201804121708203_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804302127597_migrat1.resx">
-      <DependentUpon>201804302127597_migrat1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805082229480_M.resx">
-      <DependentUpon>201805082229480_M.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805142339394_migr.resx">
-      <DependentUpon>201805142339394_migr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805151838577_migrat.resx">
-      <DependentUpon>201805151838577_migrat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805152054333_migrati.resx">
-      <DependentUpon>201805152054333_migrati.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805182130270_M.resx">
+      <DependentUpon>201805182130270_M.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

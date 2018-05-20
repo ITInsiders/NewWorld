@@ -68,23 +68,25 @@
                         </div>
                     </div>
                     <div class="row Addresses" id="Address" >
-                        <div class="Address" data-id="0">
+                        <div class="Address" id="Address_0" data-id="0">
                             <div class="col-xs-11 col-sm-11 col-md-11" style="padding-right: 0;">
                                 <div class="form-group">
                                     <div class="input-group InputHelp">
-                                        <div class="HelpMessage">Уточните адрес</div>
+                                        <div class="HelpMessage IHint">Уточните адрес</div>
                                         <div class="input-group-addon">
                                             <i class="glyphicon glyphicon-home"></i>
                                         </div>
-                                        <input type="text" placeholder="Адрес" name="Points[0].Address" class="adr form-control HelpInput" id="SearchAddress">
-                                        <input name="Points[0].Longitude" readonly hidden>
-                                        <input name="Points[0].Latitude" readonly hidden>
+                                        <input type="text" placeholder="Адрес" name="Points[0].Address" class="IAddress adr form-control HelpInput"
+                                               id="SearchAddress_0"
+                                               onblur="SearchBlur(this);" onfocus="SearchFocus(this);">
+                                        <input class="ILatitude" name="Points[0].Latitude" readonly hidden>
+                                        <input class="ILongitude" name="Points[0].Longitude" readonly hidden>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="col-xs-1" style="padding-left: 0;">
-                                <button type="button" class="remove" id="Remove" title="Удалить">
+                                <button type="button" class="remove" id="Remove" title="Удалить" onclick="RemoveAddress(this);">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </div>
@@ -94,20 +96,20 @@
                                         <div class="input-group-addon">
                                             <i class="glyphicon glyphicon-list-alt"></i>
                                         </div>
-                                        <textarea placeholder="Задача" name="Points[0].Task" class="tsk form-control" style="height:34px;"></textarea>
+                                        <textarea placeholder="Задача" name="Points[0].Task" class="ITask tsk form-control" style="height:34px;"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row IDescription">
                         <div class="col-md-12 col-xs-12 col-sm-12">
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="glyphicon glyphicon-list-alt"></i>
                                     </div>
-                                    <textarea class="form-control" name="Description" placeholder="Описание"></textarea>
+                                    <textarea class="IDescription form-control" name="Description" placeholder="Описание"></textarea>
                                 </div>
                             </div>
                         </div>

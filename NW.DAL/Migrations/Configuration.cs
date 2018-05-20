@@ -10,7 +10,6 @@ namespace NW.DAL.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "NW.DAL.EF.Context";
         }
 
         protected override void Seed(NW.DAL.EF.Context context)

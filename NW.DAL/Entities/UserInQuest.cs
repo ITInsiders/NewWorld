@@ -14,7 +14,7 @@ namespace NW.DAL.Entities
         [Key]
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int QuestId { get; set; }
+        public int? QuestId { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public int StatusId { get; set; }
 

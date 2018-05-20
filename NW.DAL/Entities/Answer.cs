@@ -14,7 +14,7 @@ namespace NW.DAL.Entities
         [Key]
         public int Id { get; set; }
         public int PointId { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public string Message { get; set; }
         public bool GeoSuccess { get; set; }
 
