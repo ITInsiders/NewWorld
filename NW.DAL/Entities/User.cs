@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NW.DAL.Entities
 {
+    [Table("Users")]
     public class User
     {
         [Key]
@@ -29,6 +30,9 @@ namespace NW.DAL.Entities
         public virtual List<UserPhoto> UserPhoto { get; set; }
         public virtual UserVerification UserVerification { get; set; }
         public virtual List<Place> Places { get; set; }
+        public virtual List<UserInQuest> UserInQuest { get; set; }
+        public virtual List<Quest> Quest { get; set; }
+        public virtual List<Answer> Answer { get; set; }
 
     }
 

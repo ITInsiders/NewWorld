@@ -48,19 +48,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\AnswerDTO.cs" />
     <Compile Include="DTO\PlaceDTO.cs" />
     <Compile Include="DTO\PlacePhotoDTO.cs" />
+    <Compile Include="DTO\PointDTO.cs" />
+    <Compile Include="DTO\PrizeDTO.cs" />
+    <Compile Include="DTO\QuestDTO.cs" />
     <Compile Include="DTO\ReviewDTO.cs" />
+    <Compile Include="DTO\StatusDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\UserInQuestDTO.cs" />
     <Compile Include="DTO\UserPhotoDTO.cs" />
     <Compile Include="DTO\UserVerificationDTO.cs" />
     <Compile Include="Extensions\CryptMD5.cs" />
     <Compile Include="Extensions\MapperTranform.cs" />
     <Compile Include="Infrastructure\ValidationExeption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AnswerServices.cs" />
     <Compile Include="Services\PlacePhotoServices.cs" />
     <Compile Include="Services\PlaceServices.cs" />
+    <Compile Include="Services\PointServices.cs" />
+    <Compile Include="Services\PrizeServices.cs" />
+    <Compile Include="Services\QuestServices.cs" />
     <Compile Include="Services\ReviewServices.cs" />
+    <Compile Include="Services\StatusServices.cs" />
+    <Compile Include="Services\UserInQuestServices.cs" />
     <Compile Include="Services\UserPhotoServices.cs" />
     <Compile Include="Services\UserServices.cs" />
     <Compile Include="Services\UserVerificationServices.cs" />

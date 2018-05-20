@@ -10,7 +10,7 @@ namespace NW.BL.Services
 {
     public class ReviewServices
     {
-        private static EFUnitOfWork Database = new EFUnitOfWork();
+        private static EFUnitOfWork Database = EFUnitOfWork.I;
 
         public static void Create(ReviewDTO reviewDTO)
         {

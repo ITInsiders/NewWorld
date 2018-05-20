@@ -1,0 +1,127 @@
+﻿@{
+    Layout = ViewBag.Page.LayoutHref;
+    Identity Identity = new Identity();
+    ViewBag.Identity = Identity;
+    string ViewScriptHref = ((string)ViewBag.Page.ViewScriptHref).Replace("~", "");
+    string ViewStyleHref = ((string)ViewBag.Page.ViewStyleMinHref).Replace("~", "");
+}
+
+<input id="JS" value="@ViewScriptHref" />
+<input id="CSS" value="@ViewStyleHref" />
+@model NW.BL.DTO.QuestDTO
+@{
+    if (Model.SRC != null)
+    {
+        <div class="Img" style="background-image:url(@Model.SRC)"></div>
+    }
+    else
+    {
+        <div class="Img" style="background-image:url(/Resources/Images/System/Home/Map.jpg)"></div>
+    }
+}
+<div class="Name">@Model.Name</div>
+<div class="BlockDescription">
+    @{
+        if (Model.Description != null)
+        {
+            <div class="Description">@Model.Description</div>
+        }
+    }
+
+    <div class="IBlock">
+        <i class="Image Prize glyphicon glyphicon-gift"></i>
+        <div class="Title Prize">
+            @{
+                string PrizeStr = "";
+                foreach (var prize in ViewBag.prize)
+                {
+                    if (prize.MinPlace != prize.MaxPlace)
+                    {
+                        PrizeStr = prize.MinPlace + " - " + prize.MaxPlace + " место: " + prize.Name;
+                    }
+                    else { PrizeStr = prize.MinPlace + " место: " + prize.Name; }
+
+                    @PrizeStr
+                    <br />
+                    PrizeStr = "";
+                }
+            }
+        </div>
+    </div>
+    <div class="IBlock">
+        <i class="Image Sity glyphicon glyphicon-map-marker"></i>
+        <div class="Title Sity">@*г. Воронеж*@</div>
+    </div>
+    <div class="IBlock">
+        <i class="Image DateTime glyphicon glyphicon-time"></i>
+        <div class="Title DateTime">@Model.StartQuest</div>
+    </div>
+    <div class="IBlock">
+        <i class="Image Region glyphicon glyphicon-road"></i>
+        <div class="Title Region">@*Область квеста в радиусе 5 км от пр.Революции*@</div>
+    </div>
+    @{
+        if (Model.LimitOfPeople != null)
+        {
+            <div class="IBlock">
+                <i class="Image MaxPeople glyphicon glyphicon-user"></i>
+                <div class="Title MaxPeople">Максимальное количество людей: @Model.LimitOfPeople</div>
+            </div>
+        }
+    }
+    @{ 
+        if(Model.StartQuest > DateTime.Now)
+        {
+            <div class="IBlock">
+                <i class="Image NonPeople glyphicon glyphicon-eye-open"></i>
+                <div class="Title NonPeople">Уже участвуют: @ViewBag.countPeople</div>
+            </div>
+        }
+    }
+    
+</div>
+@{
+    if (Model.StartQuest > DateTime.Now )
+    {
+        if (Identity.isAuthentication)
+        {
+            if (ViewBag.userStart && !ViewBag.can)
+            {
+                <form class="ButtonBlock" method="post" action="/Quest/Participate/@Model.Id">
+                    <button>Принять участие</button>
+                </form>
+            }
+            else if (ViewBag.userStart && ViewBag.can)
+            {
+                <div class="ButtonBlock">
+                    <span>Вы уже участвуете в другом квесте</span>
+                </div>
+            }
+            else if (!ViewBag.userStart)
+            {
+                <div class="ButtonBlock">
+                    <span>Вы участвуете в этом квесте)</span>
+                </div>
+                <form class="ButtonBlock" method="post" action="/Quest/Refusal/@Model.Id">
+                    <button style="background-color: rgba(245, 7, 0, .6);">Отказаться от участия</button>
+                </form>
+            }
+
+
+        }
+        else
+        {
+            <div class="ButtonBlock">
+                <a href="/Account/Account">Войдите, чтобы участвовать</a>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="ButtonBlock">
+            <span>Квест уже идет или закончился</span>
+        </div>
+    }
+
+}
+

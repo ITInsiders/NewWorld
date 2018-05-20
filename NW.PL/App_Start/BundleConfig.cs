@@ -10,7 +10,8 @@ namespace NW.PL
         {
             bundles.Add(new StyleBundle("~/bundles/SystemStyles").Include(
                 "~/Content/bootstrap*",
-                "~/Resources/CSS/System/Fonts.css"
+                "~/Resources/CSS/System/Fonts.css",
+                "~/Content/font-awesome.min.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/SystemScripts").Include(
@@ -23,6 +24,9 @@ namespace NW.PL
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                         "~/Scripts/jquery.signalR-2.2.2.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/hashchange").Include(
+                        "~/Scripts/hashchange.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

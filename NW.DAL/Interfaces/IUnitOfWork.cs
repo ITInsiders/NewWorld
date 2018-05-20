@@ -16,6 +16,12 @@ namespace NW.DAL.Interfaces
         IRepository<User> Users { get; }
         IRepository<UserPhoto> UserPhotos { get; }
         IRepository<UserVerification> UserVerifications { get; }
+        IRepository<Quest> Quests { get; }
+        IRepository<Status> Statuses { get; }
+        IRepository<UserInQuest> UserInQuests { get; }
+        IRepository<Prize> Prizes { get; }
+        IRepository<Point> Points { get; }
+        IRepository<Answer> Answers { get; }
         void Save();
     }
 }

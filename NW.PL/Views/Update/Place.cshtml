@@ -1,0 +1,183 @@
+﻿@{
+    Layout = ViewBag.Page.LayoutHref;
+    Identity Identity = new Identity();
+    ViewBag.Identity = Identity;
+}
+@using (Html.BeginForm("AddPlace", "Update", FormMethod.Post, new { enctype = "multipart/form-data", @class = "AddPlace" }))
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="well center-block">
+                <div class="centerBlock">
+                    <div class="well-header">
+                        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Добавление объекта</label>
+
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-header"></i>
+                                    </div>
+                                    <input type="text" placeholder="Название" name="Name" class="form-control">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <div class="input-group InputHelp">
+                                    <div class="HelpMessage">Уточните адрес</div>
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-home"></i>
+                                    </div>
+                                    <input type="text" placeholder="Адрес" name="Address" class="form-control HelpInput" id="SearchAddress">
+                                    <input type="text" name="Coordinates" id="SearchCoordinates" hidden>
+                                    <div class="input-group-addon" id="openMapForInput" style="cursor: pointer;">
+                                        <i class="glyphicon glyphicon-map-marker"></i>
+                                    </div>
+                                </div>
+                                <div class="map" id="AddressMap"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-globe"></i>
+                                    </div>
+                                    <input type="text" placeholder="Сайт" name="Site" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-earphone"></i>
+                                    </div>
+                                    <input type="text" placeholder="Телефон" name="Phone" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-tags"></i>
+                                    </div>
+                                    <p><input list="tags" name="Tags" class="form-control" placeholder="Выберите категорию">
+                                        <datalist id="tags">
+                                            <option value="Ресторан"></option>
+                                            <option value="Кафе"></option>
+                                            <option value="Фастфуд"></option>
+                                        </datalist>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <i class="glyphicon glyphicon-time"></i>
+                            <label>Время работы:</label>
+                            <i class="glyphicon glyphicon-plus" id="AddWorkingHour" style="float:right;"></i>
+                        </div>
+                    </div>
+                    <div class="row WorkingHours" id="WorkingHour">
+                        <div class="WorkingHour">
+                            <div class="col-xs-4">
+                                <select type="text" class="form-control multiselect" multiple="multiple" role="multiselect" name="WorkingHour[]">
+                                    <option value="0" selected="selected">Понедельник</option>
+                                    <option value="1" selected="selected">Вторник</option>
+                                    <option value="2" selected="selected">Среда</option>
+                                    <option value="3" selected="selected">Четверг</option>
+                                    <option value="4" selected="selected">Пятница</option>
+                                    <option value="5">Суббота</option>
+                                    <option value="6">Воскресенье</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-3">
+                                <button type="button" class="btn TimeBlockBTN" id="BtnTime" title="Время">
+                                    Время <b class="caret"></b>
+                                    <div class="TimeBlock" id="TimeBlock" style="display:none;">
+                                        <div class="InputTime">
+                                            <input type="text" placeholder="с" name="TimeFrom[]" class="form-control time">
+                                            <span class="temp"> - </span>
+                                            <input type="text" placeholder="до" name="TimeTo[]" class="form-control time">
+                                        </div>
+                                        <div class="CheckDayAndNight">
+                                            <input type="checkbox" id="DayAndNight" name="dayAndNight">
+                                            <label for="DayAndNight">Круглосуточно</label>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-xs-3">
+                                <button type="button" class="btn TimeBlockBTN" id="BtnBreakTime" title="Время">
+                                    Перерыв <b class="caret"></b>
+                                    <div class="TimeBlock" id="TimeBlock" style="display:none;">
+                                        <div class="InputTime">
+                                            <input type="text" placeholder="с" name="BreakTimeFrom" class="form-control time">
+                                            <span class="temp"> - </span>
+                                            <input type="text" placeholder="до" name="BreakTimeTo" class="form-control time">
+                                        </div>
+                                        <div class="CheckDayAndNight">
+                                            <input type="checkbox" id="DayAndNight" name="Nonstop" checked>
+                                            <label for="DayAndNight">Без перерыва</label>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-xs-2">
+                                <button type="button" class="remove" id="RemoveTime" title="Удалить">
+                                    <i class="glyphicon glyphicon-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-list-alt"></i>
+                                    </div>
+                                    <textarea class="form-control" name="Description" placeholder="Описание"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <input type="file" id="PictureLoad" placeholder="Фотографии" name="Photo" class="form-control AddPhoto" multiple style="display: none !important;">
+                                <div class="Upload" onclick="$('#PictureLoad').click();">
+                                    <span>Добавить фотографии</span>
+                                    <i class="Image Adress glyphicon glyphicon-cloud-upload"></i>
+                                </div>
+                                <div class="Pictures"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row widget">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                            <button class="btn  btn-block"> Добавить объект </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

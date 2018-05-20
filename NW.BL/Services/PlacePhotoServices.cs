@@ -10,7 +10,7 @@ namespace NW.BL.Services
 {
     public class PlacePhotoServices
     {
-        private static EFUnitOfWork Database = new EFUnitOfWork();
+        private static EFUnitOfWork Database = EFUnitOfWork.I;
 
         public static void Create(PlacePhotoDTO placePhotoDTO)
         {
@@ -32,8 +32,8 @@ namespace NW.BL.Services
         public static void Update(PlacePhotoDTO placePhotoDTO)
         {
             PlacePhoto placePhoto = Database.PlacePhotos.Get(placePhotoDTO.Id);
-            placePhoto.PlaceId = placePhotoDTO.PlaceId;
             placePhoto.SRC = placePhotoDTO.SRC;
+            placePhoto.Main = placePhotoDTO.Main;
             Database.PlacePhotos.Update(placePhoto);
             Database.Save();
         }

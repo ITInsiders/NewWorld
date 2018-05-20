@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-
+using NW.BL.Services;
 
 namespace NW.BL.DTO
 {
@@ -25,10 +25,43 @@ namespace NW.BL.DTO
         public double? Rating { get; set; }
         public int Access { get; set; } // доступы: 0 - простой пользоваель, 1 - администратор
 
+        public List<UserPhotoDTO> userPhotoDTO => UserPhotoServices.GetAll().Where(x => x.UserId == Id).ToList();
+        public List<UserInQuestDTO> userInQuestDTO => UserInQuestServices.GetAll().Where(x => x.UserId == Id).ToList();
+        public List<AnswerDTO> answerDTO => AnswerServices.GetAll().Where(x => x.UserId == Id).ToList();
+        public List<QuestDTO> questDTO => QuestServices.GetAll().Where(x => x.Creater == Id).ToList();
     }
 
-    public class UserRegistration: UserDTO
+    public class Entry
     {
+        public UserDTO Profile = new UserDTO();
+
+        [Required(ErrorMessage = "Введите логин")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Логин должен состоять от 3 до 30 символов")]
+        [RegularExpression(@"[aA-zZ]{1}[aA-zZ0-9_-]{2,29}", ErrorMessage = "Не правильно введен логин")]
+        [System.Web.Mvc.Remote("ECheckLogin", "Account", ErrorMessage = "Данного логина не существует")]
+        public string Login { get { return Profile.Login; } set { Profile.Login = value; } }
+
+        [Required(ErrorMessage = "Введите пароль")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Пароль должен состоять от 3 до 30 символов")]
+        public string Password { get { return Profile.Password; } set { Profile.Password = value; } }
+    }
+
+    public class UserRegistration
+    {
+        public UserDTO Profile = new UserDTO();
+
+        [Required(ErrorMessage = "Введите логин")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Логин должен состоять от 3 до 30 символов")]
+        [RegularExpression(@"[aA-zZ]{1}[aA-zZ0-9_-]{2,29}", ErrorMessage = "Не правильно введен логин")]
+        [System.Web.Mvc.Remote("RCheckLogin", "Account", ErrorMessage = "Данный логин уже используется")]
+        public string Login { get { return Profile.Login; } set { Profile.Login = value; } }
+
+        [Required(ErrorMessage = "Введите пароль")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Пароль должен состоять от 3 до 30 символов")]
+        public string Password { get { return Profile.Password; } set { Profile.Password = value; } }
+
+        [Required(ErrorMessage = "Повторите пароль")]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string RePassword { get; set; }
     }
 }

@@ -1,0 +1,165 @@
+﻿@{
+    Layout = ViewBag.Page.LayoutHref;
+    Identity Identity = new Identity();
+    ViewBag.Identity = Identity;
+}
+@model NW.BL.DTO.PlaceDTO
+<input id="Longitude" class="hidden" value="@Model.Longitude" />
+<input id="Latitude" class="hidden" value="@Model.Latitude" />
+<div class="container">
+    @if (Request.UrlReferrer != null)
+    {<a class="Back" href="@Request.UrlReferrer.AbsolutePath"></a>}
+     <div class="Map col-md-7 col-xs-12">
+
+         <div id="Map"></div>
+     </div>
+    <div class="InfoBlock col-md-5 col-xs-12">
+        <div class="Name"> @Model.Name <div class="Ratings" id="Rating">@ViewBag.Ratings</div></div>
+        <div class="BlockDescription">
+            <div class="Description">@Model.Description</div>
+            @{ if (Model.Address != null)
+                {<div class="IBlock">
+                        <i class="Image Adress glyphicon glyphicon-map-marker"></i>
+                        <div class="Title Adress">@Model.Address</div>
+                    </div>}
+            }
+
+                 <div class="IBlock" id="Distance" style="display: none;">
+                     <i class="Image Length glyphicon glyphicon-road"></i>
+                     <div class="Title Length" id="length" style="width: calc(100% - 80px);"></div>
+                     <i class="Image Length glyphicon glyphicon-menu-down" id="down" style="float: right; display: none;"></i>
+                     <div class="Title Length" id="lengthTime" style="display: none;"></div>
+                 </div>
+            @{ if (Model.WorkingHour != null)
+                { <div class="IBlock">
+                        <i class="Image Time glyphicon glyphicon-time"></i>
+                        <div class="Title Time">@Model.WorkingHour</div>
+                    </div> }
+            }
+            @{ if (Model.Phone != null)
+                {
+                    <div class="IBlock">
+                        <i class="Image Phone glyphicon glyphicon-phone"></i>
+                        <div class="Title Phone">@Model.Phone</div>
+                    </div>}
+            }
+            @{ if (Model.Site != null)
+                { <div class="IBlock">
+                        <i class="Image Site glyphicon glyphicon-globe"></i>
+                        <a class="Title Site" href="@Model.Site" target="_blank">@Model.Site</a>
+                    </div>}
+            }
+        </div>
+
+
+        <div class="Album">
+            @{
+                if (ViewBag.Album.Count > 0)
+                { <div class="Photo One" style="background-image: url(@ViewBag.Album[0].SRC)"></div> }
+                else
+                { <div class="Photo One" style="background-image: url(/Resources/Images/System/Icons/Camera.png)"></div> }
+
+                if (ViewBag.Album.Count > 1)
+                { <div class="Photo Two" style="background-image: url(@ViewBag.Album[1].SRC)"></div> }
+                else
+                { <div class="Photo Two" style="background-image: url(/Resources/Images/System/Icons/Camera.png)"></div> }
+            }
+            <div class="CountPhoto"> <div class="Count">@ViewBag.Album.Count</div>  <div class="Title">фото</div></div>
+        </div>
+        @if (Identity.isAuthentication)
+        {
+            <div class="Value">
+                <div class="VTitle">Вам нравится это место?</div>
+                <div class="VBlock">
+                    <div class="Image Like" id="ImageLike" onclick="Rating(2);"></div>
+                    <div class="Count" id="Like">@ViewBag.Like</div>
+                </div>
+                <div class="VBlock">
+                    <div class="Image Dislike" id="ImageDislike" onclick="Rating(1);"></div>
+                    <div class="Count" id="Dislike">@ViewBag.Dislike</div>
+                </div>
+            </div>
+            <div class="Value">
+                <div class="VTitle">Вы здесь уже были? Зачекиньтесь.</div>
+                <div class="VBlock">
+                    <div class="Image Checkin" id="ImageCheckins" onclick="Rating(3);"></div>
+                    <div class="Count" id="Checkins">@ViewBag.Checkins</div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="Value">
+                <div class="VTitle">Вам нравится это место?</div>
+                <div class="VBlock">
+                    <div class="Image Like" onclick="message()"></div>
+                    <div class="Count" id="Like">@ViewBag.Like</div>
+                </div>
+                <div class="VBlock">
+                    <div class="Image Dislike" onclick="message()"></div>
+                    <div class="Count" id="Dislike">@ViewBag.Dislike</div>
+                </div>
+            </div>
+            <div class="Value">
+                <div class="VTitle">Вы здесь уже были? Зачекиньтесь.</div>
+                <div class="VBlock">
+                    <div class="Image Checkin" onclick="message()"></div>
+                    <div class="Count" id="Checkins">@ViewBag.Checkins</div>
+                </div>
+            </div>
+        }
+
+        <div class="Message">
+            <div class="Block">
+                <div class="Close" onclick="message()"></div>
+                <div class="Text">Войдите в аккаунт, и вы сможете оставлять отзывы , ставить оценки и отмечаться в любых местах.</div>
+                <a class="Entry" href="/Account/Account">Войти</a>
+            </div>
+        </div>
+
+        <div class="Reviews">
+            <div class="RTitle">Отзывы</div>
+            @if (Identity.isAuthentication)
+            {
+                <form class="Messages" method="post" action="/Map/AddComment">
+                    <textarea placeholder="Поделитесь впечатлениями" class="RTextBox" name="Text"></textarea>
+                    <input type="text" name="Id" value="@Model.Id" hidden />
+                    <input type="submit" class="RSubmit" value="Отправить" />
+                </form>
+            }
+            @if (ViewBag.Comments.Count < 1)
+            {<span class="NoComment">Пока нет комментариев</span> }
+            else
+            {
+                foreach (var obj in ViewBag.Comments)
+                {
+                    foreach (var log in ViewBag.Login)
+                    {
+                        if (log.Id == obj.UserId)
+                        {
+                            <div class="UserReview">
+                                <div class="Login">@log.Login</div>
+                                <div class="Date">@obj.Date</div>
+                                <div class="Comment">@obj.Comment</div>
+                            </div>
+                            break;
+                        }
+
+                    }
+
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script type="text/javascript">
+    var id = @Model.Id;
+    var longitude = @Model.Longitude.ToString().Replace(',', '.');
+    var latitude = @Model.Latitude.ToString().Replace(',', '.');
+    var name = @Model.Name;
+</script>
+
+}
+

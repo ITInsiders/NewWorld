@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NW.DAL.Entities
 {
+    [Table("Reviews")]
     public class Review
     {
         [Key]
@@ -17,6 +18,7 @@ namespace NW.DAL.Entities
         public string Comment { get; set; }
         public int ValueLike { get; set; } //лайк-1 дизлайк-2 
         public int Checkin { get; set; } //чекин
+        public DateTime Date { get; set; }
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }

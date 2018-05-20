@@ -1,0 +1,66 @@
+﻿[
+  {
+    "outputFile": "Resources/CSS/Home/Home.css",
+    "inputFile": "Resources/LESS/Home/Home.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Home/HomeHome.css",
+    "inputFile": "Resources/LESS/Home/HomeHome.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Quest/Quest.css",
+    "inputFile": "Resources/LESS/Quest/Quest.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Quest/QuestHome.css",
+    "inputFile": "Resources/LESS/Quest/QuestHome.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Quest/QuestSearch.css",
+    "inputFile": "Resources/LESS/Quest/QuestSearch.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Quest/QuestInformQuest.css",
+    "inputFile": "Resources/LESS/Quest/QuestInformQuest.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Account/Account.css",
+    "inputFile": "Resources/LESS/Account/Account.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Account/AccountAccount.css",
+    "inputFile": "Resources/LESS/Account/AccountAccount.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Account/AccountEntry.css",
+    "inputFile": "Resources/LESS/Account/AccountEntry.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Account/AccountProfile.css",
+    "inputFile": "Resources/LESS/Account/AccountProfile.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Map/Map.css",
+    "inputFile": "Resources/LESS/Map/Map.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Map/MapSearch.css",
+    "inputFile": "Resources/LESS/Map/MapSearch.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Map/MapInformPlace.css",
+    "inputFile": "Resources/LESS/Map/MapInformPlace.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Update/Update.css",
+    "inputFile": "Resources/LESS/Update/Update.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Update/UpdatePlace.css",
+    "inputFile": "Resources/LESS/Update/UpdatePlace.less"
+  },
+  {
+    "outputFile": "Resources/CSS/Update/UpdateQuest.css",
+    "inputFile": "Resources/LESS/Update/UpdateQuest.less"
+  }
+]

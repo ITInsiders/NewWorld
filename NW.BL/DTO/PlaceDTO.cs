@@ -23,6 +23,14 @@ namespace NW.BL.DTO
         public int? Creater { get; set; } // создатель
         public DateTime DateCreate { get; set; } // дата создания
 
+        public double Likes => review.Count(x => x.ValueLike == 1);
+        public double Dislikes => review.Count(x => x.ValueLike == 2);
+        public double Checks => review.Count(x => x.Checkin == 1);
+        public double Rating => (Likes + Dislikes == 0.0) ? 0.0 : Math.Round(10.0 * Likes / (Likes + Dislikes), 1);
+
+        public string MainPhoto => photos.FirstOrDefault(x => x.Main)?.SRC;
+
         public List<PlacePhotoDTO> photos => PlacePhotoServices.GetAll().Where(x => x.PlaceId == Id).ToList();
+        public List<ReviewDTO> review => ReviewServices.GetAll().Where(x => x.PlaceId == Id).ToList();
     }
 }

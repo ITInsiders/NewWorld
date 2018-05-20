@@ -8,6 +8,9 @@ namespace NW.DAL.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
+        private static EFUnitOfWork instance;
+        public static EFUnitOfWork I => instance ?? (instance = new EFUnitOfWork());
+
         private Context db;
         private Repository<Place> placeRepository;
         private Repository<PlacePhoto> placePhotoRepository;
@@ -15,6 +18,12 @@ namespace NW.DAL.Repositories
         private Repository<User> userRepository;
         private Repository<UserPhoto> userPhotoRepository;
         private Repository<UserVerification> userVerificationRepository;
+        private Repository<Quest> questRepository;
+        private Repository<Status> statusRepository;
+        private Repository<UserInQuest> userInQuestRepository;
+        private Repository<Prize> prizeRepository;
+        private Repository<Point> pointRepository;
+        private Repository<Answer> answerRepository;
 
         public EFUnitOfWork()
         {
@@ -50,6 +59,30 @@ namespace NW.DAL.Repositories
         {
             get => userVerificationRepository ?? (userVerificationRepository = new Repository<UserVerification>(db));
         }
+        public IRepository<Quest> Quests
+        {
+            get => questRepository ?? (questRepository = new Repository<Quest>(db));
+        }
+        public IRepository<Status> Statuses
+        {
+            get => statusRepository ?? (statusRepository = new Repository<Status>(db));
+        }
+        public IRepository<UserInQuest> UserInQuests
+        {
+            get => userInQuestRepository ?? (userInQuestRepository = new Repository<UserInQuest>(db));
+        }
+        public IRepository<Prize> Prizes
+        {
+            get => prizeRepository ?? (prizeRepository = new Repository<Prize>(db));
+        }
+        public IRepository<Point> Points
+        {
+            get => pointRepository ?? (pointRepository = new Repository<Point>(db));
+        }
+        public IRepository<Answer> Answers
+        {
+            get => answerRepository ?? (answerRepository = new Repository<Answer>(db));
+        }
 
         public void Save()
         {
@@ -64,6 +97,7 @@ namespace NW.DAL.Repositories
             {
                 if (disposing)
                 {
+                    db.SaveChanges();
                     db.Dispose();
                 }
                 this.disposed = true;

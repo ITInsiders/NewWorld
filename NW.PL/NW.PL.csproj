@@ -51,6 +51,12 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -72,8 +78,8 @@
     <Reference Include="Microsoft.ApplicationInsights, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.5.1\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.1\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -84,8 +90,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
@@ -141,38 +147,109 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Identity.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\QuestController.cs" />
+    <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\JavaScripts.cs" />
     <Compile Include="Helpers\SVG.cs" />
     <Compile Include="Models\PageInfo.cs" />
+    <Compile Include="Models\PlaceRating.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\SearchLine.cs" />
+    <Compile Include="Models\UpdateQuest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\CSS\Account\Account.css" />
+    <Content Include="Resources\CSS\Account\Account.min.css">
+      <DependentUpon>Account.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Account\AccountAccount.css" />
+    <Content Include="Resources\CSS\Account\AccountAccount.min.css">
+      <DependentUpon>AccountAccount.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Account\AccountEntry.css" />
+    <Content Include="Resources\CSS\Account\AccountEntry.min.css">
+      <DependentUpon>AccountEntry.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Account\AccountProfile.css" />
+    <Content Include="Resources\CSS\Account\AccountProfile.min.css">
+      <DependentUpon>AccountProfile.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Home\Home.css" />
+    <Content Include="Resources\CSS\Home\Home.min.css">
+      <DependentUpon>Home.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Home\HomeHome.css" />
+    <Content Include="Resources\CSS\Home\HomeHome.min.css">
+      <DependentUpon>HomeHome.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Home\HomeIndex.css" />
     <Content Include="Resources\CSS\Home\HomeSearch.css" />
+    <Content Include="Resources\CSS\Map\Map.css" />
+    <Content Include="Resources\CSS\Map\Map.min.css">
+      <DependentUpon>Map.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Map\MapInformPlace.css" />
+    <Content Include="Resources\CSS\Map\MapInformPlace.min.css">
+      <DependentUpon>MapInformPlace.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Map\MapSearch.css" />
+    <Content Include="Resources\CSS\Map\MapSearch.min.css">
+      <DependentUpon>MapSearch.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Quest\Quest.css" />
+    <Content Include="Resources\CSS\Quest\Quest.min.css">
+      <DependentUpon>Quest.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\Quest\QuestCreate.css" />
     <Content Include="Resources\CSS\Quest\QuestGame.css" />
+    <Content Include="Resources\CSS\Quest\QuestHome.css" />
+    <Content Include="Resources\CSS\Quest\QuestHome.min.css">
+      <DependentUpon>QuestHome.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Quest\QuestInformQuest.css" />
+    <Content Include="Resources\CSS\Quest\QuestInformQuest.min.css">
+      <DependentUpon>QuestInformQuest.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Quest\QuestSearch.css" />
+    <Content Include="Resources\CSS\Quest\QuestSearch.min.css">
+      <DependentUpon>QuestSearch.css</DependentUpon>
+    </Content>
     <Content Include="Resources\CSS\System\Fonts.css" />
+    <Content Include="Resources\CSS\Update\Update.css" />
+    <Content Include="Resources\CSS\Update\Update.min.css">
+      <DependentUpon>Update.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Update\UpdatePlace.css" />
+    <Content Include="Resources\CSS\Update\UpdatePlace.min.css">
+      <DependentUpon>UpdatePlace.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\CSS\Update\UpdateQuest.css" />
+    <Content Include="Resources\CSS\Update\UpdateQuest.min.css">
+      <DependentUpon>UpdateQuest.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\Images\System\Icons\back.svg" />
+    <Content Include="Resources\Images\System\Home\Map.jpg" />
     <Content Include="Resources\Images\System\Icons\globe_black.svg" />
     <Content Include="Resources\Images\System\Icons\globe_icon.png" />
     <Content Include="Resources\Images\System\Icons\globe_white.svg" />
@@ -180,17 +257,54 @@
     <Content Include="Resources\Images\System\Icons\user_female.svg" />
     <Content Include="Resources\Images\System\Icons\user_male.svg" />
     <Content Include="Resources\Images\System\Icons\user_white.svg" />
+    <Content Include="Resources\Images\System\Other\line%403b3o1b.gif" />
     <Content Include="Resources\JS\Account\Account.js" />
     <Content Include="Resources\JS\Account\AccountAccount.js" />
+    <Content Include="Resources\JS\Account\AccountProfile.js" />
     <Content Include="Resources\JS\Home\Home.js" />
     <Content Include="Resources\JS\Home\HomeHome.js" />
-    <Content Include="Resources\JS\Home\HomeIndex.js" />
-    <Content Include="Resources\JS\Home\HomeSearch.js" />
+    <Content Include="Resources\JS\Map\Map.js" />
+    <Content Include="Resources\JS\Map\MapInformPlace.js" />
+    <Content Include="Resources\JS\Map\MapSearch.js" />
     <Content Include="Resources\JS\Quest\Quest.js" />
-    <Content Include="Resources\JS\Quest\QuestCreate.js" />
-    <Content Include="Resources\JS\Quest\QuestGame.js" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Resources\JS\Quest\QuestHome.js" />
+    <Content Include="Resources\JS\Quest\QuestInformQuest.js" />
+    <Content Include="Resources\JS\Quest\QuestSearch.js" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Resources\LESS\Account\Account.less" />
+    <None Include="Resources\LESS\Account\AccountAccount.less" />
+    <Content Include="Resources\JS\Update\UpdatePlace.js" />
+    <Content Include="Resources\JS\Update\UpdateQuest.js" />
+    <Content Include="Resources\LESS\Home\Home.css">
+      <DependentUpon>Home.less</DependentUpon>
+    </Content>
+    <Content Include="Resources\LESS\Home\Home.min.css">
+      <DependentUpon>Home.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\LESS\Home\HomeHome.css">
+      <DependentUpon>HomeHome.less</DependentUpon>
+    </Content>
+    <Content Include="Resources\LESS\Home\HomeHome.min.css">
+      <DependentUpon>HomeHome.css</DependentUpon>
+    </Content>
+    <Content Include="Resources\LESS\Home\Home.less" />
+    <Content Include="Resources\LESS\Home\HomeHome.less" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -201,21 +315,28 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Resources\LESS\Quest\Quest.less" />
+    <Content Include="Resources\LESS\Quest\QuestSearch.less" />
+    <Content Include="Resources\LESS\Default.less" />
+    <Content Include="Resources\LESS\Quest\QuestHome.less" />
+    <Content Include="Resources\LESS\Account\AccountEntry.less" />
+    <Content Include="Resources\LESS\Map\MapSearch.less" />
+    <Content Include="Resources\LESS\Map\Map.less" />
+    <Content Include="Resources\LESS\Library.less" />
+    <Content Include="Resources\LESS\Map\MapInformPlace.less" />
+    <Content Include="Scripts\hashchange.js" />
+    <Content Include="Resources\LESS\Account\AccountProfile.less" />
+    <Content Include="Resources\LESS\Update\UpdatePlace.less" />
+    <Content Include="Resources\LESS\Update\Update.less" />
+    <Content Include="Resources\LESS\Quest\QuestInformQuest.less" />
+    <Content Include="Resources\LESS\Update\UpdateQuest.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -245,6 +366,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Layout\Error.cshtml" />
     <Content Include="Views\Layout\_Layout.cshtml" />
+    <Content Include="Views\Layout\Home.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -254,20 +377,29 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Layout\Home.cshtml" />
-    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Quest\Search.cshtml" />
+    <Content Include="Views\Layout\Quest.cshtml" />
+    <Content Include="Views\Quest\Home.cshtml" />
+    <Content Include="Views\Account\Account.cshtml" />
+    <Content Include="Views\Layout\Account.cshtml" />
+    <Content Include="Views\Account\Entry.cshtml" />
+    <Content Include="Views\Map\Search.cshtml" />
+    <Content Include="Views\Layout\Map.cshtml" />
+    <Content Include="Views\Map\InformPlace.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Update\Place.cshtml" />
+    <Content Include="Views\Layout\Update.cshtml" />
+    <Content Include="Views\Quest\InformQuest.cshtml" />
+    <Content Include="Views\Update\Quest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resources\Images\Places\" />
+    <Folder Include="Resources\Images\Users\" />
     <Folder Include="Resources\Logs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -280,6 +412,9 @@
       <Project>{eede7668-0f4b-45f6-8b9d-4a78be738aa3}</Project>
       <Name>NW.BL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

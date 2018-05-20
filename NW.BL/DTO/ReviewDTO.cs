@@ -14,5 +14,6 @@ namespace NW.BL.DTO
         public string Comment { get; set; }
         public int ValueLike { get; set; } //лайк-1 дизлайк-2 
         public int Checkin { get; set; } //чекин
+        public DateTime Date { get; set; } 
     }
 }

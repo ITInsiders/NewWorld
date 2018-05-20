@@ -1,0 +1,197 @@
+﻿@import "../Default.less";
+@import "../Library.less";
+section {
+    min-height: calc(~"100vh - 30px");
+    background-image: url(/Resources/images/fon/fon3.png); /* background-color:#ECEAE0;*/
+}
+
+section .Option {
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    width: 350px;
+    max-width: 40%;
+    height: calc(~"100vh - 100px");
+    overflow: hidden;
+    border-radius: @borderRadius;
+    box-shadow: 1px 1px 5px 0 @backgroundBlue;
+    z-index: 1;
+}
+
+section .Option .Back, section .Option .Filter {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background: url('/Resources/Images/System/Icons/back.svg') no-repeat center;
+    background-size: cover;
+    float: left;
+}
+
+section .Option .Filter {
+    background-image: url(/Resources/Images/Icon/filter.svg);
+}
+
+section .Option .SearchBlock {
+    width: calc(~"100% - 100px");
+    min-width: 150px;
+    height: 50px;
+    float: left;
+}
+
+section .Option .SearchBlock input {
+    display: inline-block;
+    height: 40px;
+    float: left;
+    border: none;
+    background: rgba(40,57,101,.9);
+}
+
+section .Option .SearchBlock input:focus {
+    outline: none;
+}
+
+section .Option .SearchBlock .Search {
+    width: calc(~"100% - 49px");
+    margin: 5px 0 5px 5px;
+    padding: 0 20px;
+    border-radius: 10px 0 0 10px;
+    font-family: Lisa;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+section .Option .SearchBlock .Search::-webkit-input-placeholder {
+    color: #dddddd;
+}
+
+section .Option .SearchBlock .Search::-webkit-search-cancel-button {
+    display: none;
+}
+
+section .Option .SearchBlock .SearchButton {
+    width: 40px;
+    height: 40px;
+    margin: 5px 5px 5px -1px;
+    border-radius: 0 10px 10px 0;
+    background: rgba(40,57,101,.9) url(/Resources/Images/Icon/Search.svg) no-repeat center;
+    background-size: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+section .Sorting {
+    width: calc(~"100% - 10px");
+    height: 25px;
+    margin: 2px 5px 10px 5px;
+    display: inline-block;
+}
+
+section .Sorting .Select {
+    width: calc(~"100% - 35px");
+    height: 25px;
+    background: transparent;
+    float: left;
+}
+
+section .Sorting .Icon {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    background: url(/Resources/Images/Icon/arrow.svg) no-repeat center;
+    background-size: 60%;
+    float: right;
+}
+
+section .Option .Blocks {
+    display: inline-block;
+    height: calc(~"100% - 60px");
+    float: left;
+    width: 100%;
+    overflow-y: auto;
+}
+
+section .Option .Blocks .Block {
+    display: inline-flex;
+    width: calc(~"100% - 10px");
+    height: auto;
+    min-height: 40px;
+    margin: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    background: rgb(239, 239, 239);
+    box-shadow: 0 0 2px 0 #4EB1BA;
+    overflow: hidden;
+}
+
+section .Option .Blocks .Block .Photo {
+    width: 30%;
+    position: relative;
+    float: left;
+    background: no-repeat center;
+    background-size: cover;
+}
+
+section .Option .Blocks .Block .Data {
+    width: calc(~"70% - 10px");
+    float: left;
+    padding-left: 10px;
+}
+
+section .Option .Blocks .Block .Data .Title {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-family: Lisa;
+    font-size: 16px;
+}
+
+section .Option .Blocks .Block .Data .Name {
+    height: 30px;
+    line-height: 30px;
+    font-size: 25px;
+}
+
+section .Option .Blocks .Block .Data .Name .Ratings {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    float: right;
+    margin: 2px 5px 0 0;
+    background: #222930;
+    color: rgb(255,255,255);
+    border-radius: 1vh;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px 0 rgba(0,0,0,.5);
+}
+
+.map {
+    width: 100%;
+    height: calc(~"100vh - 30px");
+    display: inline-block;
+    float: left;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    section .Option {
+        width: 100%;
+    }
+
+    section .Option .Blocks {
+        width: 100%;
+    }
+
+    .map {
+        display: none;
+    }
+}
+
+.balloonHeader {
+    display: inline-block;
+}

@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+    Identity Identity = new Identity();
+
+}
+@if(Identity.isAuthentication) { <script> top.location.reload();</script> }
+@Styles.Render(@ViewBag.Page.ControllerStyleMinHref)
+@Styles.Render(@ViewBag.Page.ViewStyleMinHref)
+@model NW.BL.DTO.Entry
+<div class="login-form">
+    <form class="sign-in-htm" method="post" action="/Account/Entry">
+
+        <div class="group">
+            <label for="user" class="label">Логин</label>
+            <div class="validation-message">@Html.ValidationMessageFor(r => r.Login)</div>
+            @Html.TextBoxFor(r => r.Login, new { @class = "input", id = "rLogin" })
+        </div>
+        <div class="group">
+            <label for="pass" class="label">Пароль</label>
+            <div class="validation-message">@Html.ValidationMessageFor(r => r.Password)</div>
+            <input id="pass" type="password" class="input" data-type="password" name="Password">
+        </div>
+        <div class="group">
+            <input id="check" type="checkbox" class="check" checked>
+            <label for="check"><span class="icon"></span> Запомнить меня?</label>
+        </div>
+        <div class="group">
+            <input type="submit" class="button" value="Войти">
+        </div>
+        <div class="hr"></div>
+        <div class="foot-lnk">
+            <a href="#forgot">Забыли пароль?</a>
+        </div>
+    </form>
+</div>
+
+@Scripts.Render("~/bundles/SystemScripts")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render(@ViewBag.Page.ControllerScriptHref)
+@Scripts.Render(@ViewBag.Page.ViewScriptHref)
