@@ -21,6 +21,7 @@ body {
         @media (max-width: 768px) {
             & {
                 display: none;
+                height: 100%;
             }
         }
     }
@@ -43,7 +44,7 @@ body {
             }
         }
 
-        &, & * {
+        &, & *:not(table):not(tr):not(th):not(td):not(thead):not(tbody):not(tfoot) {
             display: inline-block;
         }
 

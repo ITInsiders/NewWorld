@@ -65,7 +65,8 @@ body .ButtonBlock {
   text-align: center;
   margin-bottom: 10px;
 }
-body .ButtonBlock button {
+body .ButtonBlock button,
+body .ButtonBlock a {
   width: calc(100% - 20px);
   height: 35px;
   line-height: 35px;

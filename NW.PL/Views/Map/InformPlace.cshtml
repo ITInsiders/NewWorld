@@ -71,11 +71,11 @@
             <div class="Value">
                 <div class="VTitle">Вам нравится это место?</div>
                 <div class="VBlock">
-                    <div class="Image Like" id="ImageLike" onclick="Rating(2);"></div>
+                    <div class="Image Like" id="ImageLike" onclick="Rating(1);"></div>
                     <div class="Count" id="Like">@ViewBag.Like</div>
                 </div>
                 <div class="VBlock">
-                    <div class="Image Dislike" id="ImageDislike" onclick="Rating(1);"></div>
+                    <div class="Image Dislike" id="ImageDislike" onclick="Rating(2);"></div>
                     <div class="Count" id="Dislike">@ViewBag.Dislike</div>
                 </div>
             </div>
@@ -158,7 +158,7 @@
     var id = @Model.Id;
     var longitude = @Model.Longitude.ToString().Replace(',', '.');
     var latitude = @Model.Latitude.ToString().Replace(',', '.');
-    var name = @Model.Name;
+    var name = "@Model.Name";
 </script>
 
 }

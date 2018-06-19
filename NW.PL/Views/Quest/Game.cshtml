@@ -1,0 +1,63 @@
+﻿@{
+    Layout = ViewBag.Page.LayoutHref;
+    Identity Identity = new Identity();
+    ViewBag.isAuthentication = Identity.isAuthentication;
+    ViewBag.Identity = Identity;
+    string ViewScriptHref = ((string)ViewBag.Page.ViewScriptHref).Replace("~", "");
+    string ViewStyleHref = ((string)ViewBag.Page.ViewStyleMinHref).Replace("~", "");
+}
+
+<input id="JS" value="@ViewScriptHref" />
+<input id="CSS" value="@ViewStyleHref" />
+@model NW.BL.DTO.QuestDTO
+<div class="miniMap" id="miniMap"></div>
+
+<input id="IdQuest" value="@Model.Id" style="display: none" />
+<input id="Creater" value="@Model.Creater" style="display: none" />
+<input id="IdUser" value="@Identity.user.Id" style="display: none" />
+
+<div class="Messages">
+    <div class="Message Left Standart">
+        Добро пожаловать в квест
+        "@Model.Name"
+    </div>
+    <div class="Message Left Standart">
+        ВНИМАНИЕ! Покидать страницу с квестом не желательно! Иначе в игру Вы уже не попадете. Спасибо)
+    </div>
+    <div class="Message Left Standart">
+        Итак, начинаем
+    </div>
+</div>
+
+<form action="javascript: SendMessage(); " class="MessageInputBlock">
+    <input type="text" name="message" class="MessageInput" />
+    <button type="submit" class="ButtonMessage">Отправить</button>
+</form>
+
+<div id="Template" style="display: none">
+    <div class="Message"></div>
+    <div class="ButtonAnswer">
+        <button class="Yes" type="button" onclick="SendAnswer(this)" value="2">ВЕРНО</button>
+        <button class="No" type="button" onclick="SendAnswer(this)" value="1">НЕВЕРНО</button>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/signalr")
+    <script src="~/signalr/hubs"></script>
+    <script src="/Resources/JS/Quest/SignalR.js"></script>
+
+    <script type="text/javascript">
+        var Data = {},
+            Messages = null;
+        $(function () {
+            Messages = $(".InfoBlock .Messages");
+
+            $.each($("#Template").children(), function (i, v) {
+                v = $(v);
+                Data[v.attr("class")] = v.clone();
+            });
+            $("#Template").remove();
+        });
+    </script>
+}

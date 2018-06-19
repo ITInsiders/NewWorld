@@ -13,6 +13,7 @@ namespace NW.DAL.Repositories
     public class Repository<T> : IRepository<T> where T : class
     {
         private Context db;
+        private static Object Lock = new Object();
 
         public Repository(Context context)
         {
@@ -20,28 +21,46 @@ namespace NW.DAL.Repositories
         }
         public List<T> GetAll()
         {
-            return db.Set<T>().ToList();
+            lock (Lock)
+            {
+                return db.Set<T>().ToList();
+            }
         }
         public List<T> Find(Func<T, Boolean> predicate)
         {
-            return db.Set<T>().Where(predicate).ToList();
+            lock (Lock)
+            {
+                return db.Set<T>().Where(predicate).ToList();
+            }
         }
         public T Get(int id)
         {
-            return db.Set<T>().Find(id);
+            lock(Lock)
+            {
+                return db.Set<T>().Find(id);
+            }
         }
         public void Create(T t)
         {
-            db.Set<T>().Add(t);
+            lock (Lock)
+            {
+                db.Set<T>().Add(t);
+            }
         }
         public void Update(T t)
         {
-            db.Entry(t).State = EntityState.Modified;
+            lock (Lock)
+            {
+                db.Entry(t).State = EntityState.Modified;
+            }
         }
 
         public void Delete(int id)
         {
-            db.Set<T>().Remove(Get(id));
+            lock (Lock)
+            {
+                db.Set<T>().Remove(Get(id));
+            }
         }
     }
 }

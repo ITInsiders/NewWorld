@@ -165,6 +165,7 @@ body footer {
   line-height: 0;
 }
 .Button .fa {
+  line-height: 28px;
   vertical-align: middle;
 }
 .Button:hover {
@@ -189,6 +190,7 @@ body .Map {
 @media (max-width: 768px) {
   body .Map {
     display: none;
+    height: 100%;
   }
 }
 body .InfoBlock {
@@ -207,7 +209,7 @@ body .InfoBlock {
   }
 }
 body .InfoBlock,
-body .InfoBlock * {
+body .InfoBlock *:not(table):not(tr):not(th):not(td):not(thead):not(tbody):not(tfoot) {
   display: inline-block;
 }
 body .InfoBlock .Header {

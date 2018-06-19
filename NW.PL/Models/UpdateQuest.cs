@@ -13,6 +13,9 @@ namespace NW.PL.Models
             public string Task { get; set; }
             public string Longitude { get; set; }
             public string Latitude { get; set; }
+
+            public double getLongitude() => Convert.ToDouble(Longitude.Replace('.', ','));
+            public double getLatitude() => Convert.ToDouble(Latitude.Replace('.', ','));
         }
 
         public class Prize
@@ -22,6 +25,7 @@ namespace NW.PL.Models
             public string Title { get; set; }
         }
 
+        public int? Id { get; set; }
         public string Name { get; set; }
         public DateTime DateTime { get; set; }
         public List<Point> Points { get; set; }

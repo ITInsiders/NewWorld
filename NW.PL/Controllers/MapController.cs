@@ -113,37 +113,39 @@ namespace NW.PL.Controllers
 
         public JsonResult AddRatingJson(int R, int IdPlace)
         {
+            ReviewDTO reviewDTO = null;
+
             if (Identity.isAuthentication)
             {
-                ReviewDTO reviewDTO = ReviewServices.GetAll().FirstOrDefault(x => x.PlaceId == IdPlace && x.UserId == Identity.user.Id);
+                reviewDTO = ReviewServices.GetAll().FirstOrDefault(x => x.PlaceId == IdPlace && x.UserId == Identity.user.Id);
+
                 if (reviewDTO != null)
                 {
-                    if (R == 1 && reviewDTO.ValueLike == 1) return Json(null, JsonRequestBehavior.AllowGet);
-                    else if (R == 1) reviewDTO.ValueLike = 1;
+                    if (R != 4)
+                    {
+                        if (R == 1 || R == 2)
+                            reviewDTO.ValueLike = R;
+                        else
+                            reviewDTO.Checkin = 1;
 
-                    if (R == 2 && reviewDTO.ValueLike == 2) return Json(null, JsonRequestBehavior.AllowGet);
-                    else if (R == 2) reviewDTO.ValueLike = 2;
-
-                    if (R == 3 && reviewDTO.Checkin == 1) return Json(null, JsonRequestBehavior.AllowGet);
-                    else if (R == 3) reviewDTO.Checkin = 1;
-
-                    ReviewServices.Update(reviewDTO);
+                        ReviewServices.Update(reviewDTO);
+                    }
                 }
                 else
                 {
-                    ReviewDTO review = new ReviewDTO();
+                    reviewDTO = new ReviewDTO();
                     {
-                        review.UserId = Identity.user.Id;
-                        review.PlaceId = IdPlace;
-                        review.ValueLike = (R != 3) ? R : 0;
-                        review.Checkin = (R == 3) ? 1 : 0;
-                        review.Date = DateTime.Now;
+                        reviewDTO.UserId = Identity.user.Id;
+                        reviewDTO.PlaceId = IdPlace;
+                        reviewDTO.ValueLike = (R != 3) ? R : 0;
+                        reviewDTO.Checkin = (R == 3) ? 1 : 0;
+                        reviewDTO.Date = DateTime.Now;
                     }
-                    ReviewServices.Create(review);
+                    ReviewServices.Create(reviewDTO);
                 }
             }
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json(reviewDTO);
         }
 
         public JsonResult TestRatingJson(int R, int IdPlace)
@@ -161,20 +163,30 @@ namespace NW.PL.Controllers
             return Json(false, JsonRequestBehavior.AllowGet);
         }
 
+        public class CountRating
+        {
+            public CountRating()
+            {
+                RLike = 0;
+                RDis = 0;
+                RCheck = 0;
+            }
+
+            public int RLike { get; set; }
+            public int RDis { get; set; }
+            public int RCheck { get; set; }
+            public int RRating => (RLike + RDis == 0) ? 0 : Convert.ToInt32(Math.Round(10.0 * Convert.ToDouble(RLike) / Convert.ToDouble(RLike + RDis)));
+        }
+
         public JsonResult CountRatingJson(int R, int IdPlace)
         {
             List<ReviewDTO> review = ReviewServices.GetAll().Where(x => x.PlaceId == IdPlace).ToList();
-            int RLike = review.Count(x => x.ValueLike == 2);
-            int RDis = review.Count(x => x.ValueLike == 1);
-            int RCheck = review.Count(x => x.Checkin == 1);
-            int RRating = (RLike + RDis == 0) ? 0 : Convert.ToInt32(Math.Round(10.0 * Convert.ToDouble(RLike) / Convert.ToDouble(RLike + RDis)));
+            CountRating countRating = new CountRating();
+            countRating.RLike = review.Count(x => x.ValueLike == 1);
+            countRating.RDis = review.Count(x => x.ValueLike == 2);
+            countRating.RCheck = review.Count(x => x.Checkin == 1);
 
-
-            if (R == 2) return Json(RLike, JsonRequestBehavior.AllowGet);
-            else if (R == 1) return Json(RDis, JsonRequestBehavior.AllowGet);
-            else if (R == 3) return Json(RCheck, JsonRequestBehavior.AllowGet);
-            else if (R == 4) return Json(RRating, JsonRequestBehavior.AllowGet);
-            else return Json(null, JsonRequestBehavior.AllowGet);
+            return Json(countRating);
         }
     }
 }

@@ -35,3 +35,9 @@ $("#AddPlace").click(function () {
 $("#AddQuest").click(function () {
     document.location.href = "/Update/Quest";
 })
+$("#MyQuest").click(function () {
+    document.location.href = "/Quest/Search/5";
+})
+$("#MyQuestPlay").click(function () {
+    document.location.href = "/Quest/Search/6";
+})

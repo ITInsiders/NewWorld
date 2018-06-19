@@ -19,6 +19,7 @@
         <div class="Img" style="background-image:url(/Resources/Images/System/Home/Map.jpg)"></div>
     }
 }
+<input id="id" value="@Model.Id" hidden style="display:none;"/>
 <div class="Name">@Model.Name</div>
 <div class="BlockDescription">
     @{
@@ -50,7 +51,7 @@
     </div>
     <div class="IBlock">
         <i class="Image Sity glyphicon glyphicon-map-marker"></i>
-        <div class="Title Sity">@*г. Воронеж*@</div>
+        <div class="Title Sity"></div>
     </div>
     <div class="IBlock">
         <i class="Image DateTime glyphicon glyphicon-time"></i>
@@ -58,7 +59,7 @@
     </div>
     <div class="IBlock">
         <i class="Image Region glyphicon glyphicon-road"></i>
-        <div class="Title Region">@*Область квеста в радиусе 5 км от пр.Революции*@</div>
+        <div class="Title Region"></div>
     </div>
     @{
         if (Model.LimitOfPeople != null)
@@ -69,8 +70,8 @@
             </div>
         }
     }
-    @{ 
-        if(Model.StartQuest > DateTime.Now)
+    @{
+        if (Model.StartQuest > DateTime.Now)
         {
             <div class="IBlock">
                 <i class="Image NonPeople glyphicon glyphicon-eye-open"></i>
@@ -78,14 +79,41 @@
             </div>
         }
     }
-    
+
 </div>
 @{
-    if (Model.StartQuest > DateTime.Now )
+    if (Model.StartQuest <= DateTime.Now.AddMinutes(2) && Model.StartQuest <= DateTime.Now.AddMinutes(20) && Model.StartQuest.AddMinutes(20) >= DateTime.Now)
     {
         if (Identity.isAuthentication)
         {
-            if (ViewBag.userStart && !ViewBag.can)
+            if (Identity.user.Id == Model.Creater)
+            {
+                <div class="ButtonBlock" >
+                    <div id="GameStart">Следить за игрой</div>
+                </div>
+            }
+            else
+            {
+                <div class="ButtonBlock">
+                    <a href="/Quest/Game/@Model.Id" >НАЧАТЬ</a>
+                </div>
+            }
+        }
+    }
+    else if (Model.StartQuest > DateTime.Now)
+    {
+        if (Identity.isAuthentication)
+        {
+            if (Identity.user.Id == Model.Creater)
+            {
+                <div class="ButtonBlock">
+                    <a href="/Update/Quest/@Model.Id">Редактировать квест</a>
+                </div>
+                <form class="ButtonBlock" method="post" action="/Update/DeleteQuest/@Model.Id">
+                    <button style="background-color: rgba(245, 7, 0, .6);">Удалить квест</button>
+                </form>
+            }
+            else if (ViewBag.userStart && !ViewBag.can)
             {
                 <form class="ButtonBlock" method="post" action="/Quest/Participate/@Model.Id">
                     <button>Принять участие</button>
@@ -115,6 +143,15 @@
                 <a href="/Account/Account">Войдите, чтобы участвовать</a>
             </div>
         }
+    }
+    else if (Model.StartQuest < DateTime.Now.AddDays(1))
+    {
+        <div class="ButtonBlock" style="height:auto;">
+            <span>Квест уже закончился</span>
+        </div>
+        <div class="ButtonBlock">
+            <a href="/Quest/Result/@Model.Id">Посмотреть результаты</a>
+        </div>
     }
     else
     {

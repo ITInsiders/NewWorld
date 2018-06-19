@@ -13,6 +13,7 @@ namespace NW.DAL.Entities
     {
         [Key]
         public int Id { get; set; }
+        public string Address { get; set; }
         public double Longitude { get; set; }//долгота
         public double Latitude { get; set; }//широта
         public int QuestId { get; set; }

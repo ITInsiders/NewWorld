@@ -85,6 +85,7 @@
     @Scripts.Render("~/bundles/SystemScripts")
     @Scripts.Render("~/bundles/hashchange")
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    @RenderSection("Scripts", required: false)
     @Scripts.Render(@ViewBag.Page.ControllerScriptHref)
     @Scripts.Render(@ViewBag.Page.ViewScriptHref)
 </body>

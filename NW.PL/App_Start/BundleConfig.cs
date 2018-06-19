@@ -19,11 +19,12 @@ namespace NW.PL
                 "~/Scripts/respond*",
                 "~/Scripts/jquery-3.3.1.min.js",
                 "~/Scripts/popper*",
-                "~/Scripts/bootstrap*"
+                "~/Scripts/bootstrap*",
+                "~/Scripts/jquery.noty.packaged.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
-                        "~/Scripts/jquery.signalR-2.2.2.min.js"));
+                        "~/Scripts/jquery.signalR-2.2.3.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/hashchange").Include(
                         "~/Scripts/hashchange.js"));

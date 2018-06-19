@@ -49,9 +49,13 @@ a {
   width: 100%;
   height: 100%;
   position: absolute;
-  padding: 90px 70px 50px 70px;
+  padding: 60px 50px 40px 50px;
   background: rgba(40, 57, 101, 0.9);
   border-radius: 10px;
+  overflow-y: auto;
+}
+.login-html::-webkit-scrollbar {
+  width: 0px;
 }
 .login-html .sign-in,
 .login-html .sign-up,
@@ -168,4 +172,8 @@ button {
   border: none;
   padding: 15px 20px;
   border-radius: 25px;
+  width: 100%;
+}
+.BtnClass {
+  width: 49%;
 }

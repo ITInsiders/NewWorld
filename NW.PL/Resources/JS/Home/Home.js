@@ -51,3 +51,15 @@ function showuser() {
     else $("header .Info").removeClass("show");
     flaguser = !flaguser;
 }
+$(document).ready(function () {
+    var message = $("#message").val();
+    if (message != "") {
+        noty({
+            text: message,
+            type: 'information',
+            dismissQueue: true,
+            theme: 'defaultTheme',
+            layout: 'center'
+        });
+    }
+})

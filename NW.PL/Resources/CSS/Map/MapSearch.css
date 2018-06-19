@@ -62,6 +62,7 @@ body footer {
   line-height: 0;
 }
 .Button .fa {
+  line-height: 28px;
   vertical-align: middle;
 }
 .Button:hover {

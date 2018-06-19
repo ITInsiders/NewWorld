@@ -148,6 +148,16 @@ function AddSuggest(element) {
 //-------------------------------------------------------------------------------------------------------------------------
 
 $(document).ready(function () {
+    var message = $("#message").val();
+    if (message != "") {
+        noty({
+            text: message,
+            type: 'information',
+            dismissQueue: true,
+            theme: 'defaultTheme',
+            layout: 'center'
+        });
+    }
 
     Data.Addresses = $("#Address");
     Data.Addresses.Adr = Data.Addresses.find(".Address").clone();

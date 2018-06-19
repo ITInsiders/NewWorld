@@ -32,6 +32,7 @@ namespace NW.BL.Services
         {
             Point point = Database.Points.Get(pointDTO.Id);
             point.Latitude = pointDTO.Latitude;
+            point.Address = pointDTO.Address;
             point.Longitude = pointDTO.Longitude;
             point.QuestId = pointDTO.QuestId;
             point.Task = pointDTO.Task;

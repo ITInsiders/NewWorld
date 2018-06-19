@@ -1,0 +1,111 @@
+﻿@using NW.BL.DTO;
+@using NW.BL.Services;
+@{
+    Layout = ViewBag.Page.LayoutHref;
+    Identity Identity = new Identity();
+    ViewBag.isAuthentication = Identity.isAuthentication;
+    ViewBag.Identity = Identity;
+    string ViewScriptHref = ((string)ViewBag.Page.ViewScriptHref).Replace("~", "");
+    string ViewStyleHref = ((string)ViewBag.Page.ViewStyleMinHref).Replace("~", "");
+}
+@model QuestDTO
+
+
+
+<div class="Text">
+    Квест: @Model.Name
+</div>
+<div class="Text">
+    Дата: @Model.StartQuest
+</div>
+@if (Model.userInQuestDTO.Count < 1)
+{
+    <div class="Text">
+        Упс. Игроков не было(
+    </div>
+}
+else
+{
+    <div class="Text">
+        ПОЗДРАВЛЯЕМ ПОБЕДИТЕЛЕЙ!
+    </div>
+
+    <table class="table table-hover" id="dev-table">
+        <thead>
+            <tr>
+                <th>Место</th>
+                <th>Логин</th>
+                <th>Приз</th>
+                <th>Время</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 0;
+                foreach (UserInQuestDTO obj in Model.userInQuestDTO.OrderBy(x => x.ExpirationDate))
+                {
+                    if (obj.ExpirationDate != null)
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td>@UserServices.Get(@obj.UserId).Login.ToString()</td>
+                            <td>
+                                @foreach (var prize in ViewBag.prizeDTO)
+                                {
+                                    if (i <= prize.MaxPlace && i >= prize.MinPlace)
+                                    {
+                                        @prize.Name
+                                    }
+                                }
+                            </td>
+                            @{
+                                int? Hour = obj.ExpirationDate?.Hour;
+                                int? Minute = obj.ExpirationDate?.Minute;
+                                int? Second = obj.ExpirationDate?.Second;
+                            }
+                            <td>@Hour : @Minute : @Second</td>
+                        </tr>
+                    }
+
+                }
+
+            }
+        </tbody>
+    </table>
+}
+@section Scripts {
+    <script type="text/javascript">
+        var id = @Model.Id;
+        @{
+            double argLat = 0, argLong = 0;
+            double Radius = 0;
+            List<double[]> pointsOnMap = Model.pointDTO.Select(x => new double[2] { x.Latitude, x.Longitude }).ToList();
+
+            foreach (double[] point in pointsOnMap)
+            {
+                argLat += point[0];
+                argLong += point[1];
+            }
+
+            argLat = (pointsOnMap.Count == 0) ? 0 : argLat / pointsOnMap.Count;
+            argLong = (pointsOnMap.Count == 0) ? 0 : argLong / pointsOnMap.Count;
+
+            foreach (double[] point in pointsOnMap)
+            {
+                double TRadius = Math.Sqrt(Math.Pow(argLat - point[0], 2) + Math.Pow(argLong - point[1], 2));
+                Radius = Radius > TRadius ? Radius : TRadius;
+            }
+
+            Radius += 0.002;
+            double[][] Bounds = new double[2][] { new double[2] { argLat + Radius, argLong - Radius }, new double[2] { argLat - Radius, argLong + Radius } };
+            double[] ArgPoint = new double[2] { argLat, argLong };
+        }
+        var mapspoint = @Json.Encode(pointsOnMap);
+        var Bounds = @Json.Encode(Bounds);
+        var ArgPoint = @Json.Encode(ArgPoint);
+        console.log(mapspoint);
+    @*var longitude = @Model.Longitude.ToString().Replace(',', '.');
+    var latitude = @Model.Latitude.ToString().Replace(',', '.');*@
+    var name = "@Model.Name";
+    </script>
+}

@@ -13,6 +13,7 @@ namespace NW.PL
     {
         private HttpContext HC => HttpContext.Current;
         public UserDTO user = null;
+        public int id => user?.Id ?? 0;
         public CryptMD5 cryptMD5 = new CryptMD5();
 
         public bool Authentication(string Login, string Password)
@@ -47,6 +48,8 @@ namespace NW.PL
             }
         }
 
+        public bool isAuth => user != null;
+
         public void ResetAuthentication()
         {
             if (HC.Request.Cookies["User"] != null)
@@ -57,6 +60,17 @@ namespace NW.PL
         {
             this.user = UserServices.GetAll().FirstOrDefault(x => x.Login == Login && x.Password == Password);
             return user != null;
+        }
+
+        public Identity()
+        {
+            if (HC.Request.Cookies["User"] == null) user = null;
+            else
+            {
+                string Login = HC.Request.Cookies["User"]["Login"].ToLower();
+                string Password = HC.Request.Cookies["User"]["Password"];
+                CheckUserData(Login, Password);
+            }
         }
     }
 }

@@ -1,6 +1,11 @@
 ﻿var myMap = null,
     position = null;
 
+$(document).ready(function () {
+    RatingUpdate();
+});
+
+
 ymaps.ready(init);
 function init() {
     ymaps.geolocation.get({
@@ -101,41 +106,39 @@ function message() {
     flagmes = !flagmes;
 }
 //-----------------------------------------работа с лайками и дизлайками----------------------------
-function RatingUpdate() { RatingTest(); RatingCount(); }
+function RatingUpdate() { Rating(4); }
 
 function Rating(R) {
-    $.getJSON("/Map/AddRatingJson", { R: R, IdPlace: id })
-        .done(function (result) { RatingUpdate(); })
-        .fail(function (result) { RatingUpdate(); });
+    $.post("/Map/AddRatingJson", { R: R, IdPlace: id })
+        .done(function (result) { RatingTest(result); RatingCount(); })
+        .fail(function (result) { console.log("Error: AddRatingJson"); });
 };
 
-function RatingTest() {
-    $.getJSON("/Map/TestRatingJson", { R: 2, IdPlace: id })
-        .done(function (Result) {
-            if (Result) { $("#ImageLike").css("background-image", "url('/Resources/Images/System/Icons/Like.png')"); }
-            else { $("#ImageLike").css("background-image", "url('/Resources/Images/System/Icons/Like1.png')"); }
-        });
-    $.getJSON("/Map/TestRatingJson", { R: 1, IdPlace: id })
-        .done(function (Result) {
-            if (Result) { $("#ImageDislike").css("background-image", "url('/Resources/Images/System/Icons/Dislike.png')"); }
-            else { $("#ImageDislike").css("background-image", "url('/Resources/Images/System/Icons/Dislike1.png')"); }
-        });
-    $.getJSON("/Map/TestRatingJson", { R: 3, IdPlace: id })
-        .done(function (Result) {
-            if (Result) { $("#ImageCheckins").css("background-image", "url('/Resources/Images/System/Icons/Checkin.png')"); }
-            else { $("#ImageCheckins").css("background-image", "url('/Resources/Images/System/Icons/Checkin1.png')"); }
-        });
+function RatingTest(object) {
+    if (object.ValueLike === 1)
+        $("#ImageLike").css("background-image", "url('/Resources/Images/System/Icons/Like.png')");
+    else
+        $("#ImageLike").css("background-image", "url('/Resources/Images/System/Icons/Like1.png')");
+
+    if (object.ValueLike === 2)
+        $("#ImageDislike").css("background-image", "url('/Resources/Images/System/Icons/Dislike.png')");
+    else
+        $("#ImageDislike").css("background-image", "url('/Resources/Images/System/Icons/Dislike1.png')");
+
+    if (object.Checkin === 1)
+        $("#ImageCheckins").css("background-image", "url('/Resources/Images/System/Icons/Checkin.png')");
+    else
+        $("#ImageCheckins").css("background-image", "url('/Resources/Images/System/Icons/Checkin1.png')");
 }
 
 function RatingCount() {
-    $.getJSON("/Map/CountRatingJson", { R: 2, IdPlace: id })
-        .done(function (Result) { $("#Like").html(Result); });
-    $.getJSON("/Map/CountRatingJson", { R: 1, IdPlace: id })
-        .done(function (Result) { $("#Dislike").html(Result); });
-    $.getJSON("/Map/CountRatingJson", { R: 3, IdPlace: id })
-        .done(function (Result) { $("#Checkins").html(Result); });
-    $.getJSON("/Map/CountRatingJson", { R: 4, IdPlace: id })
-        .done(function (Result) { $("#Rating").html(Result); });
+    $.post("/Map/CountRatingJson", { R: 1, IdPlace: id })
+        .done(function (Result) {
+            $("#Like").html(Result.RLike);
+            $("#Dislike").html(Result.RDis);
+            $("#Checkins").html(Result.RCheck);
+            $("#Rating").html(Result.RRating);
+        });
 }
 
 

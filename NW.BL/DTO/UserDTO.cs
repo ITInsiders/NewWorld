@@ -25,6 +25,8 @@ namespace NW.BL.DTO
         public double? Rating { get; set; }
         public int Access { get; set; } // доступы: 0 - простой пользоваель, 1 - администратор
 
+        public UserPhotoDTO MainPhoto => userPhotoDTO.FirstOrDefault(x => x.MainPhoto);
+
         public List<UserPhotoDTO> userPhotoDTO => UserPhotoServices.GetAll().Where(x => x.UserId == Id).ToList();
         public List<UserInQuestDTO> userInQuestDTO => UserInQuestServices.GetAll().Where(x => x.UserId == Id).ToList();
         public List<AnswerDTO> answerDTO => AnswerServices.GetAll().Where(x => x.UserId == Id).ToList();

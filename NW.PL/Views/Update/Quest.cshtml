@@ -1,10 +1,24 @@
-﻿@{
+﻿@using NW.BL.DTO;
+@{
     Layout = ViewBag.Page.LayoutHref;
     Identity Identity = new Identity();
     ViewBag.Identity = Identity;
 }
+
+@model NW.BL.DTO.QuestDTO
+@{
+    QuestDTO quest = Model;
+    string QuestName = quest?.Name;
+    string QuestDT = quest?.StartQuest.ToString("s");
+    string QuestDescription = quest?.Description;
+    string MaxPeople = Convert.ToString(quest?.LimitOfPeople);
+    string id = quest?.Id.ToString();
+}
+<input id="message" value="@ViewBag.Message" hidden style="display:none;" />
+
 @using (Html.BeginForm("AddQuest", "Update", FormMethod.Post, new { enctype = "multipart/form-data", @class = "AddQuest" }))
 {
+    <input name ="Id" value="@id" readonly style="display:none;" />
     <div class="container-fluid">
         <div class="row">
             <div class="well center-block">
@@ -23,7 +37,7 @@
                     <div class="row" id="Study" style="display:none;">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group" style="height: 215px;">
-                                <div id="StudyImg" >
+                                <div id="StudyImg">
                                 </div>
                             </div>
                         </div>
@@ -35,12 +49,16 @@
                                     <div class="input-group-addon">
                                         <i class="glyphicon glyphicon-header"></i>
                                     </div>
-                                    <input type="text" placeholder="Название" name="Name" class="form-control">
+                                    <input type="text" placeholder="Название" name="Name" value="@QuestName" class="form-control">
 
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
+
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
@@ -48,7 +66,7 @@
                                     <div class="input-group-addon">
                                         <i class="glyphicon glyphicon-time"></i>
                                     </div>
-                                    <input type="datetime-local" placeholder="Дата и время начала" name="DateTime" class="form-control">
+                                    <input type="datetime-local" placeholder="Дата и время начала" name="DateTime" value="@QuestDT" class="form-control">
 
                                 </div>
                             </div>
@@ -67,41 +85,48 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row Addresses" id="Address" >
-                        <div class="Address" id="Address_0" data-id="0">
-                            <div class="col-xs-11 col-sm-11 col-md-11" style="padding-right: 0;">
-                                <div class="form-group">
-                                    <div class="input-group InputHelp">
-                                        <div class="HelpMessage IHint">Уточните адрес</div>
-                                        <div class="input-group-addon">
-                                            <i class="glyphicon glyphicon-home"></i>
-                                        </div>
-                                        <input type="text" placeholder="Адрес" name="Points[0].Address" class="IAddress adr form-control HelpInput"
-                                               id="SearchAddress_0"
-                                               onblur="SearchBlur(this);" onfocus="SearchFocus(this);">
-                                        <input class="ILatitude" name="Points[0].Latitude" readonly hidden>
-                                        <input class="ILongitude" name="Points[0].Longitude" readonly hidden>
-                                    </div>
+                    @{
+                        int count = quest != null ? quest.pointDTO.Count : 1;
+                        for (int i = 0; i < count; ++i)
+                        {
+                            PointDTO point = quest?.pointDTO[i] ?? new PointDTO();
+                            <div class="row Addresses" id="Address">
+                                <div class="Address" id="Address_0" data-id="0">
+                                    <div class="col-xs-11 col-sm-11 col-md-11" style="padding-right: 0;">
+                                        <div class="form-group">
+                                            <div class="input-group InputHelp">
+                                                <div class="HelpMessage IHint">Уточните адрес</div>
+                                                <div class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-home"></i>
+                                                </div>
+                                                <input type="text" placeholder="Адрес" name="Points[0].Address" class="IAddress adr form-control HelpInput"
+                                                       id="SearchAddress_0"
+                                                       onblur="SearchBlur(this);" onfocus="SearchFocus(this);" value="@point.Address">
+                                                <input class="ILatitude" name="Points[0].Latitude" readonly hidden value="@point.Latitude">
+                                                <input class="ILongitude" name="Points[0].Longitude" readonly hidden value="@point.Longitude">
+                                            </div>
 
-                                </div>
-                            </div>
-                            <div class="col-xs-1" style="padding-left: 0;">
-                                <button type="button" class="remove" id="Remove" title="Удалить" onclick="RemoveAddress(this);">
-                                    <i class="glyphicon glyphicon-minus"></i>
-                                </button>
-                            </div>
-                            <div class="col-md-12 col-xs-12 col-sm-12">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="glyphicon glyphicon-list-alt"></i>
                                         </div>
-                                        <textarea placeholder="Задача" name="Points[0].Task" class="ITask tsk form-control" style="height:34px;"></textarea>
+                                    </div>
+                                    <div class="col-xs-1" style="padding-left: 0;">
+                                        <button type="button" class="remove" id="Remove" title="Удалить" onclick="RemoveAddress(this);">
+                                            <i class="glyphicon glyphicon-minus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12 col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-list-alt"></i>
+                                                </div>
+                                                <textarea placeholder="Задача" name="Points[0].Task" class="ITask tsk form-control" style="height:34px;">@point.Task</textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        }
+                    }
                     <div class="row IDescription">
                         <div class="col-md-12 col-xs-12 col-sm-12">
                             <div class="form-group">
@@ -109,7 +134,7 @@
                                     <div class="input-group-addon">
                                         <i class="glyphicon glyphicon-list-alt"></i>
                                     </div>
-                                    <textarea class="IDescription form-control" name="Description" placeholder="Описание"></textarea>
+                                    <textarea class="IDescription form-control" name="Description" placeholder="Описание">@QuestDescription</textarea>
                                 </div>
                             </div>
                         </div>
@@ -144,30 +169,39 @@
 
                         </div>
                     </div>
-                    <div class="row Places" id="Place">
-                        <div class="Place">
-                            <div class="col-xs-2 col-sm-2 col-md-2" style="padding-right: 0;">
-                                <div class="form-group">
-                                    <input type="text" placeholder="1" name="Prizes[0].Min" class="form-control">
+                    @{
+                            int countPrize = quest != null ? quest.prizeDTO.Count : 1;
+                            List<PrizeDTO> prizes = quest?.prizeDTO.OrderBy(x=>x.MinPlace).ToList();
+                            for (int i = 0; i < countPrize; ++i)
+                            {
+                                PrizeDTO prize = prizes?[i] ?? new PrizeDTO();
+                            <div class="row Places" id="Place">
+                                <div class="Place">
+                                    <div class="col-xs-2 col-sm-2 col-md-2" style="padding-right: 0;">
+                                        <div class="form-group">
+                                            <input type="text" placeholder="1" name="Prizes[0].Min" value="@prize.MinPlace" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2 col-md-2" style="padding-right: 0;">
+                                        <div class="form-group">
+                                            <input type="text" placeholder="2" name="Prizes[0].Max" value="@prize.MaxPlace" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7 col-sm-7 col-md-7">
+                                        <div class="form-group">
+                                            <input type="text" placeholder="Приз" name="Prizes[0].Title" value="@prize.Name" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1" style="padding-left: 0;">
+                                        <button type="button" class="remove" id="Remove" title="Удалить">
+                                            <i class="glyphicon glyphicon-minus"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2" style="padding-right: 0;">
-                                <div class="form-group">
-                                    <input type="text" placeholder="2" name="Prizes[0].Max" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-7 col-sm-7 col-md-7">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Приз" name="Prizes[0].Title" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-1" style="padding-left: 0;">
-                                <button type="button" class="remove" id="Remove" title="Удалить">
-                                    <i class="glyphicon glyphicon-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                    }
+
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
@@ -175,7 +209,7 @@
                                     <div class="input-group-addon">
                                         <i class="glyphicon glyphicon-user"></i>
                                     </div>
-                                    <input type="text" placeholder="Максимальное количество участников" name="MaxPeople" class="form-control">
+                                    <input type="text" placeholder="Максимальное количество участников" value="@MaxPeople" name="MaxPeople" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -193,9 +227,19 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row widget">
                         <div class="col-md-12 col-xs-12 col-sm-12">
-                            <button class="btn  btn-block"> Добавить квест </button>
+                            @{
+                                if (Model != null)
+                                {
+                                    <button class="btn  btn-block"> Сохранить квест </button>
+                                }
+                                else
+                                {
+                                    <button class="btn  btn-block"> Добавить квест </button>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
