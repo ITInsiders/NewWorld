@@ -25,6 +25,7 @@ namespace NW.PL.Hubs
                 ?? QuestGames.FirstOrDefault(x => x.UserId(identity.id) != null) 
                 ?? QuestGames.FirstOrDefault(x => x.Id == QuestId);
             UserGame user = quest?.User(Id) ?? quest?.UserId(identity.id);
+            UserGame creator = quest?.isCreator;
 
             if (identity.isAuth)
             {
@@ -34,72 +35,29 @@ namespace NW.PL.Hubs
             else if (user == null)
             {
                 quest = quest ?? new QuestGame(QuestId);
-                user = new UserGame(Id, identity.id);
+                user = new UserGame(Id, identity.id).setQuest(quest);
                 quest.users.Add(user);
                 QuestGames.Add(quest);
             }
 
+            Clients.Caller.isYou(user.JsonUser);
 
-
-            if (user == null)
+            if (user.isCreator)
             {
-                user = new 
-
-
-                Identity identity = new Identity();
-
-                if (identity.user != null)
-                {
-                    user = quest?.User()
-
-                    if (quest == null)
-                    {
-                        quest = new QuestGame() { Id = QuestId };
-                        QuestGames.Add(quest);
-                    }
-
-                    user = new UserGame(Id, identity.id);
-
-                    if (user == null)
-                    {
-                        user = new QuestGame.UserConnection()
-                        {
-                            ConnectionId = Id,
-                            isCreator = quest.Quest.Creater == identity.user.Id,
-                            Quest = quest,
-                            UserId = identity.user.Id
-                        };
-
-                        quest.userConnection.Add(user);
-                    }
-                    else
-                    {
-                        user.ConnectionId = Id;
-                    }
-                }
-                else
-                {
-                    Clients.Caller.Auth("Пожалуйста авторизуйтесь!");
-                    return;
-                }
-            }
-
-            
-            if (!user.isCreator)
-            {
-                Clients.Caller.SetGame(quest.jsonQuestMini);
-
-                if (quest.isCreator != null)
-                {
-                    Clients.Client(quest.isCreator.ConnectionId).NewUser(user.jsonUser);
-                    Clients.Caller.SetMessage(quest.isCreator.Messages);
-                }
+                Clients.Caller.AddGame(quest.JsonQuestUsers);
+                Clients.Caller.AddAnswers(quest.Answers);
             }
             else
             {
-                Clients.Caller.SetGame(quest.jsonQuest);
-            }
+                if (creator != null)
+                {
+                    Clients.Client(creator.ConnectionId).AddUsers(new List<JsonUser>() { user.JsonUser });
+                }
 
+                Clients.Caller.AddGame(quest.JsonQuest);
+                Clients.Caller.AddAnswers(user.Answers.Where(x => x.isTrue ?? false).Select(x => (JsonAnswerUser) x));
+                Clients.Caller.AddTask(user.Answers.FirstOrDefault(x => x.isTrue == null));
+            }
 
             if (PositionPlayers == null)
             {
@@ -108,42 +66,49 @@ namespace NW.PL.Hubs
             }
         }
 
-        public void SendMessage(string Message, int User = 0)
+        public void SendAnswer(JsonAnswer answer)
         {
             string Id = Context.ConnectionId;
 
-            QuestGame quest = QuestGames.FirstOrDefault(x => x.UserConnect(Id) != null);
-            QuestGame.UserConnection user = quest?.UserConnect(Id);
-            QuestGame.UserConnection isCreator = quest?.isCreator;
+            QuestGame quest = QuestGames.FirstOrDefault(x => x.User(Id) != null);
+            UserGame user = quest?.User(Id);
+            UserGame creator = quest?.isCreator;
 
             if (user == null)
             {
-                Clients.Caller.Error("К сожалению вас нет в игре, попробуйте перезагрузить страницу!");
+                Clients.Caller.Reload();
+                return;
             }
-            else
+            else if (user.isCreator)
             {
-                if (user.isCreator)
+                user = quest.UserId(answer.UserId);
+                JsonAnswer Answer = user.Answers.FirstOrDefault(x => x.Id == answer.Id);
+                Answer.isTrue = answer.isTrue;
+
+                if (answer.isTrue ?? false)
                 {
-                    if (User == 0)
+                    user.IndexTask++;
+                    JsonAnswer task = quest.Task(user.IndexTask);
+
+                    if (task == null)
                     {
-                        Clients
-                            .Clients(quest.Players.Select(x => x.ConnectionId).ToList())
-                            .SetMessage(Message);
+                        user.Win = DateTime.Now;
+                        Clients.Client(user.ConnectionId).Win(quest.JsonWins);
                     }
                     else
                     {
-                        Clients.Client(quest.User(User).ConnectionId).Answer(Message);
+                        user.Answers.Add(new JsonAnswer(task).SetUserId(user.Id));
+                        Clients.Client(user.ConnectionId).UpdateAnswer(Answer);
+                        Clients.Client(user.ConnectionId).AddTask((JsonTask)Answer);
                     }
-                    
                 }
-                else if (isCreator != null)
-                {
-                    Clients
-                        .Client(isCreator.ConnectionId)
-                        .SetMessage(Message, user.jsonUser);
-                }
+            }
+            else
+            {
+                JsonAnswer Answer = user.Answers.FirstOrDefault(x => x.Id == answer.Id);
+                Answer.UserAnswer = answer.UserAnswer;
 
-                user.Messages.Add(Message);
+                Clients.Client(quest.isCreator.ConnectionId).AddAnswers(new List<JsonAnswer>() { Answer });
             }
         }
 
@@ -151,16 +116,16 @@ namespace NW.PL.Hubs
         {
             string Id = Context.ConnectionId;
 
-            QuestGame quest = QuestGames.FirstOrDefault(x => x.UserConnect(Id) != null);
-            QuestGame.UserConnection user = quest?.UserConnect(Id);
-            QuestGame.UserConnection isCreator = quest?.isCreator;
+            QuestGame quest = QuestGames.FirstOrDefault(x => x.User(Id) != null);
+            UserGame user = quest?.User(Id);
+            UserGame creator = quest?.isCreator;
 
             if (user != null)
             {
                 user.Position = Position;
 
-                if (isCreator != null)
-                    Clients.Client(isCreator.ConnectionId).UserPosition(user.UserId, Position);
+                if (creator != null)
+                    Clients.Client(creator.ConnectionId).UserPosition(user.JsonUser);
             }
         }
 
@@ -179,13 +144,14 @@ namespace NW.PL.Hubs
         {
             string Id = Context.ConnectionId;
 
-            QuestGame quest = QuestGames.FirstOrDefault(x => x.UserConnect(Id) != null);
-            QuestGame.UserConnection user = quest?.UserConnect(Id);
+            QuestGame quest = QuestGames.FirstOrDefault(x => x.User(Id) != null);
+            UserGame user = quest?.User(Id);
+            UserGame creator = quest?.isCreator;
 
-            if (quest != null && quest.isCreator != null)
+            if (creator != null)
             {
-                Clients.Client(quest.isCreator.ConnectionId).OutUser(user.jsonUser);
-                quest.userConnection.Remove(user);
+                Clients.Client(creator.ConnectionId).OutUser(user.JsonUser);
+                quest.users.Remove(user);
             }
 
             return base.OnDisconnected(stopCalled);

@@ -35,10 +35,22 @@
 </form>
 
 <div id="Template" style="display: none">
-    <div class="Message"></div>
-    <div class="ButtonAnswer">
-        <button class="Yes" type="button" onclick="SendAnswer(this)" value="2">ВЕРНО</button>
-        <button class="No" type="button" onclick="SendAnswer(this)" value="1">НЕВЕРНО</button>
+    <div class="Message AddTask" data-id="0" data-userid="0">
+        <div class="Title hidden"><span class="Name"></span> <span class="Date"></span></div>
+        <div class="Block">
+            <div class="Task">Задание: <span></span></div>
+            <hr />
+            <div class="Answer hidden">Ответ: <span></span></div>
+            <hr />
+            <div class="UserAnswer hidden">Решение: <span></span></div>
+        </div>
+        <div class="Creator hidden">
+            <button type="button" onclick="SendAnswer(this)" value="1">ВЕРНО</button>
+            <button type="button" onclick="SendAnswer(this)" value="2">НЕВЕРНО</button>
+        </div>
+    </div>
+    <div class="Message AddUser" data-userid="0">
+        <div class="Title">Добавлен новый пользователь: <span></span></div>
     </div>
 </div>
 
@@ -50,13 +62,13 @@
     <script type="text/javascript">
         var Data = {},
             Messages = null;
+
         $(function () {
             Messages = $(".InfoBlock .Messages");
 
-            $.each($("#Template").children(), function (i, v) {
-                v = $(v);
-                Data[v.attr("class")] = v.clone();
-            });
+            Data.Answer = $("#Template .Message.AddTask").clone();
+            Data.AddUser = $("#Template .Message.AddUser").clone();
+
             $("#Template").remove();
         });
     </script>

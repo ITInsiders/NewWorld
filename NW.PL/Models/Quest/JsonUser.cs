@@ -13,13 +13,15 @@ namespace NW.PL.Models.Quest
         public double[] Position { get; set; }
         public string Image { get; set; }
         public string Date { get; set; }
+        public bool isCreator { get; set; }
 
-        public List<JsonMessage> Messages { get; set; }
+        public List<JsonAnswer> Answers { get; set; }
 
         public JsonUser()
         {
-            Messages = new List<JsonMessage>();
+            Answers = new List<JsonAnswer>();
             Date = DateTime.Now.ToString("g");
+            isCreator = false;
         }
 
         public JsonUser(UserGame user)
@@ -27,8 +29,9 @@ namespace NW.PL.Models.Quest
             Id = user.User.Id;
             Login = user.User.Login;
             Image = user.User.MainPhoto.SRC;
-            
-            Messages = new List<JsonMessage>();
+            isCreator = user.isCreator;
+
+            Answers = new List<JsonAnswer>();
             Date = DateTime.Now.ToString("g");
         }
     }

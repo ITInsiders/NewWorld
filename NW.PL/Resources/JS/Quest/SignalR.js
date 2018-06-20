@@ -1,26 +1,85 @@
 ﻿$(document).ready(Ready)
 
-var Users = [],
-    Hub = null;
+var You = null,
+    Users = [],
+    Hub = null,
+    GameId = null;
 
-var Auth = function (mes) {
+function User(Id) {
+    var user = null;
+    $.each(Users, function (i, v) {
+        if (v.Id === Id) user = v;
+    });
+    return user;
+}
+
+var Auth = function () {
     noty({
-        text: mes,
+        text: "Пожалуйста авторизуйтесь!",
         type: 'information',
         dismissQueue: true,
         theme: 'defaultTheme',
         layout: 'center'
     });
 },
-    SetGame = function (game) {
-        $(".InfoBlock .Title").text(game.Name);
+    isYou = function (user) {
+        You = user;
     },
-    NewUser = function (user) {
-        var Message = Data.Message.clone();
-        Message.text("Добавился к игре: " + user.Login);
-        Message.addClass("System");
-        Users.push(user);
-        Messages.append(Message);
+    AddGame = function (game) {
+        $(".InfoBlock .Title").text(game.Name);
+        GameId = game.Id;
+
+        if (game.Users != null) {
+            Users = game.Users;
+        }
+    },
+    AddUsers = function (users) {
+        $.each(users, function (i, v) {
+            if (User(v.id) == null) {
+                Users.push(v);
+
+                var AddUser = Data.AddUser.clone();
+                AddUser.addClass("Left");
+                AddUser.fund(".Title span").text(v.Login);
+            }
+        });
+    },
+    AddAnswers = function (answers) {
+        $.each(answers, function (i, v) {
+            var Answer = Data.Answer.clone();
+
+            if (v.id == You.id)
+                Answer.addClass("Right");
+            else
+                Answer.addClass("Left");
+
+            Answer.data("id", v.id);
+            Answer.data("userid", v.UserId);
+            v.Login = User(v.UserId).Login;
+            Answer.find(".Title .Name").text(v.Login);
+            Answer.find(".Title .Date").text(v.DateString);
+            Answer.find(".Task span").text(v.Ask);
+            Answer.find(".Answer span").text(v.Answer);
+            Answer.find(".UserAnswer span").text(v.UserAnswer);
+
+            if (v.isTrue != null) {
+                Answer.find(".Creator button").remove();
+                var color = v.isTrue ? "green" : "red";
+                Answer.find(".Creator").css("background-color", color);
+
+                Answer.find(".Title").removeClass("hidden");
+                Answer.find(".Answer").removeClass("hidden");
+                Answer.find(".UserAnswer").removeClass("hidden");
+                Answer.find(".Creator").removeClass("hidden");
+            } else if (You.isCreator) {
+                Answer.find(".Title").removeClass("hidden");
+                Answer.find(".Answer").removeClass("hidden");
+                Answer.find(".UserAnswer").removeClass("hidden");
+                Answer.find(".Creator").removeClass("hidden");
+            }
+
+            Messages.append(Answer);
+        });
     },
     OutUser = function (user) {
         var Message = Data.Message.clone();

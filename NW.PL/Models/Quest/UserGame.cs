@@ -17,22 +17,23 @@ namespace NW.PL.Models.Quest
         public JsonUser JsonUser => new JsonUser(this);
 
         public double[] Position { get; set; }
-        public List<JsonMessage> Messages { get; set; }
+        public List<JsonAnswer> Answers { get; set; }
 
-        public bool isCreator;
+        public bool isCreator { get; set; }
+        public int IndexTask { get; set; }
+        public int Lives { get; set; }
 
         public QuestGame Quest { get; set; }
 
-        public UserGame()
-        {
-            Messages = new List<JsonMessage>();
-        }
+        public DateTime? Win { get; set; }
 
         public UserGame(string ConnectionId, int Id)
         {
             this.ConnectionId = ConnectionId;
             this.Id = Id;
-            Messages = new List<JsonMessage>();
+            IndexTask = 0;
+            Lives = 3;
+            Answers = new List<JsonAnswer>();
         }
 
         public UserGame setQuest(QuestGame quest)

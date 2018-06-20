@@ -180,7 +180,11 @@
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\PlaceRating.cs" />
     <Compile Include="Models\Profile.cs" />
-    <Compile Include="Models\QuestGame.cs" />
+    <Compile Include="Models\Quest\JsonQuest.cs" />
+    <Compile Include="Models\Quest\JsonTask.cs" />
+    <Compile Include="Models\Quest\JsonUser.cs" />
+    <Compile Include="Models\Quest\QuestGame.cs" />
+    <Compile Include="Models\Quest\UserGame.cs" />
     <Compile Include="Models\SearchLine.cs" />
     <Compile Include="Models\UpdateQuest.cs" />
     <Compile Include="Models\ZonesLoad.cs" />
