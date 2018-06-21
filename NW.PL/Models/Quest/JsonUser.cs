@@ -21,7 +21,7 @@ namespace NW.PL.Models.Quest
         public JsonUser()
         {
             Answers = new List<JsonAnswer>();
-            Date = DateTime.Now.ToString("g");
+            Date = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
             isCreator = false;
             Lives = 3;
         }
@@ -36,7 +36,7 @@ namespace NW.PL.Models.Quest
             Position = user.Position;
 
             Answers = new List<JsonAnswer>();
-            Date = DateTime.Now.ToString("g");
+            Date = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
         }
     }
 }

@@ -32,8 +32,20 @@ function UpdateUserPosition() {
     };
 
     myMap.geoObjects.removeAll();
-    console.log(Places);
-    console.log(Users);
+
+    if (!You.isCreator) {
+        var point = new ymaps.GeoObject({
+            geometry: {
+                type: "Point",
+                coordinates: You.Position
+            },
+            properties: {
+                iconContent: You.Login,
+                hintContent: You.Lives + ' жизней'
+            }
+        }, { preset: 'islands#blackStretchyIcon' });
+        myMap.geoObjects.add(point);
+    }
 
     $.each(Places, function (i, v) {
         var point = new ymaps.Placemark(v.Position, {

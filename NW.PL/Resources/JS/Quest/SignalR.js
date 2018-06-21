@@ -28,16 +28,14 @@ function Place(Id) {
 }
 
 function UpdateAnswer(Answer, Obj) {
-    Answer.addClass(".i" + Obj.Id + "u" + Obj.UserId);
     Answer.data("json", JSON.stringify(Obj));
+    Answer.data("id", Obj.id);
+    Answer.data("userid", Obj.UserId);
 
     if (Obj.id == You.id)
         Answer.addClass("Right");
     else
         Answer.addClass("Left");
-
-    Answer.data("id", Obj.id);
-    Answer.data("userid", Obj.UserId);
 
     var user = User(Obj.UserId);
     if (user != null)
@@ -50,10 +48,21 @@ function UpdateAnswer(Answer, Obj) {
     Answer.find(".UserAnswer span").text(Obj.UserAnswer);
 
     if (Obj.isTrue != null) {
-        Answer.addClass("TypeAnswer");
 
+        if (Obj.isTrue) {
+            var place = Place(Obj.id);
+
+            if (place == null)
+                Places.push({ Id: Obj.Id, Address: Obj.Answer, Position: Obj.Position });
+            
+            UpdateUserPosition();
+
+            Answer.find(".Answer").removeClass("hidden");
+        }
+        
         Answer.find(".Creator button").remove();
         var color = Obj.isTrue ? "green" : "red";
+        Answer.find(".Title").css("background-color", color);
         Answer.find(".Creator").css("background-color", color);
 
         if (You.isCreator) {
@@ -63,38 +72,18 @@ function UpdateAnswer(Answer, Obj) {
             $("form.MessageInputBlock").removeClass("hidden");
         }
 
-        if (Obj.isTrue) {
-            Answer.find(".Answer").removeClass("hidden");
-        }
-
         Answer.find(".UserAnswer").removeClass("hidden");
         Answer.find(".Creator").removeClass("hidden");
     } else if (You.isCreator) {
-        Answer.addClass("TypeAnswer");
-
         Answer.find(".Title").removeClass("hidden");
         Answer.find(".Answer").removeClass("hidden");
         Answer.find(".UserAnswer").removeClass("hidden");
         Answer.find(".Creator").removeClass("hidden");
-    } else if (Obj.UserAnswer != null && Obj.UserAnswer != null) {
+    } else if (Obj.UserAnswer != null && Obj.UserAnswer != "") {
         Answer.find(".UserAnswer").removeClass("hidden");
-    } else if (Obj.UserAnswer == null) {
+        $("form.MessageInputBlock").addClass("hidden");
+    } else if (Obj.UserAnswer == null || Obj.UserAnswer == "") {
         $("form.MessageInputBlock").removeClass("hidden");
-    }
-
-    if (Obj.UserAnswer != null && Obj.UserAnswer != null) {
-        var place = Place(Obj.Id);
-
-        if (place === null) {
-            place = {
-                Id: Obj.Id,
-                Position: Obj.Position,
-                Address: Obj.Answer
-            }
-            Places.push(place);
-        }
-
-        UpdateUserPosition();
     }
 
     return Answer;
@@ -113,10 +102,13 @@ function SendAnswer(element = null) {
         Input.val("");
 
         Task = Messages.find(".Message.AddTask:not(.TypeAnswer):last-child");
-        Json = JSON.parse(Task.data("json"));
-        
-        Json.UserAnswer = Message;
-        Hub.server.sendAnswer(JSON.stringify(Json));
+
+        if (Task != null) {
+            Json = JSON.parse(Task.data("json"));
+
+            Json.UserAnswer = Message;
+            Hub.server.sendAnswer(JSON.stringify(Json));
+        }
     } else {
         element = $(element);
 
@@ -141,6 +133,20 @@ var
     },
     isYou = function (user) {
         You = user;
+        
+        UpdateUserPosition();
+
+        if (You.Lives === -1) {
+            noty({
+                text: "Вы проиграли!",
+                type: 'information',
+                dismissQueue: true,
+                theme: 'defaultTheme',
+                layout: 'center'
+            });
+
+            $("form.MessageInputBlock").addClass("hidden");
+        }
     },
     AddGame = function (game) {
         $(".InfoBlock .Title").text(game.Name);
@@ -161,38 +167,35 @@ var
         users.forEach(function (v, i) {
             var ChangeUser = Data.User.clone(),
                 UserObj = User(v.Id);
+
+            ChangeUser.addClass("Left");
             
             if (isAdd === true) {
-                if (UserObj === null) {
-                    Users.push(v);
-                }
+                if (UserObj === null) Users.push(v);
 
-                ChangeUser.addClass("Left");
                 ChangeUser.find(".Delete").remove();
-                ChangeUser.find(".Title span").text(v.Login);
             } else {
-                if (UserObj != null) {
-                    Users.splice(UserObj.index, 2);
-                }
-
-                ChangeUser.addClass("Left");
+                if (UserObj != null) Users.splice(UserObj.index, 1);
+                
                 ChangeUser.find(".Add").remove();
-                ChangeUser.find(".Title span").text(v.Login);
             }
-            UpdateUserPosition();
+
+            ChangeUser.find(".Title span").text(v.Login);
+
             Messages.append(ChangeUser);
         });
+        UpdateUserPosition();
     },
     AddAnswers = function (answers) {
         answers.forEach(function (v, i) {
             var Answer = Data.Answer.clone();
-            
+            Answer.addClass("i" + v.Id + "u" + v.UserId);
             Messages.append(UpdateAnswer(Answer, v));
         });
     },
     ServerUpdateAnswer = function (answer) {
         var Answer = Messages.find(".i" + answer.Id + "u" + answer.UserId + ":last-child");
-        Answer = UpdateAnswer(Answer, answer);
+        UpdateAnswer(Answer, answer);
     },
     Reload = function () {
         location.reload();
@@ -201,22 +204,35 @@ var
         ymaps.geolocation.get({
             provider: 'browser'
         }).then(function (result) {
-            isYou.Position = result.geoObjects.position;
-            Hub.server.addPosition(isYou.Position);
+            You.Position = result.geoObjects.position;
+            Hub.server.addPosition(You.Position);
+
+            UpdateUserPosition();
         }, function (error) {
             console.log(error);
         });
     },
     UserPosition = function (user) {
         var Search = User(user.id);
-        if (Search != null) {
-            Users[Search.index] = user;
 
-            UpdateUserPosition();
-        }
+        if (Search == null) Users.push(user);
+        else Users[Search.index] = user;
+
+        UpdateUserPosition();
     },
     Win = function (wins) {
-        console.log(wins);
+        if (!You.isCreator) {
+            console.log(wins);
+            noty({
+                text: "Победа: У вас " + wins.length + " место",
+                type: 'information',
+                dismissQueue: true,
+                theme: 'defaultTheme',
+                layout: 'center'
+            });
+        }
+        
+        $("form.MessageInputBlock").addClass("hidden");
     };
 
 function Ready() {
@@ -235,6 +251,5 @@ function Ready() {
     
     $.connection.hub.start().done(function () {
         Hub.server.connect($("#IdQuest").val());
-        CheckPosition();
     });
 }

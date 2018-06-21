@@ -28,7 +28,7 @@ namespace NW.PL.Models.Quest
             Id = answer.Id;
             Ask = answer.Ask;
             Date = DateTime.Now;
-            DateString = Date.ToString("dd.MM.yyyy hh:mm:ss");
+            DateString = Date.ToString("dd.MM.yyyy HH:mm:ss");
             UserAnswer = answer.UserAnswer;
             isTrue = answer.isTrue;
         }
@@ -38,7 +38,7 @@ namespace NW.PL.Models.Quest
             Id = task.Id;
             Ask = task.Task;
             Date = DateTime.Now;
-            DateString = Date.ToString("dd.MM.yyyy hh:mm:ss");
+            DateString = Date.ToString("dd.MM.yyyy HH:mm:ss");
             UserAnswer = null;
 
             if (UserId != 0) this.UserId = UserId;

@@ -21,7 +21,9 @@ namespace NW.PL.Models.Quest
         public UserGame UserId(int Id) => users.FirstOrDefault(x => x.Id == Id);
         public UserGame Creator => users.FirstOrDefault(x => x.isCreator);
 
-        public bool isGameOver => users.Where(x => !x.isCreator).All(x => x.Win != null);
+        public bool isGameOver => 
+            users.Where(x => !x.isCreator).All(x => x.Win != null || x.Lives == -1)
+            && Creator == null;
         public List<UserGame> Wins => users.Where(x => x.Win != null).OrderBy(x => x.Win).ToList();
         public List<JsonUser> JsonWins => Wins.Select(x => new JsonUser(x)).ToList();
 

@@ -44,7 +44,6 @@
                 padding: 0;
                 padding-top: 5px;
                 border-radius: 5px;
-                overflow: hidden;
                 background: #e0c3ff;
                 font-size: 14px;
                 text-align: left;
@@ -85,7 +84,7 @@
                     display: inline-block;
                     float: left;
                     width: 100%;
-                    min-height: 25px;
+                    min-height: 20px;
                     line-height: 20px;
                     margin-top: -5px;
                     padding: 0 10px;
@@ -95,6 +94,7 @@
                 &.AddTask {
 
                     .Title {
+                        padding-bottom: 5px;
                         background-color: green;
                         color: white;
 
@@ -109,8 +109,11 @@
                     }
 
                     .Block {
+                        position: relative;
                         color: black;
                         background: #e0c3ff;
+                        margin-bottom: -5px;
+                        border-radius: 5px;
 
                         div {
                             display: inline-block;
@@ -132,6 +135,7 @@
                         min-height: 15px;
                         width: 100%;
                         text-align: center;
+                        border-radius: 0 0 5px 5px;
 
                         button {
                             display: inline-block;
