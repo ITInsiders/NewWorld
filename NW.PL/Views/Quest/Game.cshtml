@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<form action="javascript: SendMessage(); " class="MessageInputBlock">
+<form action="javascript: SendAnswer(); " class="MessageInputBlock hidden">
     <input type="text" name="message" class="MessageInput" />
     <button type="submit" class="ButtonMessage">Отправить</button>
 </form>
@@ -45,12 +45,13 @@
             <div class="UserAnswer hidden">Решение: <span></span></div>
         </div>
         <div class="Creator hidden">
-            <button type="button" onclick="SendAnswer(this)" value="1">ВЕРНО</button>
-            <button type="button" onclick="SendAnswer(this)" value="2">НЕВЕРНО</button>
+            <button type="button" onclick="SendAnswer(this)" value="true">ВЕРНО</button>
+            <button type="button" onclick="SendAnswer(this)" value="false">НЕВЕРНО</button>
         </div>
     </div>
-    <div class="Message AddUser" data-userid="0">
-        <div class="Title">Добавлен новый пользователь: <span></span></div>
+    <div class="Message User" data-userid="0">
+        <div class="Title Add">Добавлен новый пользователь: <span></span></div>
+        <div class="Title Delete">Отсоединился пользователь: <span></span></div>
     </div>
 </div>
 
@@ -67,7 +68,7 @@
             Messages = $(".InfoBlock .Messages");
 
             Data.Answer = $("#Template .Message.AddTask").clone();
-            Data.AddUser = $("#Template .Message.AddUser").clone();
+            Data.User = $("#Template .Message.User").clone();
 
             $("#Template").remove();
         });

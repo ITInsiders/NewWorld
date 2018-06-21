@@ -176,7 +176,7 @@
     </Compile>
     <Compile Include="Helpers\JavaScripts.cs" />
     <Compile Include="Helpers\SVG.cs" />
-    <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Hubs\ChatQuestHub.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\PlaceRating.cs" />
     <Compile Include="Models\Profile.cs" />

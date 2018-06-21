@@ -14,6 +14,7 @@ namespace NW.PL.Models.Quest
         public string Image { get; set; }
         public string Date { get; set; }
         public bool isCreator { get; set; }
+        public int Lives { get; set; }
 
         public List<JsonAnswer> Answers { get; set; }
 
@@ -22,6 +23,7 @@ namespace NW.PL.Models.Quest
             Answers = new List<JsonAnswer>();
             Date = DateTime.Now.ToString("g");
             isCreator = false;
+            Lives = 3;
         }
 
         public JsonUser(UserGame user)
@@ -30,6 +32,7 @@ namespace NW.PL.Models.Quest
             Login = user.User.Login;
             Image = user.User.MainPhoto.SRC;
             isCreator = user.isCreator;
+            Lives = user.Lives;
 
             Answers = new List<JsonAnswer>();
             Date = DateTime.Now.ToString("g");

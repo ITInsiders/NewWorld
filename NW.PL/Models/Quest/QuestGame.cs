@@ -19,8 +19,9 @@ namespace NW.PL.Models.Quest
         public List<JsonUser> JsonUsers => users.Select(x => x.JsonUser).ToList();
         public UserGame User(string Id) => users.FirstOrDefault(x => x.ConnectionId == Id);
         public UserGame UserId(int Id) => users.FirstOrDefault(x => x.Id == Id);
-        public UserGame isCreator => users.FirstOrDefault(x => x.isCreator);
+        public UserGame Creator => users.FirstOrDefault(x => x.isCreator);
 
+        public bool isGameOver => users.All(x => x.Win != null);
         public List<UserGame> Wins => users.Where(x => x.Win != null).OrderBy(x => x.Win).ToList();
         public List<JsonUser> JsonWins => Wins.Select(x => new JsonUser(x)).ToList();
 

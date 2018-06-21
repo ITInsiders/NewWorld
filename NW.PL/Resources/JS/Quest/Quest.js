@@ -1,9 +1,12 @@
-﻿var map = null;
-var myMap = null;
+﻿var myMap = null;
 
 ymaps.ready(initMap);
 function initMap() {
-    map = new Map();
+    map = new ymaps.Map('Map', {
+        center: [51.694272, 39.335960],
+        zoom: 10,
+        controls: []
+    });
 
     try {
         CreatePoligone();
@@ -11,20 +14,6 @@ function initMap() {
     try {
         CreatePoligoneOneQuest();
     } catch { }
-}
-
-class Map {
-    constructor() {
-        this.data = {};
-        this.data.user = null;
-
-        this.data.map = new ymaps.Map('Map', {
-            center: [51.694272, 39.335960],
-            zoom: 10,
-            controls: []
-        });
-        myMap = this.data.map;
-    }
 }
 
 $(document).ready(function () {

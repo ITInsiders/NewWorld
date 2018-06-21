@@ -25,7 +25,7 @@ namespace NW.PL.Hubs
                 ?? QuestGames.FirstOrDefault(x => x.UserId(identity.id) != null) 
                 ?? QuestGames.FirstOrDefault(x => x.Id == QuestId);
             UserGame user = quest?.User(Id) ?? quest?.UserId(identity.id);
-            UserGame creator = quest?.isCreator;
+            UserGame creator = quest?.Creator;
 
             if (identity.isAuth)
             {
@@ -45,18 +45,19 @@ namespace NW.PL.Hubs
             if (user.isCreator)
             {
                 Clients.Caller.AddGame(quest.JsonQuestUsers);
+                Clients.Caller.ChangeUsers(quest.JsonUsers, true);
                 Clients.Caller.AddAnswers(quest.Answers);
             }
             else
             {
                 if (creator != null)
                 {
-                    Clients.Client(creator.ConnectionId).AddUsers(new List<JsonUser>() { user.JsonUser });
+                    Clients.Client(creator.ConnectionId).ChangeUsers(new List<JsonUser>() { user.JsonUser }, true);
                 }
 
                 Clients.Caller.AddGame(quest.JsonQuest);
-                Clients.Caller.AddAnswers(user.Answers.Where(x => x.isTrue ?? false).Select(x => (JsonAnswerUser) x));
-                Clients.Caller.AddTask(user.Answers.FirstOrDefault(x => x.isTrue == null));
+                Clients.Caller.AddAnswers(user.Answers.Where(x => x.isTrue != null).Select(x => x));
+                Clients.Caller.AddAnswers(new List<JsonTask>() { user.Answers.FirstOrDefault(x => x.isTrue == null) });
             }
 
             if (PositionPlayers == null)
@@ -72,7 +73,7 @@ namespace NW.PL.Hubs
 
             QuestGame quest = QuestGames.FirstOrDefault(x => x.User(Id) != null);
             UserGame user = quest?.User(Id);
-            UserGame creator = quest?.isCreator;
+            UserGame creator = quest?.Creator;
 
             if (user == null)
             {
@@ -94,13 +95,26 @@ namespace NW.PL.Hubs
                     {
                         user.Win = DateTime.Now;
                         Clients.Client(user.ConnectionId).Win(quest.JsonWins);
+
+                        if (quest.isGameOver && quest.Creator != null)
+                        {
+                            Clients.Client(quest.Creator.ConnectionId).Win(quest.JsonWins);
+                        }
                     }
                     else
                     {
                         user.Answers.Add(new JsonAnswer(task).SetUserId(user.Id));
                         Clients.Client(user.ConnectionId).UpdateAnswer(Answer);
-                        Clients.Client(user.ConnectionId).AddTask((JsonTask)Answer);
+                        
+                        Clients.Client(user.ConnectionId).AddAnswers(new List<JsonTask>() { task });
                     }
+                }
+                else
+                {
+                    user.Lives--;
+                    Clients.Caller.isYou(user.JsonUser);
+                    Clients.Client(user.ConnectionId).UpdateAnswer(Answer);
+                    Clients.Client(user.ConnectionId).AddAnswers(new List<JsonTask>() { Answer });
                 }
             }
             else
@@ -108,7 +122,7 @@ namespace NW.PL.Hubs
                 JsonAnswer Answer = user.Answers.FirstOrDefault(x => x.Id == answer.Id);
                 Answer.UserAnswer = answer.UserAnswer;
 
-                Clients.Client(quest.isCreator.ConnectionId).AddAnswers(new List<JsonAnswer>() { Answer });
+                Clients.Client(quest.Creator.ConnectionId).AddAnswers(new List<JsonAnswer>() { Answer });
             }
         }
 
@@ -118,7 +132,7 @@ namespace NW.PL.Hubs
 
             QuestGame quest = QuestGames.FirstOrDefault(x => x.User(Id) != null);
             UserGame user = quest?.User(Id);
-            UserGame creator = quest?.isCreator;
+            UserGame creator = quest?.Creator;
 
             if (user != null)
             {
@@ -146,11 +160,11 @@ namespace NW.PL.Hubs
 
             QuestGame quest = QuestGames.FirstOrDefault(x => x.User(Id) != null);
             UserGame user = quest?.User(Id);
-            UserGame creator = quest?.isCreator;
+            UserGame creator = quest?.Creator;
 
             if (creator != null)
             {
-                Clients.Client(creator.ConnectionId).OutUser(user.JsonUser);
+                Clients.Client(creator.ConnectionId).ChangeUser(new List<JsonUser>() { user.JsonUser });
                 quest.users.Remove(user);
             }
 

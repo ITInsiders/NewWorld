@@ -30,30 +30,18 @@ namespace NW.PL.Models.Quest
         }
     }
 
-    public class JsonAnswerUser : JsonTask
-    {
-        public string UserAnswer { get; set; }
-
-        public bool? isTrue { get; set; }
-
-        public JsonAnswerUser()
-        {
-
-        }
-
-        public JsonAnswerUser(PointDTO task, int UserId = 0) : base(task, UserId)
-        {
-
-        }
-    }
-
-    public class JsonAnswer : JsonAnswerUser
+    public class JsonAnswer : JsonTask
     {
         public string Answer { get; set; }
+        public string UserAnswer { get; set; }
+        public double[] Position { get; set; }
+
+        public bool? isTrue { get; set; }
 
         public JsonAnswer(PointDTO task, int UserId = 0) : base(task, UserId)
         {
             Answer = task.Address;
+            Position = new double[2] { task.Latitude, task.Longitude };
         }
 
         public JsonAnswer(JsonAnswer answer)
@@ -66,6 +54,7 @@ namespace NW.PL.Models.Quest
             UserAnswer = answer.UserAnswer;
             isTrue = answer.isTrue;
             Answer = answer.Answer;
+            Position = answer.Position;
         }
 
         public JsonAnswer SetUserId(int UserId)

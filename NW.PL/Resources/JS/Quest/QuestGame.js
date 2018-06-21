@@ -14,23 +14,7 @@ $(document).ready(function () {
         $(".Message.Standart").removeClass('Left');
         $(".Message.Standart").addClass('Right');
     }
-    console.log(ymaps);
-  
 })
-
-
-function SendMessage() {
-    var message = $(".MessageInputBlock .MessageInput").val(),
-        messageBlock = Data.Message.clone();
-
-    SendMessageServer(message);
-
-    messageBlock.text(message);
-    messageBlock.addClass("Right");
-    Messages.append(messageBlock);
-
-    $(".MessageInputBlock .MessageInput").val("");
-}
 
 function changeMap() {
     if ($(window).width() <= 768) {
@@ -39,4 +23,37 @@ function changeMap() {
     else {
         $("section").before($("#Map"));
     }
+}
+
+function UpdateUserPosition() {
+    if (myMap === null) {
+        setTimeout(UpdateUserPosition, 500);
+        return;
+    };
+
+    myMap.GeoObjects.removeAll();
+
+    $.each(Places, function (i, v) {
+        var point = new ymaps.Placemark(v.Position, {
+            balloonContent: v.Address
+        }, {
+                preset: 'islands#governmentCircleIcon',
+                iconColor: '#3b5998'
+            });
+        myMap.GeoObjects.add(point);
+    });
+
+    $.each(Users, function (i, v) {
+        var point = new ymaps.GeoObject({
+            geometry: {
+                type: "Point",
+                coordinates: v.Position
+            },
+            properties: {
+                iconContent: v.Login,
+                hintContent: v.Lives + ' жизней'
+            }
+        }, { preset: 'islands#blackStretchyIcon' });
+        myMap.GeoObjects.add(point);
+    });
 }
