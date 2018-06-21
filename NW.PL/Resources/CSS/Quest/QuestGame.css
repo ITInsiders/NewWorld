@@ -37,14 +37,17 @@ body .MinPage .Messages .Message {
   float: left;
   position: relative;
   width: 90%;
-  padding: 5px 10px;
+  padding: 0;
+  padding-top: 5px;
   border-radius: 5px;
+  overflow: hidden;
   background: #e0c3ff;
   font-size: 14px;
   text-align: left;
+  background-color: #e0c3ff;
 }
 body .MinPage .Messages .Message:not(:first-child) {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 body .MinPage .Messages .Message:before {
   content: "";
@@ -68,6 +71,66 @@ body .MinPage .Messages .Message.Right:before {
 body .MinPage .Messages .Message.Right {
   background-color: #d9edf7;
   float: left;
+}
+body .MinPage .Messages .Message .Title,
+body .MinPage .Messages .Message .Block {
+  display: inline-block;
+  float: left;
+  width: 100%;
+  min-height: 25px;
+  line-height: 20px;
+  margin-top: -5px;
+  padding: 0 10px;
+  border-radius: 5px 5px 0 0;
+}
+body .MinPage .Messages .Message.AddTask .Title {
+  background-color: green;
+  color: white;
+}
+body .MinPage .Messages .Message.AddTask .Title span:first-child {
+  text-transform: uppercase;
+}
+body .MinPage .Messages .Message.AddTask .Title span:last-child {
+  float: right;
+  text-transform: uppercase;
+}
+body .MinPage .Messages .Message.AddTask .Block {
+  color: black;
+  background: #e0c3ff;
+}
+body .MinPage .Messages .Message.AddTask .Block div {
+  display: inline-block;
+  float: left;
+  width: 100%;
+  min-height: 20px;
+  line-height: 20px;
+}
+body .MinPage .Messages .Message.AddTask .Block div:not(:first-child) {
+  border-top: 1px dotted #283965;
+}
+body .MinPage .Messages .Message.AddTask .Creator {
+  display: inline-block;
+  float: left;
+  padding: 5px 10px;
+  min-height: 15px;
+  width: 100%;
+  text-align: center;
+}
+body .MinPage .Messages .Message.AddTask .Creator button {
+  display: inline-block;
+  min-height: 20px;
+  line-height: 20px;
+  width: calc(50% - 15px);
+  border: 1px solid black;
+  background: green;
+  color: white;
+  border-radius: 5px;
+}
+body .MinPage .Messages .Message.AddTask .Creator button:last-child {
+  background: red;
+}
+body .MinPage .Messages .Message .hidden {
+  display: none;
 }
 body .MinPage .Messages .ButtonAnswer {
   display: inline-block;

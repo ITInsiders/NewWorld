@@ -31,7 +31,9 @@ function UpdateUserPosition() {
         return;
     };
 
-    myMap.GeoObjects.removeAll();
+    myMap.geoObjects.removeAll();
+    console.log(Places);
+    console.log(Users);
 
     $.each(Places, function (i, v) {
         var point = new ymaps.Placemark(v.Position, {
@@ -40,7 +42,7 @@ function UpdateUserPosition() {
                 preset: 'islands#governmentCircleIcon',
                 iconColor: '#3b5998'
             });
-        myMap.GeoObjects.add(point);
+        myMap.geoObjects.add(point);
     });
 
     $.each(Users, function (i, v) {
@@ -54,6 +56,6 @@ function UpdateUserPosition() {
                 hintContent: v.Lives + ' жизней'
             }
         }, { preset: 'islands#blackStretchyIcon' });
-        myMap.GeoObjects.add(point);
+        myMap.geoObjects.add(point);
     });
 }

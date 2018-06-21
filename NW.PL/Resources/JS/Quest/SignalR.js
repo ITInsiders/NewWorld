@@ -8,7 +8,7 @@ var You = null,
 
 function User(Id) {
     var user = null;
-    $.each(Users, function (i, v) {
+    Users.forEach(function (v, i) {
         if (v.Id === Id) {
             user = v;
             user.index = i;
@@ -18,7 +18,7 @@ function User(Id) {
 }
 function Place(Id) {
     var place = null;
-    $.each(Places, function (i, v) {
+    Places.forEach(function (v, i) {
         if (v.Id === Id) {
             place = v;
             place.index = i;
@@ -28,7 +28,7 @@ function Place(Id) {
 }
 
 function UpdateAnswer(Answer, Obj) {
-    Answer.attr("id", "i" + Obj.Id + "u" + Obj.UserId);
+    Answer.addClass(".i" + Obj.Id + "u" + Obj.UserId);
     Answer.data("json", JSON.stringify(Obj));
 
     if (Obj.id == You.id)
@@ -38,34 +38,47 @@ function UpdateAnswer(Answer, Obj) {
 
     Answer.data("id", Obj.id);
     Answer.data("userid", Obj.UserId);
-    Ans.Login = User(Obj.UserId).Login;
+
+    var user = User(Obj.UserId);
+    if (user != null)
+        Obj.Login = user.Login;
+
     Answer.find(".Title .Name").text(Obj.Login);
     Answer.find(".Title .Date").text(Obj.DateString);
     Answer.find(".Task span").text(Obj.Ask);
     Answer.find(".Answer span").text(Obj.Answer);
     Answer.find(".UserAnswer span").text(Obj.UserAnswer);
 
-    if (You.isCreator) {
-        Answer.addClass("TypeAnswer");
-
-        Answer.find(".Title").removeClass("hidden");
-        Answer.find(".Answer").removeClass("hidden");
-        Answer.find(".UserAnswer").removeClass("hidden");
-        Answer.find(".Creator").removeClass("hidden");
-    } else if (Obj.isTrue != null) {
+    if (Obj.isTrue != null) {
         Answer.addClass("TypeAnswer");
 
         Answer.find(".Creator button").remove();
         var color = Obj.isTrue ? "green" : "red";
         Answer.find(".Creator").css("background-color", color);
 
+        if (You.isCreator) {
+            Answer.find(".Title").removeClass("hidden");
+            Answer.find(".Answer").removeClass("hidden");
+        } else {
+            $("form.MessageInputBlock").removeClass("hidden");
+        }
+
+        if (Obj.isTrue) {
+            Answer.find(".Answer").removeClass("hidden");
+        }
+
+        Answer.find(".UserAnswer").removeClass("hidden");
+        Answer.find(".Creator").removeClass("hidden");
+    } else if (You.isCreator) {
+        Answer.addClass("TypeAnswer");
+
         Answer.find(".Title").removeClass("hidden");
         Answer.find(".Answer").removeClass("hidden");
         Answer.find(".UserAnswer").removeClass("hidden");
         Answer.find(".Creator").removeClass("hidden");
     } else if (Obj.UserAnswer != null && Obj.UserAnswer != null) {
-        Answer.find("UserAnswer").removeClass("hidden");
-    } else {
+        Answer.find(".UserAnswer").removeClass("hidden");
+    } else if (Obj.UserAnswer == null) {
         $("form.MessageInputBlock").removeClass("hidden");
     }
 
@@ -97,19 +110,21 @@ function SendAnswer(element = null) {
         var Input = $("form.MessageInputBlock .MessageInput"),
             Message = Input.val();
 
-        Task = Messages.fund(".Message.Task:not(.TypeAnswer):last-child");
-        Json = JSON.parse(Task.data("json"));
+        Input.val("");
 
+        Task = Messages.find(".Message.AddTask:not(.TypeAnswer):last-child");
+        Json = JSON.parse(Task.data("json"));
+        
         Json.UserAnswer = Message;
-        Hub.server.SendAnswer(Json);
+        Hub.server.sendAnswer(JSON.stringify(Json));
     } else {
         element = $(element);
 
         Task = element.closest(".Message");
         Json = JSON.parse(Task.data("json"));
 
-        Json.isTrue = Task.val() === "true";
-        Hub.server.SendAnswer(Json);
+        Json.isTrue = element.val() === "true";
+        Hub.server.sendAnswer(JSON.stringify(Json));
     }
     UpdateAnswer(Task, Json)
 }
@@ -133,6 +148,7 @@ var
 
         if (game.Users != null) {
             Users = game.Users;
+            ChangeUsers(Users, true);
         }
 
         if (game.Places != null) {
@@ -142,46 +158,40 @@ var
         UpdateUserPosition();
     },
     ChangeUsers = function (users, isAdd) {
-        $.each(users, function (i, v) {
+        users.forEach(function (v, i) {
             var ChangeUser = Data.User.clone(),
-                UserObj = User(v.id);
-
-            if (isAdd) {
-                if (UserObj == null) {
+                UserObj = User(v.Id);
+            
+            if (isAdd === true) {
+                if (UserObj === null) {
                     Users.push(v);
-
-                    ChangeUser.addClass("Left");
-                    ChangeUser.find(".Delete").remove();
-                    ChangeUser.fund(".Title span").text(v.Login);
-
-                    Messages.append(AddUser);
                 }
-                else
-                    ChangeUser = null;
+
+                ChangeUser.addClass("Left");
+                ChangeUser.find(".Delete").remove();
+                ChangeUser.find(".Title span").text(v.Login);
             } else {
                 if (UserObj != null) {
-                    Users.splice(UserObj.index, 1);
-
-                    ChangeUser.addClass("Left");
-                    ChangeUser.find(".Add").remove();
-                    ChangeUser.fund(".Title span").text(v.Login);
+                    Users.splice(UserObj.index, 2);
                 }
-                else
-                    ChangeUser = null;
+
+                ChangeUser.addClass("Left");
+                ChangeUser.find(".Add").remove();
+                ChangeUser.find(".Title span").text(v.Login);
             }
+            UpdateUserPosition();
             Messages.append(ChangeUser);
         });
     },
     AddAnswers = function (answers) {
-        $.each(answers, function (i, v) {
+        answers.forEach(function (v, i) {
             var Answer = Data.Answer.clone();
-
-            Answer.attr("id", "i" + v.Id + "u" + v.UserId);
+            
             Messages.append(UpdateAnswer(Answer, v));
         });
     },
-    UpdateAnswer = function (answer) {
-        var Answer = Messages.find("#i" + answer.Id + "u" + answer.UserId);
+    ServerUpdateAnswer = function (answer) {
+        var Answer = Messages.find(".i" + answer.Id + "u" + answer.UserId + ":last-child");
         Answer = UpdateAnswer(Answer, answer);
     },
     Reload = function () {
@@ -192,37 +202,39 @@ var
             provider: 'browser'
         }).then(function (result) {
             isYou.Position = result.geoObjects.position;
-            Hub.server.AddPosition(isYou.Position);
+            Hub.server.addPosition(isYou.Position);
         }, function (error) {
             console.log(error);
         });
     },
     UserPosition = function (user) {
         var Search = User(user.id);
-        Users[Search.index] = user;
+        if (Search != null) {
+            Users[Search.index] = user;
 
-        UpdateUserPosition();
+            UpdateUserPosition();
+        }
     },
     Win = function (wins) {
-        alert.log(wins);
+        console.log(wins);
     };
 
 function Ready() {
     Hub = $.connection.chatQuestHub;
 
-    Hub.client.Auth = Auth;
+    Hub.client.auth = Auth;
     Hub.client.isYou = isYou;
-    Hub.client.AddGame = AddGame;
-    Hub.client.ChangeUsers = ChangeUsers;
-    Hub.client.AddAnswers = AddAnswers;
-    Hub.client.UpdateAnswer = UpdateAnswer;
-    Hub.client.Reload = Reload;
-    Hub.client.CheckPosition = CheckPosition;
-    Hub.client.UserPosition = UserPosition;
-    Hub.client.Win = Win;
+    Hub.client.addGame = AddGame;
+    Hub.client.changeUsers = ChangeUsers;
+    Hub.client.addAnswers = AddAnswers;
+    Hub.client.updateAnswer = ServerUpdateAnswer;
+    Hub.client.reload = Reload;
+    Hub.client.checkPosition = CheckPosition;
+    Hub.client.userPosition = UserPosition;
+    Hub.client.win = Win;
     
     $.connection.hub.start().done(function () {
-        Hub.server.Connect($("#IdQuest").val());
+        Hub.server.connect($("#IdQuest").val());
         CheckPosition();
     });
 }

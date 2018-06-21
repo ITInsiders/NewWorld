@@ -41,14 +41,17 @@
                 float: left;
                 position: relative;
                 width: 90%;
-                padding: 5px 10px;
+                padding: 0;
+                padding-top: 5px;
                 border-radius: 5px;
+                overflow: hidden;
                 background: #e0c3ff;
                 font-size: 14px;
                 text-align: left;
+                background-color: #e0c3ff;
 
                 &:not(:first-child) {
-                    margin-top: 10px;
+                    margin-top: 15px;
                 }
 
                 &:before {
@@ -76,6 +79,79 @@
                 &.Right {
                     background-color: #d9edf7;
                     float: left;
+                }
+
+                .Title, .Block {
+                    display: inline-block;
+                    float: left;
+                    width: 100%;
+                    min-height: 25px;
+                    line-height: 20px;
+                    margin-top: -5px;
+                    padding: 0 10px;
+                    border-radius: 5px 5px 0 0;
+                }
+
+                &.AddTask {
+
+                    .Title {
+                        background-color: green;
+                        color: white;
+
+                        span:first-child {
+                            text-transform: uppercase;
+                        }
+
+                        span:last-child {
+                            float: right;
+                            text-transform: uppercase;
+                        }
+                    }
+
+                    .Block {
+                        color: black;
+                        background: #e0c3ff;
+
+                        div {
+                            display: inline-block;
+                            float: left;
+                            width: 100%;
+                            min-height: 20px;
+                            line-height: 20px;
+                        }
+
+                        div:not(:first-child) {
+                            border-top: 1px dotted #283965;
+                        }
+                    }
+
+                    .Creator {
+                        display: inline-block;
+                        float: left;
+                        padding: 5px 10px;
+                        min-height: 15px;
+                        width: 100%;
+                        text-align: center;
+
+                        button {
+                            display: inline-block;
+                            min-height: 20px;
+                            line-height: 20px;
+                            width: calc(~"50% - 15px");
+                            border: 1px solid black;
+                            background: green;
+                            color: white;
+                            border-radius: 5px;
+                        }
+
+                        button:last-child {
+                            background: red;
+                        }
+                    }
+                }
+
+                .hidden {
+                    display: none;
                 }
             }
 

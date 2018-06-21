@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using System.Threading;
+using Newtonsoft.Json;
 using NW.PL.Models.Quest;
 using NW.BL.DTO;
 
@@ -27,7 +28,7 @@ namespace NW.PL.Hubs
             UserGame user = quest?.User(Id) ?? quest?.UserId(identity.id);
             UserGame creator = quest?.Creator;
 
-            if (identity.isAuth)
+            if (!identity.isAuth)
             {
                 Clients.Caller.Auth();
                 return;
@@ -36,8 +37,15 @@ namespace NW.PL.Hubs
             {
                 quest = quest ?? new QuestGame(QuestId);
                 user = new UserGame(Id, identity.id).setQuest(quest);
+
+                JsonAnswer task = quest.Task(user.IndexTask);
+                user.Answers.Add(new JsonAnswer(task).SetUserId(user.Id));
+
                 quest.users.Add(user);
                 QuestGames.Add(quest);
+            } else
+            {
+                user.ConnectionId = Id;
             }
 
             Clients.Caller.isYou(user.JsonUser);
@@ -45,8 +53,7 @@ namespace NW.PL.Hubs
             if (user.isCreator)
             {
                 Clients.Caller.AddGame(quest.JsonQuestUsers);
-                Clients.Caller.ChangeUsers(quest.JsonUsers, true);
-                Clients.Caller.AddAnswers(quest.Answers);
+                Clients.Caller.AddAnswers(quest.Answers.Where(x => x.UserAnswer != null));
             }
             else
             {
@@ -57,7 +64,19 @@ namespace NW.PL.Hubs
 
                 Clients.Caller.AddGame(quest.JsonQuest);
                 Clients.Caller.AddAnswers(user.Answers.Where(x => x.isTrue != null).Select(x => x));
-                Clients.Caller.AddAnswers(new List<JsonTask>() { user.Answers.FirstOrDefault(x => x.isTrue == null) });
+
+                if (user.Win == null)
+                {
+                    JsonAnswer task = new JsonAnswer(user.Answers.FirstOrDefault(x => x.isTrue == null));
+                    Clients.Client(user.ConnectionId).AddAnswers(new List<JsonTask>() { new JsonTask(task) });
+                } else
+                {
+                    user.Win = DateTime.Now;
+                    Clients.Client(user.ConnectionId).Win(quest.JsonWins);
+
+                    if (quest.isGameOver && quest.Creator != null)
+                        Clients.Client(quest.Creator.ConnectionId).Win(quest.JsonWins);
+                }
             }
 
             if (PositionPlayers == null)
@@ -67,8 +86,10 @@ namespace NW.PL.Hubs
             }
         }
 
-        public void SendAnswer(JsonAnswer answer)
+        public void SendAnswer(string json)
         {
+            JsonAnswer answer = JsonConvert.DeserializeObject<JsonAnswer>(json);
+
             string Id = Context.ConnectionId;
 
             QuestGame quest = QuestGames.FirstOrDefault(x => x.User(Id) != null);
@@ -83,13 +104,18 @@ namespace NW.PL.Hubs
             else if (user.isCreator)
             {
                 user = quest.UserId(answer.UserId);
-                JsonAnswer Answer = user.Answers.FirstOrDefault(x => x.Id == answer.Id);
-                Answer.isTrue = answer.isTrue;
+                JsonAnswer Answer = user.Answers.LastOrDefault(x => x.Id == answer.Id);
+                if (Answer.isTrue == null)
+                    Answer.isTrue = answer.isTrue;
+                else
+                    Answer.isTrue = false;
 
-                if (answer.isTrue ?? false)
+                if (Answer.isTrue ?? false && user.Lives > 0)
                 {
                     user.IndexTask++;
                     JsonAnswer task = quest.Task(user.IndexTask);
+
+                    Clients.Client(user.ConnectionId).UpdateAnswer(Answer);
 
                     if (task == null)
                     {
@@ -103,26 +129,36 @@ namespace NW.PL.Hubs
                     }
                     else
                     {
-                        user.Answers.Add(new JsonAnswer(task).SetUserId(user.Id));
-                        Clients.Client(user.ConnectionId).UpdateAnswer(Answer);
-                        
-                        Clients.Client(user.ConnectionId).AddAnswers(new List<JsonTask>() { task });
+                        task = new JsonAnswer(task).SetUserId(user.Id);
+                        user.Answers.Add(task);
+                        Clients.Client(user.ConnectionId).AddAnswers(new List<JsonTask>() { new JsonTask(task) });
+
+                        if (creator != null)
+                        {
+                            Clients.Client(creator.ConnectionId).AddAnswers(new List<JsonTask>() { new JsonTask(task) });
+                        }
                     }
                 }
                 else
                 {
+                    JsonAnswer task = quest.Task(user.IndexTask);
+                    task = new JsonAnswer(task).SetUserId(user.Id);
+                    user.Answers.Add(task);
+
+                    Answer = new JsonAnswer(Answer);
+
                     user.Lives--;
                     Clients.Caller.isYou(user.JsonUser);
-                    Clients.Client(user.ConnectionId).UpdateAnswer(Answer);
-                    Clients.Client(user.ConnectionId).AddAnswers(new List<JsonTask>() { Answer });
+                    Clients.Client(user.ConnectionId).UpdateAnswer(new JsonTask(Answer));
+                    Clients.Client(user.ConnectionId).AddAnswers(new List<JsonTask>() { new JsonTask(Answer) });
                 }
             }
             else
             {
-                JsonAnswer Answer = user.Answers.FirstOrDefault(x => x.Id == answer.Id);
+                JsonAnswer Answer = user.Answers.LastOrDefault(x => x.Id == answer.Id);
                 Answer.UserAnswer = answer.UserAnswer;
 
-                Clients.Client(quest.Creator.ConnectionId).AddAnswers(new List<JsonAnswer>() { Answer });
+                Clients.Client(creator.ConnectionId).AddAnswers(new List<JsonAnswer>() { Answer });
             }
         }
 
@@ -147,7 +183,8 @@ namespace NW.PL.Hubs
         {
             do
             {
-                Clients.All.CheckPosition();
+                List<string> ids = QuestGames.SelectMany(x => x.users).Where(x => !x.isCreator).Select(x => x.ConnectionId).ToList();
+                Clients.Clients(ids).CheckPosition();
                 Thread.Sleep(5000);
             } while (QuestGames.Count > 0);
             PositionPlayers = null;
@@ -164,9 +201,11 @@ namespace NW.PL.Hubs
 
             if (creator != null)
             {
-                Clients.Client(creator.ConnectionId).ChangeUser(new List<JsonUser>() { user.JsonUser });
-                quest.users.Remove(user);
+                Clients.Client(creator.ConnectionId).ChangeUsers(new List<JsonUser>() { user.JsonUser }, false);
             }
+
+            if (quest != null && quest.isGameOver)
+                QuestGames.Remove(quest);
 
             return base.OnDisconnected(stopCalled);
         }

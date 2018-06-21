@@ -32,7 +32,7 @@ namespace NW.PL.Models.Quest
 
         public JsonQuestUsers(QuestGame quest) : base(quest)
         {
-            Users = quest.users.Select(x => new JsonUser(x)).ToList();
+            Users = quest.users.Where(x => !x.isCreator).Select(x => new JsonUser(x)).ToList();
             Places = quest.Tasks.Select(x => new Place() { Id = x.Id, Address = x.Answer, Position = x.Position }).ToList();
         }
     }

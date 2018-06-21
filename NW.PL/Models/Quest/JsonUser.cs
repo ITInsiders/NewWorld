@@ -30,9 +30,10 @@ namespace NW.PL.Models.Quest
         {
             Id = user.User.Id;
             Login = user.User.Login;
-            Image = user.User.MainPhoto.SRC;
+            Image = user.User.MainPhoto?.SRC;
             isCreator = user.isCreator;
             Lives = user.Lives;
+            Position = user.Position;
 
             Answers = new List<JsonAnswer>();
             Date = DateTime.Now.ToString("g");
