@@ -133,6 +133,8 @@ var
     },
     isYou = function (user) {
         You = user;
+        if (!You.isCreator)
+            You.Position = [51.667836, 39.173176];
         
         UpdateUserPosition();
 
@@ -201,7 +203,10 @@ var
         location.reload();
     },
     CheckPosition = function () {
-        ymaps.geolocation.get({
+        Hub.server.addPosition(You.Position);
+
+        UpdateUserPosition();
+        /*ymaps.geolocation.get({
             provider: 'browser'
         }).then(function (result) {
             You.Position = result.geoObjects.position;
@@ -210,7 +215,7 @@ var
             UpdateUserPosition();
         }, function (error) {
             console.log(error);
-        });
+        });*/
     },
     UserPosition = function (user) {
         var Search = User(user.id);

@@ -181,8 +181,6 @@ function SearchBlocks() {
 //    });
 //}
 
-var myMap = null;
-
 function onZonesLoad(data) {
     $.each(data, function (index, value) {
         var maxRadius = 0,
@@ -209,9 +207,6 @@ function onZonesLoad(data) {
 }
 
 var CreatePoligone = function () {
-    myMap = map.data.map;
-    console.log("asd");
-    console.log(myMap);
     $.ajax({
         type: "POST",
         url: "/Quest/OnZonesLoad",

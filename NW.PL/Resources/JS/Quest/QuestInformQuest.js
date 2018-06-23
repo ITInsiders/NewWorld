@@ -4,8 +4,6 @@ PageData.text = "Поиск";
 initHashChange();
 
 
-var myMap = null;
-
 function onZonesLoadQuest(data) {
         var maxRadius = 0,
             argPoint = [data.ArgLatitude, data.ArgLongtude];
@@ -50,9 +48,6 @@ function onZonesLoadQuest(data) {
 }
 
 var CreatePoligoneOneQuest = function () {
-    myMap = map.data.map;
-    console.log("asd");
-    console.log(myMap);
     $.ajax({
         type: "POST",
         url: "/Quest/OnZonesLoadOneQuest/" + $("#id").val(),
